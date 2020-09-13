@@ -1,4 +1,4 @@
-# Advent of code 2017
+# Advent of code 2018
 
 ## Convenience methods and classes
 I have a small library with some convenience methods used for other AoC exercises. Like the ```ResourceLines``` class 
@@ -12,3 +12,5 @@ Also uses the algorithms library, which contains generic classes for addressing 
 It was never my intention to create the shortest program possible. I did try to create clear and simple implementations.
 
 ## Day 1 
+A simple one to get started. For part 2 you can use a ```Set<Integer>``` as it won;t accept doubles. As soon as adding
+anothe r frequency fails, you found the answer. 
