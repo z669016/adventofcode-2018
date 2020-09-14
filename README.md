@@ -13,4 +13,9 @@ It was never my intention to create the shortest program possible. I did try to 
 
 ## Day 1 
 A simple one to get started. For part 2 you can use a ```Set<Integer>``` as it won;t accept doubles. As soon as adding
-anothe r frequency fails, you found the answer. 
+anothe r frequency fails, you found the answer.
+
+## Day 2
+Again, straight forward, sorry ... nothing special going on.
+
+ 
