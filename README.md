@@ -24,3 +24,9 @@ to the id of the claim. When a cell is claimed for the second time, the value is
 Now for part 1, you only need to count the cells with value -1. For Part 2, check if all cells for a claim indeed
 contain the claim.id, if not it has overlap.
 
+## Day 4
+A bit more work, especially to parse the input data. But from there it's relatively straight forward. It helps to create
+an aggregated timeline of ints (``int[60]```) for each guard for every minute from 00:00 - 00:59, and collect in there 
+the number of times the guard sleeps at each minute. From there findng the sleepiest guard, or the minute he sleeps 
+most often is easy.  
+
