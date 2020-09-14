@@ -18,4 +18,9 @@ anothe r frequency fails, you found the answer.
 ## Day 2
 Again, straight forward, sorry ... nothing special going on.
 
- 
+## Day 3
+Created a Claim class and a Fabric class. The Fabric class creates a grid of ```int``` and set all claimed cells
+to the id of the claim. When a cell is claimed for the second time, the value is set to -1.
+Now for part 1, you only need to count the cells with value -1. For Part 2, check if all cells for a claim indeed
+contain the claim.id, if not it has overlap.
+
