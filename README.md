@@ -28,5 +28,14 @@ contain the claim.id, if not it has overlap.
 A bit more work, especially to parse the input data. But from there it's relatively straight forward. It helps to create
 an aggregated timeline of ints (``int[60]```) for each guard for every minute from 00:00 - 00:59, and collect in there 
 the number of times the guard sleeps at each minute. From there findng the sleepiest guard, or the minute he sleeps 
-most often is easy.  
+most often is easy.
+
+## Day 5
+Quite simple today ... Use a StringBuffer and remove two consecutive characters similar and opposite polarity. When you 
+have removed two units and you're not at the beginning of the StringBuffer, move one position back (this will then 
+remove the the enclosing combination), if nothing was removed, move ahead to the next position.
+For part two, get all the units, get the length per reaction without each distinct unit, get the min value. WHen 
+using streams just a few lines of code.
+
+      
 
