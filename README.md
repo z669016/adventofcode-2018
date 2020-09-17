@@ -37,5 +37,17 @@ remove the the enclosing combination), if nothing was removed, move ahead to the
 For part two, get all the units, get the length per reaction without each distinct unit, get the min value. WHen 
 using streams just a few lines of code.
 
+## Day 6
+Not sure how to solve this yet. The input only contains positive coordinates, So i could just start with a 
+grid size (maxX + 1, maxY + 1). Then place the letters, and set each position in the grid to the letter of its 
+proximity. If no value can be determined set it to ".". Then take all letters, and remove the ones that touch the 
+edge of the grid (for those could continue forever). Then determine the letter that occurs most often.
+
+And that worked pretty well...
+
+Part two is similar ... for every point in the grid, check the sum of distances to all points, and 'paint' the point
+as '#' if the distance is less than 10.000. Finally, count all '#' in the grid. To be sure, I printed the grid, to 
+ensure no # where at the edge (which would have meant the grid was to small) but that wasn't the case.
+
       
 
