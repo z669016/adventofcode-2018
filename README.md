@@ -50,4 +50,23 @@ as '#' if the distance is less than 10.000. Finally, count all '#' in the grid. 
 ensure no # where at the edge (which would have meant the grid was to small) but that wasn't the case.
 
 ## Day 7      
+That was fun! Initially I thought to create some kind of dependency tree of nodes to determine the correct order. Then 
+I thought why bother? If I know which steps have been taken, I can also determine which step could be next. All I need
+to know is which steps do I have and for each step, which ones must be finished before this one can. So the next 
+possible steps are those that can be taken now based o the set that's already finished. 
+
+I created a ```Step``` class, to know whish steps need to be finised before the step itself can finish. Based on a set
+of finished steps, the class can tell it's available or not. A ```Steps``` class has the list of steps, and can provide 
+an ```OrderedSet``` of options to go next based on a set of already finished steps. When the finished steps set is 
+still empty, of course you get the only step without required predecessors.   
+
+When you select a step to take, remove it from the set that still needs to be done and move it to the set of finished steps. 
+repeat this while you still have steps to take. So the use of sets of steps, or ordered sets where applicable, makes 
+it quite easy.
+
+For part two, I used a simulation where a ```StepWalker``` class gets a step to take, and it requires multiple calls 
+to the ```walk()``` operation before it returns the letter of the step. The ```ConcurrentStepWalker``` Use a ```List``` 
+of ```StepWalker``` (with a max size of 5). As long as the list isn't full, for each option a ```StepWalker``` is 
+created and added to the list. Repeat this while there are walker objects in the list. Meanwhile gather the 
+letters that become available. Count the loops to measure the duration.
 
