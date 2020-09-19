@@ -17,6 +17,11 @@ class PointTest {
     }
 
     @Test
+    void add() {
+        assertEquals(Point.of(3,7), Point.of(1,9).add(Point.of(2, -2)));
+    }
+
+    @Test
     void adjacent() {
         assertEquals(List.of(
                 Point.of(1, 0),

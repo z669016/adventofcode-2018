@@ -17,6 +17,12 @@ public class Point {
         this.y = y;
     }
 
+    public Point add(Point other) {
+        assert other != null;
+
+        return new Point(x + other.x, y + other.y);
+    }
+
     public List<Point> adjacend() {
         return List.of(
                 Point.of(x + 1, y),

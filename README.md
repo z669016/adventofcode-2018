@@ -90,3 +90,17 @@ I started with a Circle class based on a ```LinkedList``` (sorry, I don't know w
 although it was slow (over 2 seconds for part 1). For part 2, I changed the implementation to use an ```ArrayList````` 
 which ran way faster but still too slow for part 2. So, I created an implementation wich used nodes in a double linked 
 list. That outperformed the other implementatiom, and had no issue what-so-ever with part 2.
+
+## Day 10
+This one was nasty ... I used a ```Message``` class to do the work on a list of ```MovingPoint``` objects. I 
+implemented a grid method that created a grid to hold all the points and visualize the message. The grid
+was sized ass small as possible, so unused area around the cloud of points would not be in the grid.
+
+When playing the sample, the grid reduced in size an appeared to be at his smallest size when the message HI appeared. 
+So, apparently, the message can be read when the grid is at the smallest possible size.
+
+I then implemented a decrypt message that would move all the points until the grid would be at its smallest
+size, and then ```decrypt()``` would return that grid. As the initial grid was very large, the decrypt method
+would not create a grid until its size would be smaller than 80x40.
+
+For part 2, I only had to count the calls to ```move()``` all the points until the smallest possible grid was found. 
