@@ -70,3 +70,12 @@ of ```StepWalker``` (with a max size of 5). As long as the list isn't full, for 
 created and added to the list. Repeat this while there are walker objects in the list. Meanwhile gather the 
 letters that become available. Count the loops to measure the duration.
 
+## Day 8
+Some challenge of parsing the input into a tree of nodes. However, when you use an iterator to g through the list of 
+integers, you can pass the iterator to a factory method that recursively creates nodes while passing on the iterator. 
+Each Node builds a list of child notes, and a list of metadata values (integers).
+
+Once you have the tree structure, its relatively simple to use streams to calculate the values. As I was worried about
+speed I added memoization, that only calculates a value once and remembers it (```OptionalInt``` is very practical 
+here). Although for this exercise not required, I cleared the memoized value when the node data changes (i.e. 
+metadata, or a child was added).
