@@ -79,3 +79,14 @@ Once you have the tree structure, its relatively simple to use streams to calcul
 speed I added memoization, that only calculates a value once and remembers it (```OptionalInt``` is very practical 
 here). Although for this exercise not required, I cleared the memoized value when the node data changes (i.e. 
 metadata, or a child was added).
+
+## Day 9
+I've created a ```Stock``` class, as provider of marbles which implements the Iterator interface. A ```Circle``` class
+to maintain the circle and place new values. When a value is placed, a score is returned (mostly 0, except when the marble
+can be divided by 23). The ```MarbleGame``` class plays the game given a ```Stock```, a number of players, and a 
+```Circle``` implementation. 
+
+I started with a Circle class based on a ```LinkedList``` (sorry, I don't know why I chose a LinkedList). That worked, 
+although it was slow (over 2 seconds for part 1). For part 2, I changed the implementation to use an ```ArrayList````` 
+which ran way faster but still too slow for part 2. So, I created an implementation wich used nodes in a double linked 
+list. That outperformed the other implementatiom, and had no issue what-so-ever with part 2.
