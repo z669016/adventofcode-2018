@@ -109,4 +109,33 @@ For part 2, I only had to count the calls to ```move()``` all the points until t
 ## Day 11
 Nothing special on this one. Once the grid has been setup, it's a simple search. On part 2 a better performance can be 
 made, by reusing the calculations of the previous searches (the values of the 4x4 grids can start with the values of 
-the 3x3 grids), but I didn't take that effort. Part two ran within 30 seconds, which is slow but still acceptable.       
+the 3x3 grids), but I didn't take that effort. Part two ran within 30 seconds, which is slow but still acceptable.
+
+## Day 12
+I created a ```Pots``` class to handle the tough work, like generating a next generation and calculating the pot sum. 
+To prevent testing on boundaries, I add max 5 dots before and after the initial string (and increase the index of pot 
+zero accordingly, when dots are added to the front). 
+
+Part one is pretty straight forward. Don't do any difficult translations with the rules. Just create a ```Set<String>``` 
+with all the combinations that lead to a new plant, and ignore all other rules. Grow a plant in the pot if the 
+combination is part of the set. No difficult rule matching is required.
+
+This can solved it for part one very fast. For part 2 additional steps where required.
+
+When I printed the pots as string after 1.000 generations, it contained a lot of dots in at the start of the string. 
+So, I enhanced the ```Pots``` class, to remove dots from the start of the string (leave max 5) and update an offset 
+accordingly. Now up to 1.000.000 generations were doable within 3,5 seconds. But that's still far from the required 
+50.000.000.000 generations.
+
+When I then printed the string of pots for every 1.000th generation, I saw the strings were all identical. What 
+differed was only the offset. It appeared that after generation 86, no the string stays the same, but the offset 
+increases with 1 for every generation, which means the location of pot zero doesn't change, and neither the sequence
+of plants, but the sequence does move one position further away every generation. And with that info, I could calculate
+the positions after 50.000.000.000 generations.
+
+The ```bignumber()``` test case contains the investigation code.
+    
+
+ 
+
+  
