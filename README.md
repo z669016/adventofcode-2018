@@ -134,7 +134,16 @@ of plants, but the sequence does move one position further away every generation
 the positions after 50.000.000.000 generations.
 
 The ```bignumber()``` test case contains the investigation code.
-    
+
+## Day 13
+Now this one was nasty (for me). The basic idea is simple, but the caveat was in collision detection. I thought to use 
+a ```Set``` to detect collisions, and that's fine, but I should have remembered that collisions not only occur with 
+moved carts, but also between a moving and a not-yet-moved cart. Next mistake, was on part 2, where I reused an object 
+containing a ```Set<Cart>``` that had changed during part 1. Finally,while removing carts from the moved-set as wel as 
+the to-be-moved set in a loop, the iterator of the loop of course didn't detect the removal of the cart of the 
+to-be-moved set ...
+While the navigation and the moving worked, I made 3 stupid errors on the collision part. Maybe not do this around 
+at midnight after a long day of work...          
 
  
 
