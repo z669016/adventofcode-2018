@@ -145,6 +145,10 @@ to-be-moved set ...
 While the navigation and the moving worked, I made 3 stupid errors on the collision part. Maybe not do this around 
 at midnight after a long day of work...          
 
- 
-
+## Day 14
+The problem is quite straight forward. I Solved the indexing for the circular list, by extending the ```ArrayList``` ond
+overriding the ```get(int index)``` method. Generating a number of recipes also wasn't hard (at least for part one). For
+part two, it was all about a smart method to check the last digits for equality with the provided input. And you need
+to be aware that there can be one additional generated recipe, as regularly two recipes get created. In that case you 
+might need to ignore the very last recipe.
   
