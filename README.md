@@ -151,4 +151,21 @@ overriding the ```get(int index)``` method. Generating a number of recipes also 
 part two, it was all about a smart method to check the last digits for equality with the provided input. And you need
 to be aware that there can be one additional generated recipe, as regularly two recipes get created. In that case you 
 might need to ignore the very last recipe.
-  
+
+## Day 15
+not solved yet ....
+
+## Day 16
+Started with an immutable Regs class that contains an array of int registers and operations to get and set values. 
+Next an Instruction class that creates instructions that can be applied to a Regs instance returning a new Regs 
+instance. All 16 operations are implemented as factory methods in the Instruction class; The opcode is ignored here, as
+(at least initially) the opcode is still meaningless. An InstructionMatcher class returns a set of names of Instructions 
+that return after-Regs after being applied to before-Regs.
+For part 1 you go thorough all samples and simply count the number of samples that match with 3 of more Instructions
+using the InstructionMatcher.
+Part 2 requires a bit more effort. I used a Map<Integer,Set<String>> to collect all possible instruction names for 
+each opcode using the InstructionMatcher. Then the list gets reduced by elimination, which means all opcodes match to 
+one specific instruction name (Map<Integer,String>). An InstructionFactory takes a Map of opcodes and instruction names
+and provides a factory method to return a specific instruction for an array of 4 integers (coded instruction), based
+on the provided opcode mapping. Then I iterate over the second part of the puzzle input and just create an instruction
+using the factory, and apply it to a Regs instance. The final Regs instance contains the answer.   
