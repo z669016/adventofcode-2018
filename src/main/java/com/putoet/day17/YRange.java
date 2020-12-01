@@ -6,9 +6,10 @@ public class YRange extends Range {
     }
 
     @Override
-    public void apply(char[][] grid) {
+    public void apply(Grid grid) {
         for (int idy = min; idy <= max; idy++)
-            grid[idy][fixed] = '#';
+            grid.set(fixed, idy, '#');
+
     }
 
     @Override

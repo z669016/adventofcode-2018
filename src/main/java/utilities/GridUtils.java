@@ -13,6 +13,8 @@ public class GridUtils {
     }
 
     public static char[][] of(int minX, int maxX, int minY, int maxY, char init) {
+        assert maxX > minX && maxY > minY;
+
         final char[][] grid = new char[maxY - minY][maxX - minX];
         for (char[] row : grid)
             Arrays.fill(row, init);

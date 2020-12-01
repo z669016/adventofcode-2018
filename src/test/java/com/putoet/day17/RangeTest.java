@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class RangeTest {
 
@@ -18,6 +19,11 @@ class RangeTest {
         assertThat(range.minY()).isEqualTo(570);
         assertThat(range.maxY()).isEqualTo(582);
         assertThat(range.toString()).isEqualTo(xLine);
+
+        final Grid grid = mock(Grid.class);
+        range.apply(grid);
+        for (int y = 570; y <= 582; y++)
+            verify(grid, times(1)).set(569, y, '#');
     }
 
     @Test
@@ -31,6 +37,11 @@ class RangeTest {
         assertThat(range.minY()).isEqualTo(372);
         assertThat(range.maxY()).isEqualTo(372);
         assertThat(range.toString()).isEqualTo(yLine);
+
+        final Grid grid = mock(Grid.class);
+        range.apply(grid);
+        for (int x = 495; x <= 519; x++)
+            verify(grid, times(1)).set(x, 372, '#');
     }
 
     @Test

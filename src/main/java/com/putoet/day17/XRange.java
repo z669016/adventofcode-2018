@@ -7,9 +7,9 @@ public class XRange extends Range {
     }
 
     @Override
-    public void apply(char[][] grid) {
+    public void apply(Grid grid) {
         for (int idx = min; idx <= max; idx++)
-            grid[fixed][idx] = '#';
+            grid.set(idx, fixed, '#');
     }
 
     @Override

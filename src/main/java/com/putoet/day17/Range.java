@@ -14,7 +14,7 @@ public abstract class Range {
         this.max = max;
     }
 
-    public abstract void apply(char[][] grid);
+    public abstract void apply(Grid grid);
     public abstract int minX();
     public abstract int maxX();
     public abstract int minY();
