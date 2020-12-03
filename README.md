@@ -181,3 +181,18 @@ still-water grid-elements.
 
 I used a recursive approach (method using a '''Stack<Point>'''', not recursive calls) which allowed me to flow down and
 backtrack to previous positions when the watter could not flow down or left/right anymore.
+
+## Day 18
+I reused the Grid class of day 17 (so moved it into the utilities package). A new GridFactory creates the Grid from the
+puzzle input. A AcreScan object is being used to contain the info from the scan of a specific point in the grid (the 
+number of adjacent open grounds, trees, and lumberyards). An AcreScanner performs a scan on a grid and returns a map
+of AcreScna objects (one map entry for each point of the grid).
+The GridFactory also contains a '''next(Grid grid)''' method, which copies the grid, performs an scan on the grid, and 
+calculates new elements for each point in the grid, based on its AcreScan data. This approach suffices for part 1.
+
+Part two requires a ridiculous number of minutes (grid generations), so it's likely
+there is a repetition of the initial grid after some minutes. The trick is to find the number of minutes after which a 
+repetition occurs. This can be done by collecting the hash for each grid in a set, and as soon as the hash cannot be 
+added, thhe repetition is found. Then rerun again but with adjusted minutes (1.000.000.000 % (set.size() - 1); don't 
+forget the -1 as the set also contains version 0 of the grid so it contains 1 hash more than the number of minutes that 
+has passed). 

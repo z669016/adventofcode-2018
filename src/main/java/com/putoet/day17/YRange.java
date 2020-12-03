@@ -1,5 +1,7 @@
 package com.putoet.day17;
 
+import utilities.Grid;
+
 public class YRange extends Range {
     public YRange(int fixed, int min, int max) {
         super(fixed, min, max);

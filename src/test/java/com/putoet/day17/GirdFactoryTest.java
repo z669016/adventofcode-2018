@@ -2,12 +2,11 @@ package com.putoet.day17;
 
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
+import utilities.Grid;
 
-import java.lang.module.ResolutionException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GirdFactoryTest {
 

@@ -1,5 +1,7 @@
 package com.putoet.day17;
 
+import utilities.Grid;
+
 public class XRange extends Range {
 
     public XRange(int fixed, int min, int max) {

@@ -1,5 +1,6 @@
 package com.putoet.day17;
 
+import utilities.Grid;
 import utilities.GridUtils;
 
 import java.util.List;

@@ -2,6 +2,7 @@ package com.putoet.day17;
 
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
+import utilities.Grid;
 
 import java.util.List;
 

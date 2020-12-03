@@ -1,6 +1,6 @@
-package com.putoet.day17;
+package utilities;
 
-import utilities.GridUtils;
+import java.util.Arrays;
 
 public class Grid {
     private final int minX;
@@ -9,12 +9,29 @@ public class Grid {
     private final int maxY;
     private final char[][] grid;
 
+    public Grid(char[][] grid) {
+        this(0, grid[0].length, 0, grid.length, grid);
+    }
+
     public Grid(int minX, int maxX, int minY, int maxY, char[][] grid) {
+        assert grid != null;
+        assert grid.length == maxY - minY;
+        for (char[] row : grid)
+            assert row.length == maxX - minX;
+
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
         this.grid = grid;
+    }
+
+    public Grid copy() {
+        final char[][] copy = new char[maxY - minY][maxX - minX];
+        for (int y = 0; y < grid.length; y++)
+            System.arraycopy(grid[y], 0, copy[y], 0, grid[y].length);
+
+        return new Grid(minX, maxX, minY, maxY, copy);
     }
 
     public void set(int x, int y, char c) {
