@@ -35,6 +35,7 @@ public class Grid {
     public int maxX() { return maxX; }
     public int minY() { return minY; }
     public int maxY() { return maxY; }
+    public char[][] grid() { return grid; }
 
     @Override
     public String toString() {

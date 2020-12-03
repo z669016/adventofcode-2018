@@ -169,3 +169,15 @@ one specific instruction name (Map<Integer,String>). An InstructionFactory takes
 and provides a factory method to return a specific instruction for an array of 4 integers (coded instruction), based
 on the provided opcode mapping. Then I iterate over the second part of the puzzle input and just create an instruction
 using the factory, and apply it to a Regs instance. The final Regs instance contains the answer.   
+
+## Day 17
+A bit of a nasty one as I started with the water spring at (500,0) where the minY (according to the puzzle input) was
+not 1 ... and it took me a while to recognize that error. I checked Reddit and found out I wasn't the only one.
+
+A Range class (with XRange and YRange subclasses) was used to build a Grid. Then I used a WaterFlow class to add water
+to the grid (flowing watter and still water). When done, I just had to count the grid elements that contained flowing
+(|) or still (~) water. That approach worked well as part two of the assignment only wants to know the count of
+still-water grid-elements.
+
+I used a recursive approach (method using a '''Stack<Point>'''', not recursive calls) which allowed me to flow down and
+backtrack to previous positions when the watter could not flow down or left/right anymore.
