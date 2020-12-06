@@ -1,5 +1,7 @@
-package com.putoet.day16;
+package com.putoet.device;
 
+import com.putoet.device.Instruction;
+import com.putoet.device.Regs;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

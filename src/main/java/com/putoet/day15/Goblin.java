@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-import utilities.Point;
+import com.putoet.utilities.Point;
 
 public class Goblin extends Unit {
     public static final char TOKEN = 'G';

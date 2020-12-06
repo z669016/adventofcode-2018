@@ -2,7 +2,7 @@ package com.putoet.day18;
 
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
-import utilities.Grid;
+import com.putoet.utilities.Grid;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

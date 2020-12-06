@@ -1,6 +1,6 @@
 package com.putoet.day10;
 
-import utilities.Point;
+import com.putoet.utilities.Point;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

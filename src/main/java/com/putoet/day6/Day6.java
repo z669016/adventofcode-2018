@@ -1,8 +1,8 @@
 package com.putoet.day6;
 
 import com.putoet.resources.ResourceLines;
-import utilities.Point;
-import utilities.PointFactory;
+import com.putoet.utilities.Point;
+import com.putoet.utilities.PointFactory;
 
 import java.util.List;
 import java.util.OptionalLong;

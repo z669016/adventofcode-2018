@@ -1,7 +1,7 @@
 package com.putoet.day13;
 
-import utilities.Direction;
-import utilities.Point;
+import com.putoet.utilities.Direction;
+import com.putoet.utilities.Point;
 
 import java.util.List;
 

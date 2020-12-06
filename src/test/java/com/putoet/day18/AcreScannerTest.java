@@ -3,8 +3,8 @@ package com.putoet.day18;
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.Grid;
-import utilities.Point;
+import com.putoet.utilities.Grid;
+import com.putoet.utilities.Point;
 
 import java.util.List;
 import java.util.Map;

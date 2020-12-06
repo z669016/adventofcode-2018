@@ -1,5 +1,6 @@
-package com.putoet.day16;
+package com.putoet.device;
 
+import com.putoet.device.InstructionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

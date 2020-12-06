@@ -1,6 +1,4 @@
-package utilities;
-
-import java.util.Arrays;
+package com.putoet.utilities;
 
 public class Grid {
     private final int minX;

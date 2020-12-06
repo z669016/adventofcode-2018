@@ -1,5 +1,6 @@
-package utilities;
+package com.putoet.utilities;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +13,7 @@ class PointFactoryTest {
     void ofString() {
         assertThrows(AssertionError.class, () -> PointFactory.of(""));
 
-        assertEquals(Point.of(3,5), PointFactory.of("3, 5"));
+        Assertions.assertEquals(Point.of(3,5), PointFactory.of("3, 5"));
     }
 
     @Test

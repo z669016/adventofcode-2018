@@ -1,9 +1,8 @@
 package com.putoet.day3;
 
-import com.putoet.day3.Claim;
 import org.junit.jupiter.api.Test;
-import utilities.Point;
-import utilities.Size;
+import com.putoet.utilities.Point;
+import com.putoet.utilities.Size;
 
 import static org.junit.jupiter.api.Assertions.*;
 

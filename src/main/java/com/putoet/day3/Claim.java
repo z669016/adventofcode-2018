@@ -1,7 +1,7 @@
 package com.putoet.day3;
 
-import utilities.Point;
-import utilities.Size;
+import com.putoet.utilities.Point;
+import com.putoet.utilities.Size;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

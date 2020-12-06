@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-import utilities.Point;
+import com.putoet.utilities.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;

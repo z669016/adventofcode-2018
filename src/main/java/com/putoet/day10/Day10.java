@@ -1,7 +1,7 @@
 package com.putoet.day10;
 
 import com.putoet.resources.ResourceLines;
-import utilities.GridUtils;
+import com.putoet.utilities.GridUtils;
 
 public class Day10 {
     public static void main(String[] args) {

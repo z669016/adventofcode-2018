@@ -1,7 +1,7 @@
 package com.putoet.day10;
 
-import utilities.GridUtils;
-import utilities.Size;
+import com.putoet.utilities.GridUtils;
+import com.putoet.utilities.Size;
 
 import java.util.Arrays;
 import java.util.List;

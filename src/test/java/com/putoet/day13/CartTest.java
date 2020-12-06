@@ -2,9 +2,9 @@ package com.putoet.day13;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.Direction;
-import utilities.DirectionTurn;
-import utilities.Point;
+import com.putoet.utilities.Direction;
+import com.putoet.utilities.DirectionTurn;
+import com.putoet.utilities.Point;
 
 import java.util.*;
 import java.util.function.Supplier;

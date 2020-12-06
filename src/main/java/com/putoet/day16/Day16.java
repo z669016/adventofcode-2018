@@ -1,5 +1,7 @@
 package com.putoet.day16;
 
+import com.putoet.device.InstructionFactory;
+import com.putoet.device.Regs;
 import com.putoet.resources.ResourceLines;
 
 import java.util.*;

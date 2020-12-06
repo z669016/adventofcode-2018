@@ -1,4 +1,4 @@
-package utilities;
+package com.putoet.utilities;
 
 import java.nio.CharBuffer;
 import java.util.Arrays;

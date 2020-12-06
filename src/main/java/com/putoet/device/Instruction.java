@@ -1,4 +1,4 @@
-package com.putoet.day16;
+package com.putoet.device;
 
 import lombok.AllArgsConstructor;
 
@@ -18,6 +18,11 @@ public abstract class Instruction {
 
     public abstract Regs apply(Regs regs);
     public abstract String name();
+
+    @Override
+    public String toString() {
+        return String.format("%s %d %d %d", name(), a, b, c);
+    }
 
     public static Instruction addr (int opcode, int a, int b, int c) {
         return new Instruction(opcode, a, b, c) {

@@ -1,7 +1,7 @@
 package com.putoet.day18;
 
 import com.putoet.resources.ResourceLines;
-import utilities.Grid;
+import com.putoet.utilities.Grid;
 
 import java.util.HashSet;
 import java.util.Objects;

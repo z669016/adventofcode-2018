@@ -1,6 +1,6 @@
 package com.putoet.day18;
 
-import utilities.Point;
+import com.putoet.utilities.Point;
 
 public class AcreScan {
     public final Point location;

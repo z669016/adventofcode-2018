@@ -1,4 +1,4 @@
-package utilities;
+package com.putoet.utilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;

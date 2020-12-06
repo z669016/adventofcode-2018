@@ -1,6 +1,6 @@
 package com.putoet.day11;
 
-import utilities.Point;
+import com.putoet.utilities.Point;
 
 public class Day11 {
     public static void main(String[] args) {

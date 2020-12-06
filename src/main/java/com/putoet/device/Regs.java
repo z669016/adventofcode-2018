@@ -1,17 +1,17 @@
-package com.putoet.day16;
+package com.putoet.device;
 
 import java.util.Arrays;
 
 public class Regs {
-    private final int[] regs = {0, 0, 0, 0};
+    private int[] regs;
 
-    public Regs() {}
+    public Regs() {
+        regs = new int[] {0, 0, 0, 0};
+    }
+
     public Regs(int[] regs) {
-        super();
-
-        assert regs.length == this.regs.length;
-        for (int idx = 0; idx < regs.length; idx++)
-            this.regs[idx] = regs[idx];
+        this.regs = new int[regs.length];
+        System.arraycopy(regs, 0, this.regs, 0, regs.length);
     }
 
     public int get(int reg) {
@@ -30,6 +30,10 @@ public class Regs {
 
     public Regs apply(Instruction instruction) {
         return instruction.apply(this);
+    }
+
+    public int size() {
+        return regs.length;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.putoet.day11;
 
-import utilities.Point;
-import utilities.Size;
+import com.putoet.utilities.Point;
+import com.putoet.utilities.Size;
 
 public class FuelGrid {
     private final Size size = Size.of(300, 300);

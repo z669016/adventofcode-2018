@@ -1,5 +1,8 @@
 package com.putoet.day16;
 
+import com.putoet.device.Instruction;
+import com.putoet.device.Regs;
+
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
