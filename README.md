@@ -196,3 +196,13 @@ repetition occurs. This can be done by collecting the hash for each grid in a se
 added, thhe repetition is found. Then rerun again but with adjusted minutes (1.000.000.000 % (set.size() - 1); don't 
 forget the -1 as the set also contains version 0 of the grid so it contains 1 hash more than the number of minutes that 
 has passed). 
+
+## Day 19
+Created a Device class to be created from a List of instructions and one or more directions, based on the code for 
+day 16. That was a simple approach, so possibly not useful for part 2.
+
+For part 2 a great video is available by [Michael Gilliland](https://www.youtube.com/watch?v=-w12PhxJoJQ). By replaying 
+the approach I found the answer for my input. Although it's not my favourite kind of puzzle, this was very interesting
+to do such an exercise. 
+
+## Day 20

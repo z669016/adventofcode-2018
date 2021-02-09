@@ -12,5 +12,9 @@ public class Day15 {
         System.out.println("Score is " + score);
     }
 
-    // 252008 is wrong
+    // 252_008 is wrong (109 full rounds)
+    // 254_320 is too high (same score but using 110 full rounds, which should be wrong as well)
+    // 193_563 is not correct (selecting next in reading order, starting from the current position, not from top-left
+    // 193_362 is not correct (same as previous but fixed selection
+    // 250_344 is not correct
 }

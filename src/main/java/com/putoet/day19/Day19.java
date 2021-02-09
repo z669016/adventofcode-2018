@@ -6,7 +6,7 @@ import com.putoet.resources.ResourceLines;
 public class Day19 {
     public static void main(String[] args) {
         part1();
-        part2();
+        // part2();
     }
 
     private static void part1() {

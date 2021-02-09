@@ -1,6 +1,7 @@
 package com.putoet.day15;
 
 import com.putoet.utilities.Point;
+import org.javatuples.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -66,7 +67,7 @@ public class UnitSearch {
         }
 
         public String toString() {
-            return state + " -> " + parent;
+            return state.toString() + " -> " + parent;
         }
     }
 
@@ -127,6 +128,29 @@ public class UnitSearch {
         if (nearest.size() == 0)
             return Optional.empty();
 
-        return Optional.of(nearest.get(0).path().get(1));
+        final Point next = firstAfterCurrent(current.location(), nearest);
+        return Optional.of(next);
+    }
+
+    private static Point firstAfterCurrent(Point current, List<Node> nearest) {
+        if (nearest.size() == 1)
+            return nearest.get(0).path().get(1);
+
+        if (nearest.get(0).path().get(1).equals(nearest.get(1).path().get(1)))
+            return nearest.get(0).path().get(1);
+
+        System.out.println("Moving from " + current);
+        nearest.forEach(System.out::println);
+
+//        final Optional<List<Point>> next = nearest.stream()
+//                .filter(node -> node.state.y > current.y || (node.state.y == current.y && node.state.x >= current.x))
+//                .map(Node::path)
+//                .findFirst();
+
+         System.out.println("Selected first step " + nearest.get(0).path().get(1));
+//        return next.isPresent() ? next.get().get(1) : nearest.get(0).path().get(1);
+
+
+        return nearest.get(0).path().get(1);
     }
 }

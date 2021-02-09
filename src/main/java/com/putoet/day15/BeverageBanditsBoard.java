@@ -99,6 +99,7 @@ public class BeverageBanditsBoard {
 
     public void print() {
         for (int y = 0; y < board.length; y++) {
+            System.out.printf("%2d ", y);
             for (int x = 0; x < board[y].length; x++) {
                 final Optional<Unit> unit = at(x,y);
                 System.out.print(unit.isPresent() ? unit.get().token() : board[y][x]);
