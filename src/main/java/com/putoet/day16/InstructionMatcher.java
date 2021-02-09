@@ -42,6 +42,7 @@ public class InstructionMatcher {
 
         throw new IllegalArgumentException("Invalid after: " + line);
     }
+
     public static int[] instruction(String line) {
         final Matcher matcher = INSTR.matcher(line);
         if (matcher.matches())

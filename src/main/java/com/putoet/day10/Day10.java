@@ -8,7 +8,15 @@ public class Day10 {
         final Message message = Message.of(ResourceLines.list("/day10.txt"));
         final char[][] grid = message.decrypt();
 
+        part1(grid);
+        part2(message);
+    }
+
+    private static void part1(char[][] grid) {
         GridUtils.print(grid);
+    }
+
+    private static void part2(Message message) {
         System.out.println("Waiting time would have been " + message.decryptTime() + " seconds.");
     }
 }

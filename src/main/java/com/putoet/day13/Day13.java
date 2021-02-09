@@ -7,16 +7,15 @@ import java.util.List;
 public class Day13 {
     public static void main(String[] args) {
         final List<String> lines = ResourceLines.list("/day13.txt");
-        final Tracks tracks = Tracks.of(lines);
-        Carts carts = Carts.of(lines);
 
-        partOne(tracks, carts);
-
-        carts = Carts.of(lines);
-        partTwo(tracks, carts);
+        part1(lines);
+        part2(lines);
     }
 
-    public static void partOne(Tracks tracks, Carts carts) {
+    public static void part1(List<String> lines) {
+        final Tracks tracks = Tracks.of(lines);
+
+        Carts carts = Carts.of(lines);
         try {
             while (true)
                 carts = carts.move(tracks);
@@ -25,7 +24,10 @@ public class Day13 {
         }
     }
 
-    public static void partTwo(Tracks tracks, Carts carts) {
+    public static void part2(List<String> lines) {
+        final Tracks tracks = Tracks.of(lines);
+        Carts carts = Carts.of(lines);
+
         while (carts.size() > 1)
             carts = carts.move(tracks, true);
 

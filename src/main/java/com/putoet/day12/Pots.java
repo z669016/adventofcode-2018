@@ -30,6 +30,18 @@ public class Pots {
         this.spread = spread;
     }
 
+    public static Pots of(List<String> lines) {
+        assert lines != null && lines.size() > 2;
+        final String pots = lines.get(0).substring(15);
+        final Set<String> spread = lines.stream()
+                .skip(2)
+                .filter(line -> line.endsWith("#"))
+                .map(line -> line.split(" => ")[0])
+                .collect(Collectors.toSet());
+
+        return new Pots(pots, spread);
+    }
+
     public Pots next() {
         final StringBuilder sb = new StringBuilder(".".repeat(pots.length()));
 
@@ -42,10 +54,21 @@ public class Pots {
         return new Pots(offset, zero, sb.toString(), spread);
     }
 
-    public int zero() { return zero; }
-    public int offset() { return offset; }
-    public int size() { return pots.length(); }
-    public Set<String> spread() { return spread; }
+    public int zero() {
+        return zero;
+    }
+
+    public int offset() {
+        return offset;
+    }
+
+    public int size() {
+        return pots.length();
+    }
+
+    public Set<String> spread() {
+        return spread;
+    }
 
     public long potSum() {
         return potSum(offset);
@@ -79,17 +102,5 @@ public class Pots {
     @Override
     public String toString() {
         return pots;
-    }
-
-    public static Pots of(List<String> lines) {
-        assert lines != null && lines.size() > 2;
-        final String pots = lines.get(0).substring(15);
-        final Set<String> spread = lines.stream()
-                .skip(2)
-                .filter(line -> line.endsWith("#"))
-                .map(line -> line.split(" => ")[0])
-                .collect(Collectors.toSet());
-
-        return new Pots(pots, spread);
     }
 }

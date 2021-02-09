@@ -8,17 +8,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Message {
-    public static Message of(List<String> lines) {
-        return new Message(lines.stream().map(MovingPoint::of).collect(Collectors.toList()));
-    }
-
     private final List<MovingPoint> movingPoints;
     private int decryptTime = 0;
-
     private Message(List<MovingPoint> movingPoints) {
         assert movingPoints != null && movingPoints.size() > 0;
 
         this.movingPoints = movingPoints;
+    }
+
+    public static Message of(List<String> lines) {
+        return new Message(lines.stream().map(MovingPoint::of).collect(Collectors.toList()));
     }
 
     public void move() {
@@ -30,14 +29,14 @@ public class Message {
         decryptTime = 0;
 
         // The text is probably smaller then a page, so keep moving until the message size is reasonable
-        while (size().count() > 80*40)
+        while (size().count() > 80 * 40)
             move();
 
         char[][] prev = grid();
         move();
         char[][] next = grid();
 
-        while(smaller(next, prev)) {
+        while (smaller(next, prev)) {
             prev = next;
             move();
             next = grid();
@@ -75,7 +74,7 @@ public class Message {
         final int sx = Math.abs(minX - maxX);
         final int sy = Math.abs(minY - maxY);
 
-        return Size.of(sx+1, sy+1);
+        return Size.of(sx + 1, sy + 1);
     }
 
     public char[][] grid() {
