@@ -1,6 +1,6 @@
 package com.putoet.day20;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 import java.util.ArrayList;
 import java.util.List;

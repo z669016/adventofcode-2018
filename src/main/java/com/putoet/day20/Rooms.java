@@ -1,9 +1,9 @@
 package com.putoet.day20;
 
 import com.putoet.graph.UnweightedGraph;
-import com.putoet.utilities.Grid;
-import com.putoet.utilities.GridUtils;
-import com.putoet.utilities.Point;
+import com.putoet.grid.Grid;
+import com.putoet.grid.GridUtils;
+import com.putoet.grid.Point;
 
 import java.util.HashSet;
 import java.util.List;

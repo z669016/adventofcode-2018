@@ -1,7 +1,7 @@
 package com.putoet.day13;
 
+import com.putoet.grid.Point;
 import com.putoet.utilities.Direction;
-import com.putoet.utilities.Point;
 
 import java.util.List;
 
@@ -57,5 +57,4 @@ public class Tracks {
 
         return new Tracks(grid);
     }
-
 }

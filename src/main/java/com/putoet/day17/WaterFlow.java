@@ -1,8 +1,8 @@
 package com.putoet.day17;
 
-import com.putoet.utilities.Grid;
-import com.putoet.utilities.GridUtils;
-import com.putoet.utilities.Point;
+import com.putoet.grid.Grid;
+import com.putoet.grid.GridUtils;
+import com.putoet.grid.Point;
 
 import java.util.Optional;
 import java.util.Stack;

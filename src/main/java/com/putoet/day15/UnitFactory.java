@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 public class UnitFactory {
     public static final int INITIAL_HITPOINTS = 200;

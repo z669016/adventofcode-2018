@@ -1,6 +1,6 @@
 package com.putoet.day17;
 
-import com.putoet.utilities.Grid;
+import com.putoet.grid.Grid;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

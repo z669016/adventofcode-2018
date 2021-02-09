@@ -15,12 +15,19 @@ public class Day1 {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
+        part1(numbers);
+        part2(numbers);
+    }
+
+    private static void part1(List<Integer> numbers) {
         final int sum = numbers.stream()
                 .mapToInt(i -> i)
                 .sum();
 
         System.out.println("The sum of all numbers is " + sum);
+    }
 
+    private static void part2(List<Integer> numbers) {
         final Set<Integer> frequencies = new HashSet<>();
         int frequency = 0;
         int i = 0;

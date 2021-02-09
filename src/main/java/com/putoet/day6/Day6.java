@@ -1,7 +1,7 @@
 package com.putoet.day6;
 
+import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
-import com.putoet.utilities.Point;
 import com.putoet.utilities.PointFactory;
 
 import java.util.List;
@@ -12,21 +12,25 @@ public class Day6 {
         final List<Point> points = PointFactory.of(ResourceLines.list("/day6.txt"));
         final Grid grid = Grid.of(points);
 
-        partOne(grid);
-        partTwo(grid);
+        part1(grid);
+        part2(grid);
     }
 
-    private static void partTwo(Grid grid) {
-        grid.fill();
-        System.out.println("The area with max distance is 10.000 is " + grid.countMax(10_000));
-    }
-
-    private static void partOne(Grid grid) {
+    private static void part1(Grid grid) {
         grid.fillClosest();
 
         final List<Character> enclosed = grid.enclosedLetters();
         final OptionalLong max = enclosed.stream().mapToLong(grid::count).max();
+        if (max.isEmpty()) {
+            System.out.println("No largest area found ...");
+            return;
+        }
 
         System.out.println("The largest area is " + max.getAsLong());
+    }
+
+    private static void part2(Grid grid) {
+        grid.fill();
+        System.out.println("The area with max distance is 10.000 is " + grid.countMax(10_000));
     }
 }

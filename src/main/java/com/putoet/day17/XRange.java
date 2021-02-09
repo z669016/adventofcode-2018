@@ -1,6 +1,6 @@
 package com.putoet.day17;
 
-import com.putoet.utilities.Grid;
+import com.putoet.grid.Grid;
 
 public class XRange extends Range {
 

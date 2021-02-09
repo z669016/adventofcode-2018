@@ -1,8 +1,8 @@
 package com.putoet.day10;
 
+import com.putoet.grid.GridUtils;
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.GridUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,6 @@
 package com.putoet.day20;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

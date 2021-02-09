@@ -22,7 +22,6 @@ class GuardLogTest {
     @Test
     void of() {
         assertEquals(17, log.events().size());
-        // log.events().forEach(System.out::println);
     }
 
     @Test
@@ -35,8 +34,6 @@ class GuardLogTest {
     void shifts() {
         final Map<LocalDate,List<GuardEvent>> shifts = log.shifts(new Guard(99));
         assertEquals(3, shifts.size());
-
-        // shifts.entrySet().forEach(System.out::println);
     }
 
     @Test
@@ -51,11 +48,11 @@ class GuardLogTest {
 
     @Test
     void sliepiest() {
-        assertEquals(10, log.longestSleeper().id);
+        assertEquals(10, log.longestSleeper().get().id);
     }
 
     @Test
     void mostFrequentSleeper() {
-        assertEquals(99, log.mostFrequentSleeper().id);
+        assertEquals(99, log.mostFrequentSleeper().get().id);
     }
 }

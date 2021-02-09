@@ -1,5 +1,6 @@
 package com.putoet.utilities;
 
+import com.putoet.grid.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

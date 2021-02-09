@@ -1,7 +1,6 @@
 package com.putoet.day15;
 
-import com.putoet.utilities.Point;
-import org.javatuples.Pair;
+import com.putoet.grid.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -14,7 +14,7 @@ public class Polymers {
     public static String reactWithout(String polymer, char without) {
         final String temp =
                 polymer.replaceAll(String.valueOf(Character.toLowerCase(without)), "")
-                .replaceAll(String.valueOf(Character.toUpperCase(without)), "");
+                        .replaceAll(String.valueOf(Character.toUpperCase(without)), "");
         return react(temp);
     }
 
@@ -25,7 +25,7 @@ public class Polymers {
             char a = temp.charAt(i);
             char b = temp.charAt(i + 1);
             if (similarType(a, b) && (oppositePolarity(a, b))) {
-                temp.delete(i, i+2);
+                temp.delete(i, i + 2);
                 if (i > 0) i--;
             } else {
                 i++;

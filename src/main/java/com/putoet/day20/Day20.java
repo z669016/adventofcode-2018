@@ -1,8 +1,8 @@
 package com.putoet.day20;
 
+import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
 import com.putoet.search.GenericSearch;
-import com.putoet.utilities.Point;
 
 import java.util.Optional;
 import java.util.OptionalInt;

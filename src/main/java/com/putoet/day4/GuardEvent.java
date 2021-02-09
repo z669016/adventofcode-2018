@@ -23,9 +23,17 @@ public class GuardEvent implements Comparable<GuardEvent> {
         this.event = WatchEVent.START_WATCH;
     }
 
-    public LocalDateTime dateTime() { return dateTime; }
-    public Guard guard() { return guard; }
-    public WatchEVent event() { return event; }
+    public LocalDateTime dateTime() {
+        return dateTime;
+    }
+
+    public Guard guard() {
+        return guard;
+    }
+
+    public WatchEVent event() {
+        return event;
+    }
 
     public void setGuard(Guard guard) {
         this.guard = guard;

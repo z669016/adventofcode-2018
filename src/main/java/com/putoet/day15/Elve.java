@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 public class Elve extends Unit {
     public static final char TOKEN = 'E';

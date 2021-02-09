@@ -1,7 +1,7 @@
 package com.putoet.day17;
 
-import com.putoet.utilities.Grid;
-import com.putoet.utilities.GridUtils;
+import com.putoet.grid.Grid;
+import com.putoet.grid.GridUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;

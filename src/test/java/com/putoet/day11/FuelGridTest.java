@@ -1,7 +1,7 @@
 package com.putoet.day11;
 
+import com.putoet.grid.Point;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 

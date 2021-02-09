@@ -1,9 +1,9 @@
 package com.putoet.day6;
 
+import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.Point;
 import com.putoet.utilities.PointFactory;
 import com.putoet.utilities.Size;
 

@@ -1,9 +1,9 @@
 package com.putoet.day13;
 
+import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
 import com.putoet.utilities.Direction;
-import com.putoet.utilities.Point;
 
 import java.util.Iterator;
 import java.util.List;

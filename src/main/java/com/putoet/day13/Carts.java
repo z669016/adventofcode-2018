@@ -1,6 +1,6 @@
 package com.putoet.day13;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,8 +15,6 @@ public class Carts implements Iterable<Cart> {
 
         public Cart cart() { return cart; }
     }
-
-
 
     private final Set<Cart> carts;
 

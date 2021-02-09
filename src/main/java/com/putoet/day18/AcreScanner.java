@@ -1,7 +1,8 @@
 package com.putoet.day18;
 
-import com.putoet.utilities.Grid;
-import com.putoet.utilities.Point;
+
+import com.putoet.grid.Grid;
+import com.putoet.grid.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;

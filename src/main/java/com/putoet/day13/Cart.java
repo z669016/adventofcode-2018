@@ -1,8 +1,8 @@
 package com.putoet.day13;
 
+import com.putoet.grid.Point;
 import com.putoet.utilities.Direction;
 import com.putoet.utilities.DirectionTurn;
-import com.putoet.utilities.Point;
 
 import java.util.Objects;
 import java.util.function.Supplier;

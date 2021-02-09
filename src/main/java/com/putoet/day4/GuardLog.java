@@ -2,10 +2,7 @@ package com.putoet.day4;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +17,7 @@ public class GuardLog {
         this.events = events;
     }
 
-    public static GuardLog of (List<String> lines) {
+    public static GuardLog of(List<String> lines) {
         assert lines != null;
 
         final List<GuardEvent> events = lines.stream()
@@ -41,7 +38,6 @@ public class GuardLog {
 
     private static GuardEvent of(String line) {
         final LocalDateTime dateTime = dateTimeOf(line);
-
         return line.contains("#") ? startWatch(dateTime, line) : sleepAwake(dateTime, line);
     }
 
@@ -77,7 +73,9 @@ public class GuardLog {
         return LocalDateTime.of(year, month, day, hour, minute);
     }
 
-    public List<GuardEvent> events() { return events; }
+    public List<GuardEvent> events() {
+        return events;
+    }
 
     public List<Guard> guards() {
         return events.stream()
@@ -86,7 +84,7 @@ public class GuardLog {
                 .collect(toList());
     }
 
-    public Map<LocalDate,List<GuardEvent>> shifts(Guard guard) {
+    public Map<LocalDate, List<GuardEvent>> shifts(Guard guard) {
         assert guard != null;
 
         return events.stream()
@@ -95,15 +93,15 @@ public class GuardLog {
                 .collect(groupingBy(event -> event.dateTime().toLocalDate(), toList()));
     }
 
-    public Guard longestSleeper() {
-        final List<Guard> guards = guards();
-        if (guards.size() == 0)
-            throw new IllegalArgumentException("No guards in the log");
+    public Optional<Guard> longestSleeper() {
+        final Map<Guard, Integer> sleeping =
+                guards().stream().collect(toMap(guard -> guard, this::sleepTime));
 
-        final Map<Guard,Long> sleeping =
-                guards.stream().collect(toMap(guard -> guard, this::sleepTime));
+        return maxSleepingGuard(sleeping);
+    }
 
-        long max = -1;
+    private Optional<Guard> maxSleepingGuard(Map<Guard, Integer> sleeping) {
+        int max = Integer.MIN_VALUE;
         Guard sleepiest = null;
         for (Guard guard : sleeping.keySet()) {
             if (sleeping.get(guard) > max) {
@@ -111,31 +109,21 @@ public class GuardLog {
                 max = sleeping.get(guard);
             }
         }
-
-        return sleepiest;
+        return Optional.ofNullable(sleepiest);
     }
 
-    public Guard mostFrequentSleeper() {
+    public Optional<Guard> mostFrequentSleeper() {
         final List<Guard> guards = guards();
         if (guards.size() == 0)
             throw new IllegalArgumentException("No guards in the log");
 
-        final Map<Guard,Integer> sleeping =
+        final Map<Guard, Integer> sleeping =
                 guards.stream().collect(toMap(guard -> guard, this::sleepMinuteFrequency));
 
-        long max = -1;
-        Guard sleepiest = null;
-        for (Guard guard : sleeping.keySet()) {
-            if (sleeping.get(guard) > max) {
-                sleepiest = guard;
-                max = sleeping.get(guard);
-            }
-        }
-
-        return sleepiest;
+        return maxSleepingGuard(sleeping);
     }
 
-    public long sleepTime(Guard guard) {
+    public int sleepTime(Guard guard) {
         assert guard != null;
 
         final int[] timeLine = timeLine(guard);
@@ -147,8 +135,8 @@ public class GuardLog {
 
         final int[] timeLine = timeLine(guard);
 
-        int max = -1;
-        int maxMinute = -1;
+        int max = Integer.MIN_VALUE;
+        int maxMinute = Integer.MIN_VALUE;
         for (int m = 0; m < 60; m++) {
             if (timeLine[m] > max) {
                 max = timeLine[m];
@@ -164,7 +152,7 @@ public class GuardLog {
 
         final int[] timeLine = timeLine(guard);
 
-        int max = -1;
+        int max = Integer.MIN_VALUE;
         for (int m = 0; m < 60; m++) {
             if (timeLine[m] > max) {
                 max = timeLine[m];

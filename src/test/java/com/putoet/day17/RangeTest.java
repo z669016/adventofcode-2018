@@ -1,7 +1,7 @@
 package com.putoet.day17;
 
+import com.putoet.grid.Grid;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.Grid;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,5 +1,7 @@
 package com.putoet.utilities;
 
+import com.putoet.grid.Point;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

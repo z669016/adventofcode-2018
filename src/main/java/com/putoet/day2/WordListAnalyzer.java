@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 public class WordListAnalyzer {
     private final List<WordAnalyzer> analyzers;
 
-    public static WordListAnalyzer of(List<String> words) {
-        assert words != null;
-
-        return new WordListAnalyzer(words.stream().map(WordAnalyzer::new).collect(Collectors.toList()));
-    }
-
     public WordListAnalyzer(List<WordAnalyzer> analyzers) {
         assert analyzers != null;
 
         this.analyzers = analyzers;
+    }
+
+    public static WordListAnalyzer of(List<String> words) {
+        assert words != null;
+
+        return new WordListAnalyzer(words.stream().map(WordAnalyzer::new).collect(Collectors.toList()));
     }
 
     public int checksum() {

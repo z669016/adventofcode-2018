@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +23,6 @@ public abstract class Unit implements Comparable<Unit> {
 
     public boolean isAlive() { return alive; }
     public int hitPoints() { return hitPoints; }
-    public int force() { return force; }
 
     public void receiveHit(int force) {
         hitPoints -= force;

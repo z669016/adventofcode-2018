@@ -4,21 +4,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class WordAnalyzer {
     private final String word;
-    private final Map<Character,Integer> occurrences;
+    private final Map<Character, Integer> occurrences;
 
     public WordAnalyzer(String word) {
         assert word != null;
 
         this.word = word;
-        occurrences = word.chars().boxed()
-                .collect(toMap(
-                        k -> (char) k.intValue(),
-                        v -> 1,
-                        Integer::sum));
+        occurrences = word.chars().boxed().collect(toMap(k -> (char) k.intValue(), v -> 1, Integer::sum));
     }
 
     public List<Character> doubles() {

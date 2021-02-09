@@ -1,11 +1,13 @@
 package com.putoet.day15;
 
-import com.putoet.utilities.Point;
+import com.putoet.grid.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class BeverageBanditsBoard {
+    public static final List<Point> neighbours = List.of(Point.NORTH, Point.WEST, Point.SOUTH, Point.EAST);
+
     public static final char SPACE = '.';
     public static final char WALL = '#';
 
@@ -78,6 +80,8 @@ public class BeverageBanditsBoard {
     }
 
     public List<Point> inRange(Point location) {
+
+
         final List<Point> range = new ArrayList<>();
         if (isOpen(location.x-1,location.y)) range.add(Point.of(location.x-1,location.y));
         if (isOpen(location.x+1,location.y)) range.add(Point.of(location.x+1,location.y));

@@ -1,6 +1,8 @@
 package com.putoet.day3;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class Fabric {
