@@ -13,21 +13,22 @@ public class Day18 {
     }
 
     private static void part(long minutes) {
-        final List<Grid> set = new ArrayList<>();
+        final List<Integer> history = new ArrayList<>();
         Grid next = GridFactory.of(ResourceLines.list("/day18.txt"));
 
-        set.add(next);
+        history.add(next.hashCode());
         long count = minutes;
         int firstDuplicate = 0;
         while (count-- > 0) {
             System.out.print(count + "\r");
             next = GridFactory.next(next);
-            firstDuplicate = set.indexOf(next);
+
+            final int hash = next.hashCode();
+            firstDuplicate = history.indexOf(hash);
             if (firstDuplicate != -1) {
-                System.out.println("First duplicate at " + set.size() + " at position " + firstDuplicate);
                 break;
             }
-            set.add(next);
+            history.add(hash);
         }
 
         // if we encountered a double, then redo the attempt with adjusted minutes
@@ -35,9 +36,8 @@ public class Day18 {
         //
         // so the first 558 elements are unique (0 ... 557), then the series from 558...613 keep repeating
         // the element at position 558 + 1_000_000_000 is (1_000_000_000 - 558) % (614 - 558)
-        if (set.size() < minutes) {
-            System.out.println("To be calculated again " + GridFactory.totalResourceValue(next));
-            part(firstDuplicate + ((minutes - firstDuplicate) % (set.size() - firstDuplicate)));
+        if (history.size() < minutes) {
+            part(firstDuplicate + ((minutes - firstDuplicate) % (history.size() - firstDuplicate)));
         } else {
             System.out.println("Total resource value after " + minutes + " minutes is " + GridFactory.totalResourceValue(next));
         }
