@@ -14,7 +14,9 @@ public class Step implements Comparable<Step> {
         this.name = name.toUpperCase();
     }
 
-    public String name() { return name; }
+    public String name() {
+        return name;
+    }
 
     public void after(Step step) {
         assert step != null;
@@ -32,13 +34,13 @@ public class Step implements Comparable<Step> {
 
     @Override
     public int compareTo(Step other) {
-        assert  other != null;
+        assert other != null;
 
         return name.compareTo(other.name);
     }
 
     @Override
     public String toString() {
-        return name + " -> " + after.stream().map(Step::name).collect(Collectors.joining(",","[","]"));
+        return name + " -> " + after.stream().map(Step::name).collect(Collectors.joining(",", "[", "]"));
     }
 }

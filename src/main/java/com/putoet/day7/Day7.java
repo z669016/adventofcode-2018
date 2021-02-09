@@ -4,18 +4,18 @@ import com.putoet.resources.ResourceLines;
 
 public class Day7 {
     public static void main(String[] args) {
-        partOne();
-        partTwo();
+        part1();
+        part2();
     }
 
-    private static void partOne() {
+    private static void part1() {
         final Steps steps = Steps.of(ResourceLines.list("/day7.txt"));
         final ConcurrentStepWalker walker = new ConcurrentStepWalker(steps);
 
         System.out.println("Order is " + walker.walk());
     }
 
-    private static void partTwo() {
+    private static void part2() {
         final Steps steps = Steps.of(ResourceLines.list("/day7.txt"));
         final ConcurrentStepWalker walker = new ConcurrentStepWalker(steps, 5);
 

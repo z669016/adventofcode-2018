@@ -72,5 +72,7 @@ public class ConcurrentStepWalker {
         return sb.toString();
     }
 
-    public int duration() { return duration; }
+    public int duration() {
+        return duration;
+    }
 }

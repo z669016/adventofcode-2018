@@ -10,7 +10,15 @@ public class Day9 {
         final int players = players(lines.get(0));
         final int lastMarble = lastMarble(lines.get(0));
 
+        part1(players, lastMarble);
+        part2(players, lastMarble);
+    }
+
+    private static void part1(int players, int lastMarble) {
         play(players, lastMarble);
+    }
+
+    private static void part2(int players, int lastMarble) {
         play(players, lastMarble * 100);
     }
 
@@ -24,7 +32,7 @@ public class Day9 {
         final long end = System.currentTimeMillis();
 
         System.out.println("High score is " + game.highScore());
-        System.out.println("The game took " + (end- start) +" ms");
+        System.out.println("The game took " + (end - start) + " ms");
         System.out.println("Circle size is " + circle.size());
     }
 
@@ -40,5 +48,4 @@ public class Day9 {
         final String[] words = line.split(" ");
         return Integer.parseInt(words[idx]);
     }
-
 }

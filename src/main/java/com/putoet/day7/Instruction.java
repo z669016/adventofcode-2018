@@ -4,10 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Instruction {
-    private final Pattern patter = Pattern.compile("Step ([A-Z]) must be finished before step ([A-Z]) can begin\\.");
-
     public final String before;
     public final String after;
+    private final Pattern patter = Pattern.compile("Step ([A-Z]) must be finished before step ([A-Z]) can begin\\.");
 
     public Instruction(String line) {
         assert line != null;

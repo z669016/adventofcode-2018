@@ -17,11 +17,15 @@ public class StepWalker {
         walking = 1 + delay + step.name().charAt(0) - 'A';
     }
 
-    public int walking() { return walking; }
+    public int walking() {
+        return walking;
+    }
 
     public Optional<String> walk() {
         return --walking == 0 ? Optional.of(step.name()) : Optional.empty();
     }
 
-    public Step step() { return step; }
+    public Step step() {
+        return step;
+    }
 }

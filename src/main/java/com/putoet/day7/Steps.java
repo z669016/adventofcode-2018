@@ -27,7 +27,7 @@ public class Steps {
     }
 
     public Optional<Step> next(Set<Step> finished) {
-        final Optional<Step> next =  steps.values().stream()
+        final Optional<Step> next = steps.values().stream()
                 .filter(step -> step.available(finished))
                 .sorted()
                 .findFirst();
@@ -47,5 +47,7 @@ public class Steps {
         steps.remove(step.name());
     }
 
-    public int size() { return steps.size(); }
+    public int size() {
+        return steps.size();
+    }
 }
