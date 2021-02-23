@@ -7,7 +7,7 @@ import java.util.List;
 public class Day15 {
     public static void main(String[] args) {
         final List<String> lines = ResourceLines.list("/day15.txt");
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
 
         System.out.println("Score is " + score);
     }
@@ -17,4 +17,7 @@ public class Day15 {
     // 193_563 is not correct (selecting next in reading order, starting from the current position, not from top-left
     // 193_362 is not correct (same as previous but fixed selection
     // 250_344 is not correct
+    // 230_181 is not correct
+    // 229_995 is not correct
+    // 247_860 is not correct
 }

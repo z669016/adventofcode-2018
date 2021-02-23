@@ -64,7 +64,7 @@ class BeverageBanditsBoardTest {
     @Test
     void nextTo() {
         final List<Point> nextTo = board.nextTo(Point.of(4,1));
-        assertEquals(List.of(Point.of(3,1), Point.of(5,1)), nextTo);
+        assertEquals(List.of(Point.of(5,1), Point.of(3,1)), nextTo);
     }
 
     @Test
@@ -73,7 +73,7 @@ class BeverageBanditsBoardTest {
         final Unit elve = units.poll();
         final Unit goblin = units.poll();
 
-        assertEquals(3, board.enemies(elve).size());
-        assertEquals(1, board.enemies(goblin).size());
+        assertEquals(3, board.targets(elve).size());
+        assertEquals(1, board.targets(goblin).size());
     }
 }

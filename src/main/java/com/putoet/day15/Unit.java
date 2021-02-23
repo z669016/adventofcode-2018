@@ -3,6 +3,8 @@ package com.putoet.day15;
 import com.putoet.grid.Point;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 public abstract class Unit implements Comparable<Unit> {
@@ -18,6 +20,9 @@ public abstract class Unit implements Comparable<Unit> {
         this.force = force;
         this.location = location;
     }
+
+    public static final Comparator<Point> COMPARATOR =
+            Comparator.comparingInt((Point point) -> point.y).thenComparingInt((Point point) -> point.x);
 
     public abstract char token();
 
@@ -37,7 +42,7 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     public boolean turn(BeverageBanditsBoard board) {
-        final List<Unit> enemies = board.enemies(this);
+        final List<Unit> enemies = board.targets(this);
         if (enemies.size() == 0)
             return false;
 
@@ -54,23 +59,26 @@ public abstract class Unit implements Comparable<Unit> {
         return true;
     }
 
+    protected List<Unit> nextToEnemy(BeverageBanditsBoard board) {
+        return board.targets(this).stream()
+                .filter(enemy -> location.manhattanDistance(enemy.location) == 1)
+                .collect(Collectors.toList());
+    }
+
     private Unit weakestEnemy(List<Unit> enemies) {
+        assert enemies != null && enemies.size() > 0;
+
+        if (enemies.size() == 1)
+            return enemies.get(0);
+
         enemies.sort(Comparator.comparingInt((Unit unit) -> unit.hitPoints)
-                .thenComparingInt(unit -> unit.location.y)
-                .thenComparingInt(unit -> unit.location.x)
+                .thenComparing(Unit.readingOrder(this))
         );
         return enemies.get(0);
     }
 
-    protected List<Unit> nextToEnemy(BeverageBanditsBoard board) {
-        final List<Point> nextTo = board.nextTo(location);
-        return board.enemies(this).stream()
-                .filter(enemy -> nextTo.contains(enemy.location))
-                .collect(Collectors.toList());
-    }
-
     private void move(BeverageBanditsBoard board) {
-        final Optional<Point> next = UnitSearch.nextPointFor(this, board);
+        final Optional<Point> next = Game.nextPointFor(this, board);
         next.ifPresent(point -> location = point);
     }
 
@@ -86,10 +94,19 @@ public abstract class Unit implements Comparable<Unit> {
 
     @Override
     public int compareTo(Unit other) {
-        int compareTo = Integer.compare(location.y, other.location.y);
-        if (compareTo == 0)
-            compareTo = Integer.compare(location.x, other.location.x);
+        return COMPARATOR.compare(this.location, other.location);
+    }
 
-        return compareTo;
+    public static ToIntFunction<Point> readingOrder(Point current) {
+        final Function<Point,Integer> offset = (Point point) -> point.y * 100 + point.x;
+        final int base = offset.apply(current);
+
+        return (Point point) -> offset.apply(point) - base >= 0 ?
+                offset.apply(point) - base : Integer.MAX_VALUE - offset.apply(point);
+    }
+
+    public static Function<Unit,Integer> readingOrder(Unit current) {
+        final ToIntFunction<Point> readingOrder = readingOrder(current.location);
+        return unit -> readingOrder.applyAsInt(unit.location);
     }
 }

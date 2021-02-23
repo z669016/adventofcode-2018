@@ -20,7 +20,7 @@ class GameTest {
                 "#.....#",
                 "#######"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(27730, score);
     }
 
@@ -35,7 +35,7 @@ class GameTest {
                 "#...E.#",
                 "#######"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(36334, score);
     }
 
@@ -50,7 +50,7 @@ class GameTest {
                 "#..E#.#",
                 "#######"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(39514, score);
     }
 
@@ -65,7 +65,7 @@ class GameTest {
                 "#...E.#",
                 "#######"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(27755, score);
     }
 
@@ -80,7 +80,7 @@ class GameTest {
                 "#...#G#",
                 "#######"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(28944, score);
     }
 
@@ -97,7 +97,7 @@ class GameTest {
                 "#.....G.#",
                 "#########"
         );
-        final int score = Game.play(lines);
+        final long score = Game.play(lines);
         assertEquals(18740, score);
     }
 }

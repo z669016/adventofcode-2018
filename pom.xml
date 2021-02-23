@@ -21,7 +21,7 @@
     <mockito.version>3.2.4</mockito.version>
     <assertj.version>3.18.1</assertj.version>
     <jackson.version>2.10.2</jackson.version>
-    <algorithms.version>1.1.2</algorithms.version>
+    <algorithms.version>1.1.4</algorithms.version>
     <aoc.version>1.4.11</aoc.version>
   </properties>
 
