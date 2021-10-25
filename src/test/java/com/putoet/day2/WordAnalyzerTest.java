@@ -55,6 +55,7 @@ class WordAnalyzerTest {
         assertTrue(diff.isPresent());
         assertEquals("fgij", diff.get());
         assertFalse(one.oneLetterDifference(three).isPresent());
+        assertFalse(three.oneLetterDifference(three).isPresent());
 
         assertThrows(AssertionError.class, () -> one.oneLetterDifference(null));
     }

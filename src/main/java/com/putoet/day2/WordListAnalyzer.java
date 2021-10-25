@@ -21,8 +21,8 @@ public class WordListAnalyzer {
     }
 
     public int checksum() {
-        final int doubles = analyzers.stream().mapToInt(a -> a.doubles().size() > 0 ? 1 : 0).sum();
-        final int triples = analyzers.stream().mapToInt(a -> a.triples().size() > 0 ? 1 : 0).sum();
+        final int doubles = analyzers.stream().mapToInt(a -> !a.doubles().isEmpty() ? 1 : 0).sum();
+        final int triples = analyzers.stream().mapToInt(a -> !a.triples().isEmpty() ? 1 : 0).sum();
 
         return doubles * triples;
     }

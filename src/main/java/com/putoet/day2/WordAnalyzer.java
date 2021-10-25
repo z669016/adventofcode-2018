@@ -50,6 +50,6 @@ public class WordAnalyzer {
                 sb.append(word.charAt(i));
             }
         }
-        return Optional.of(sb.toString());
+        return difference == 0 ? Optional.empty() : Optional.of(sb.toString());
     }
 }
