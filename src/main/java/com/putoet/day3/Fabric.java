@@ -38,15 +38,17 @@ public class Fabric {
 
     public List<Claim> nonOverlap(List<Claim> claims) {
         return claims.stream()
-                .filter(claim -> {
-                    for (int y = 0; y < claim.size().dy; y++)
-                        for (int x = 0; x < claim.size().dx; x++) {
-                            if (fabric[y + claim.at().y][x + claim.at().x] != claim.id())
-                                return false;
-                        }
-
-                    return true;
-                })
+                .filter(this::hasNoOverlap)
                 .collect(Collectors.toList());
+    }
+
+    private boolean hasNoOverlap(Claim claim) {
+        for (int y = 0; y < claim.size().dy; y++)
+            for (int x = 0; x < claim.size().dx; x++) {
+                if (fabric[y + claim.at().y][x + claim.at().x] != claim.id())
+                    return false;
+            }
+
+        return true;
     }
 }

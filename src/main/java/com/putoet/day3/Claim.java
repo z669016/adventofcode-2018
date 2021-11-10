@@ -21,9 +21,9 @@ public class Claim {
         if (!matcher.matches())
             throw new AssertionError("Invalid Claim input format '" + claim + "'");
 
-        int id = Integer.parseInt(matcher.group(1));
-        Point at = Point.of(Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
-        Size size = Size.of(Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
+        final int id = Integer.parseInt(matcher.group(1));
+        final Point at = Point.of(Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
+        final Size size = Size.of(Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
 
         return new Claim(id, at, size);
     }
