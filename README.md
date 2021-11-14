@@ -206,3 +206,15 @@ the approach I found the answer for my input. Although it's not my favourite kin
 to do such an exercise. 
 
 ## Day 20
+Now this one was nasty ... parsing the regex to create a list of rooms and doors was the tricky part. Initially on every
+choice I parsed every option with the rest of the regex. Of course that means you parse parts at least multiple times.
+When running with the puzzle input, this took way too long (not done parsing after 30 minutes). SO, I changed the
+algorithm to parse the individual choices and collect the end-point of each choice and then parse the rest of the regex
+starting form each different endpoint. Clearly many choices ended at the same point, as the parsing was done now in 
+less than 150 ms.
+While parsing the regex I created a map of ```Cell``` objects (point of the object is the key), which gave me a unique 
+list of ```Door``` and ```Room``` objects. From that list I created a ```Grid``` (room = '.', door = '-' or '|', 
+starting point = 'X'). Finally, a ```RoomFinder``` was created for the grid that could create a list of ```Room```
+objects and could calculate the least number of doors to take to each room from the starting point (using standard BFS).
+To solve part 1, create alist of the number of doors to each individual room, and get the highest value in the list.
+For part 2, count the number of rooms with a door count of 1000 or higher.
