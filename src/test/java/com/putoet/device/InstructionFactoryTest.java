@@ -10,33 +10,33 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InstructionFactoryTest {
-    private Map<Integer, String> opcodes;
+    private Map<Long, String> opcodes;
 
     @BeforeEach
     void setup() {
         opcodes = new HashMap<>();
-        opcodes.put(0, "addr");
-        opcodes.put(1, "addi");
-        opcodes.put(2, "mulr");
-        opcodes.put(3, "muli");
-        opcodes.put(4, "banr");
-        opcodes.put(5, "bani");
-        opcodes.put(6, "borr");
-        opcodes.put(7, "bori");
-        opcodes.put(8, "setr");
-        opcodes.put(9, "seti");
-        opcodes.put(10, "gtir");
-        opcodes.put(11, "gtri");
-        opcodes.put(12, "gtrr");
-        opcodes.put(13, "eqir");
-        opcodes.put(14, "eqri");
-        opcodes.put(15, "eqrr");
+        opcodes.put(0L, "addr");
+        opcodes.put(1L, "addi");
+        opcodes.put(2L, "mulr");
+        opcodes.put(3L, "muli");
+        opcodes.put(4L, "banr");
+        opcodes.put(5L, "bani");
+        opcodes.put(6L, "borr");
+        opcodes.put(7L, "bori");
+        opcodes.put(8L, "setr");
+        opcodes.put(9L, "seti");
+        opcodes.put(10L, "gtir");
+        opcodes.put(11L, "gtri");
+        opcodes.put(12L, "gtrr");
+        opcodes.put(13L, "eqir");
+        opcodes.put(14L, "eqri");
+        opcodes.put(15L, "eqrr");
     }
 
     @Test
     void of() {
         final InstructionFactory factory = new InstructionFactory(opcodes);
-        for (int idx = 0; idx < 16; idx++) {
+        for (long idx = 0; idx < 16; idx++) {
             assertThat(factory.of(idx, 0, 0, 0).name()).isEqualTo(opcodes.get(idx));
         }
     }

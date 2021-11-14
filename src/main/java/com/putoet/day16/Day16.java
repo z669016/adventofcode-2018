@@ -29,7 +29,7 @@ public class Day16 {
 
     private static void part2() {
         final List<String> opcodeLines = ResourceLines.list("/day16.txt");
-        final Map<Integer, String> opcodes = opcodes(opcodeLines);
+        final Map<Long, String> opcodes = opcodes(opcodeLines);
         final InstructionFactory factory = new InstructionFactory(opcodes);
 
         final List<String> instructions = ResourceLines.list("/day16-2.txt");
@@ -41,13 +41,13 @@ public class Day16 {
         System.out.println("The value in register 0 is " + regs.get(0));
     }
 
-    private static Map<Integer, String> opcodes(List<String> lines) {
-        final Map<Integer, Set<String>> opcodes = new HashMap<>();
+    private static Map<Long, String> opcodes(List<String> lines) {
+        final Map<Long, Set<String>> opcodes = new HashMap<>();
 
         for (int idx = 0; idx < lines.size(); idx += 4) {
-            int[] before = InstructionMatcher.before(lines.get(idx));
-            int[] instruction = InstructionMatcher.instruction(lines.get(idx +1));
-            int[] after = InstructionMatcher.after(lines.get(idx +2));
+            long[] before = InstructionMatcher.before(lines.get(idx));
+            long[] instruction = InstructionMatcher.instruction(lines.get(idx +1));
+            long[] after = InstructionMatcher.after(lines.get(idx +2));
 
             final Set<String> instructionSet = InstructionMatcher.match(before, after, instruction);
             if (!opcodes.containsKey(instruction[0])) {
@@ -60,10 +60,10 @@ public class Day16 {
         return reduce(opcodes);
     }
 
-    private static Map<Integer, String> reduce(Map<Integer, Set<String>> opcodes) {
+    private static Map<Long, String> reduce(Map<Long, Set<String>> opcodes) {
         Set<String> singles = singles(opcodes);
         while (singles.size() < 16) {
-            for (Integer key : opcodes.keySet()) {
+            for (Long key : opcodes.keySet()) {
                 final Set<String> values = opcodes.get(key);
                 if (values.size() > 1)
                     values.removeAll(singles);
@@ -76,7 +76,7 @@ public class Day16 {
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().iterator().next()));
     }
 
-    private static Set<String> singles(Map<Integer, Set<String>> opcodes) {
+    private static Set<String> singles(Map<Long, Set<String>> opcodes) {
         Set<String> singles = opcodes.values().stream()
                 .filter(value -> value.size() == 1)
                 .flatMap(Collection::stream)
@@ -85,9 +85,9 @@ public class Day16 {
     }
 
     private static Set<String> inStructionSet(List<String> lines, int idx) {
-        int[] before = InstructionMatcher.before(lines.get(idx));
-        int[] instruction = InstructionMatcher.instruction(lines.get(idx +1));
-        int[] after = InstructionMatcher.after(lines.get(idx +2));
+        long[] before = InstructionMatcher.before(lines.get(idx));
+        long[] instruction = InstructionMatcher.instruction(lines.get(idx +1));
+        long[] after = InstructionMatcher.after(lines.get(idx +2));
 
         return InstructionMatcher.match(before, after, instruction);
     }

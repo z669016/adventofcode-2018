@@ -3,27 +3,27 @@ package com.putoet.device;
 import java.util.Arrays;
 
 public class Regs {
-    private int[] regs;
+    private long[] regs;
 
     public Regs() {
-        regs = new int[] {0, 0, 0, 0};
+        regs = new long[] {0, 0, 0, 0};
     }
 
-    public Regs(int[] regs) {
-        this.regs = new int[regs.length];
+    public Regs(long[] regs) {
+        this.regs = new long[regs.length];
         System.arraycopy(regs, 0, this.regs, 0, regs.length);
     }
 
-    public int get(int reg) {
+    public long get(long reg) {
         assert reg >=0 && reg < regs.length;
-        return regs[reg];
+        return regs[(int) reg];
     }
 
-    public Regs set(int reg, int value) {
+    public Regs set(long reg, long value) {
         assert reg >=0 && reg < regs.length;
 
         final Regs updated = new Regs(regs);
-        updated.regs[reg] = value;
+        updated.regs[(int) reg] = value;
 
         return updated;
     }

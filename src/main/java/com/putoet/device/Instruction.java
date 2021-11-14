@@ -6,15 +6,15 @@ import java.util.List;
 
 @AllArgsConstructor
 public abstract class Instruction {
-    private final int opcode;
-    private final int a;
-    private final int b;
-    private final int c;
+    private final long opcode;
+    private final long a;
+    private final long b;
+    private final long c;
 
-    public int opcode() { return opcode; }
-    public int a() { return a; }
-    public int b() { return b; }
-    public int c() { return c; }
+    public long opcode() { return opcode; }
+    public long a() { return a; }
+    public long b() { return b; }
+    public long c() { return c; }
 
     public abstract Regs apply(Regs regs);
     public abstract String name();
@@ -24,7 +24,7 @@ public abstract class Instruction {
         return String.format("%s %d %d %d", name(), a, b, c);
     }
 
-    public static Instruction addr (int opcode, int a, int b, int c) {
+    public static Instruction addr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -38,7 +38,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction addi (int opcode, int a, int b, int c) {
+    public static Instruction addi (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -52,7 +52,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction mulr (int opcode, int a, int b, int c) {
+    public static Instruction mulr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -66,7 +66,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction muli (int opcode, int a, int b, int c) {
+    public static Instruction muli (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -80,7 +80,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction banr (int opcode, int a, int b, int c) {
+    public static Instruction banr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -94,7 +94,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction bani (int opcode, int a, int b, int c) {
+    public static Instruction bani (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -108,7 +108,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction borr (int opcode, int a, int b, int c) {
+    public static Instruction borr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -122,7 +122,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction bori (int opcode, int a, int b, int c) {
+    public static Instruction bori (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -136,7 +136,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction setr (int opcode, int a, int b, int c) {
+    public static Instruction setr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -150,7 +150,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction seti (int opcode, int a, int b, int c) {
+    public static Instruction seti (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -164,7 +164,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction gtir (int opcode, int a, int b, int c) {
+    public static Instruction gtir (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -178,7 +178,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction gtri (int opcode, int a, int b, int c) {
+    public static Instruction gtri (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -192,7 +192,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction gtrr (int opcode, int a, int b, int c) {
+    public static Instruction gtrr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -206,7 +206,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction eqir (int opcode, int a, int b, int c) {
+    public static Instruction eqir (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -220,7 +220,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction eqri (int opcode, int a, int b, int c) {
+    public static Instruction eqri (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -234,7 +234,7 @@ public abstract class Instruction {
         };
     }
 
-    public static Instruction eqrr (int opcode, int a, int b, int c) {
+    public static Instruction eqrr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
             public Regs apply(Regs regs) {
@@ -248,7 +248,7 @@ public abstract class Instruction {
         };
     }
 
-    public static List<Instruction> instructionSet(int opcode, int a, int b, int c) {
+    public static List<Instruction> instructionSet(long opcode, long a, long b, long c) {
         return List.of(
                 addr(opcode, a, b, c),
                 addi(opcode, a, b, c),

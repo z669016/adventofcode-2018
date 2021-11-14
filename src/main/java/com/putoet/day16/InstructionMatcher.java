@@ -14,7 +14,7 @@ public class InstructionMatcher {
     private static final Pattern AFTER = Pattern.compile("After: +\\[(\\d), (\\d), (\\d), (\\d)\\]");
     private static final Pattern INSTR = Pattern.compile("(\\d+) (\\d) (\\d) (\\d)");
 
-    public static Set<String> match(int[] b, int[] a, int[] i) {
+    public static Set<String> match(long[] b, long[] a, long[] i) {
         assert b.length == 4 && a.length == 4 && i.length == 4;
 
         final Regs before = new Regs(b);
@@ -27,34 +27,34 @@ public class InstructionMatcher {
                 .collect(Collectors.toSet());
     }
 
-    public static int[] before(String line) {
+    public static long[] before(String line) {
         final Matcher matcher = BEFORE.matcher(line);
         if (matcher.matches())
-            return getInts(matcher);
+            return getLongs(matcher);
 
         throw new IllegalArgumentException("Invalid before: " + line);
     }
 
-    public static int[] after(String line) {
+    public static long[] after(String line) {
         final Matcher matcher = AFTER.matcher(line);
         if (matcher.matches())
-            return getInts(matcher);
+            return getLongs(matcher);
 
         throw new IllegalArgumentException("Invalid after: " + line);
     }
 
-    public static int[] instruction(String line) {
+    public static long[] instruction(String line) {
         final Matcher matcher = INSTR.matcher(line);
         if (matcher.matches())
-            return getInts(matcher);
+            return getLongs(matcher);
 
         throw new IllegalArgumentException("Invalid instruction: " + line);
     }
 
-    private static int[] getInts(Matcher matcher) {
-        return new int[]{Integer.parseInt(matcher.group(1)),
-                Integer.parseInt(matcher.group(2)),
-                Integer.parseInt(matcher.group(3)),
-                Integer.parseInt(matcher.group(4))};
+    private static long[] getLongs(Matcher matcher) {
+        return new long[]{Long.parseLong(matcher.group(1)),
+                Long.parseLong(matcher.group(2)),
+                Long.parseLong(matcher.group(3)),
+                Long.parseLong(matcher.group(4))};
     }
 }

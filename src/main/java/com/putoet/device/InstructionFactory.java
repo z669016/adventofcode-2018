@@ -4,35 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InstructionFactory {
-    private static final Map<String, Integer> OPCODES = new HashMap<>();
+    private static final Map<String, Long> OPCODES = new HashMap<>();
 
     static {
-        OPCODES.put("addr", 0);
-        OPCODES.put("addi", 1);
-        OPCODES.put("mulr", 2);
-        OPCODES.put("muli", 3);
-        OPCODES.put("banr", 4);
-        OPCODES.put("bani", 5);
-        OPCODES.put("borr", 6);
-        OPCODES.put("bori", 7);
-        OPCODES.put("setr", 8);
-        OPCODES.put("seti", 9);
-        OPCODES.put("gtir", 10);
-        OPCODES.put("gtri", 11);
-        OPCODES.put("gtrr", 12);
-        OPCODES.put("eqir", 13);
-        OPCODES.put("eqri", 14);
-        OPCODES.put("eqrr", 15);
+        OPCODES.put("addr", 0L);
+        OPCODES.put("addi", 1L);
+        OPCODES.put("mulr", 2L);
+        OPCODES.put("muli", 3L);
+        OPCODES.put("banr", 4L);
+        OPCODES.put("bani", 5L);
+        OPCODES.put("borr", 6L);
+        OPCODES.put("bori", 7L);
+        OPCODES.put("setr", 8L);
+        OPCODES.put("seti", 9L);
+        OPCODES.put("gtir", 10L);
+        OPCODES.put("gtri", 11L);
+        OPCODES.put("gtrr", 12L);
+        OPCODES.put("eqir", 13L);
+        OPCODES.put("eqri", 14L);
+        OPCODES.put("eqrr", 15L);
     }
 
-    private final Map<Integer, String> opcodes;
+    private final Map<Long, String> opcodes;
 
-    public InstructionFactory(Map<Integer, String> opcodes) {
+    public InstructionFactory(Map<Long, String> opcodes) {
         // ensure opcodes are provided
         assert opcodes != null;
 
         // ensure it contains 16
-        for (int idx = 0; idx < 16; idx++)
+        for (long idx = 0; idx < 16; idx++)
             assert opcodes.containsKey(idx);
 
         // ensure all are unique
@@ -41,13 +41,13 @@ public class InstructionFactory {
         this.opcodes = opcodes;
     }
 
-    public Instruction of(int[] codes) {
+    public Instruction of(long[] codes) {
         assert codes != null && codes.length == 4;
 
         return of(codes[0], codes[1], codes[2], codes[3]);
     }
 
-    public Instruction of(int opcode, int a, int b, int c) {
+    public Instruction of(long opcode, long a, long b, long c) {
         if (!opcodes.containsKey(opcode))
             throw new IllegalArgumentException("Invalid opcode " + opcode + " for " + opcodes);
 
@@ -55,15 +55,15 @@ public class InstructionFactory {
         return of(name, opcode, a, b, c);
     }
 
-    public static Instruction of(String name, int a, int b, int c) {
+    public static Instruction of(String name, long a, long b, long c) {
         if (!OPCODES.containsKey(name))
             throw new IllegalArgumentException("Invalid opcode " + name + " for " + OPCODES);
 
-        final int opcode = OPCODES.get(name);
+        final long opcode = OPCODES.get(name);
         return of(name, opcode, a, b, c);
     }
 
-    private static Instruction of(String name, int opcode, int a, int b, int c) {
+    private static Instruction of(String name, long opcode, long a, long b, long c) {
         return switch (name) {
             case "addr" -> Instruction.addr(opcode, a, b, c);
             case "addi" -> Instruction.addi(opcode, a, b, c);

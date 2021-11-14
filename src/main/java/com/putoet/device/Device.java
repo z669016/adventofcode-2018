@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 public class Device {
     private final List<Instruction> program;
     private Regs regs;
-    private int ip;
-    private int ipRegister = -1;
+    private long ip;
+    private long ipRegister = -1;
     private boolean verbose = false;
 
     public Device(Regs regs, List<Instruction> program) {
@@ -20,14 +20,14 @@ public class Device {
     public void enableVerbose() { verbose = true; }
     public void disableVerbose() { verbose = false; }
 
-    public int register(int reg) {
+    public long register(long reg) {
         return regs.get(reg);
     }
-    public void register(int reg, int value) {
+    public void register(long reg, long value) {
         regs =  regs.set(reg, value);
     }
 
-    public void ipRegister(int reg) {
+    public void ipRegister(long reg) {
         assert reg >=0 && reg <= regs.size();
         ipRegister = reg;
     }
@@ -35,7 +35,7 @@ public class Device {
     public void run() {
         ip = 0;
         while (ip >= 0 && ip < program.size()) {
-            final Instruction instruction = program.get(ip);
+            final Instruction instruction = program.get((int) ip);
             if (verbose) System.out.printf("ip=%d %s %s", ip, regs, instruction);
 
             storeIP();
@@ -63,7 +63,7 @@ public class Device {
     }
 
     public static Device of(List<String> lines) {
-        final Regs regs = new Regs(new int[6]);
+        final Regs regs = new Regs(new long[6]);
         final List<Instruction> program = new ArrayList<>();
         final List<Declaration> declarations = new ArrayList<>();
 
