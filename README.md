@@ -6,7 +6,7 @@ to read a resource file and transform the content into a ```List<String>```, or 
 file containing comma separated values and returning a List of these values, optionally after transformation from 
 ```String``` to ```Integer```.
 
-Also uses the algorithms library, which contains generic classes for addressing classic compute problems (from the book 
+Also uses the algorithms' library, which contains generic classes for addressing classic compute problems (from the book 
 **Classic Computer Science Problems In Java** (c) Manning.com - 2020) 
 
 It was never my intention to create the shortest program possible. I did try to create clear and simple implementations.
@@ -26,14 +26,14 @@ contain the claim id, if not it has overlap.
 
 ## Day 4
 A bit more work, especially to parse the input data, but from there it's relatively straight forward. It helps to create
-an aggregated timeline of integers (``int[60]```) for each guard for every minute from 00:00 - 00:59, and collect in 
+an aggregated timeline of integers (```int[60]```) for each guard for every minute from 00:00 - 00:59, and collect in 
 there the number of times the guard sleeps at each minute. From there, finding the sleepiest guard, or the minute he 
 sleeps most often is easy.
 
 ## Day 5
-Quite simple today ... Use a StringBuffer and remove two consecutive units when similar and opposite polarity. 
-When you have removed two units, and you're not at the beginning of the StringBuffer, move one position back (this will 
-then remove the enclosing combination), if nothing was removed, move ahead to the next position.
+Quite simple today ... Use a ```StringBuffer``` and remove two consecutive units when similar and opposite polarity. 
+When you have removed two units, and you're not at the beginning of the ```StringBuffer```, move one position back 
+(this will then remove the enclosing combination), if nothing was removed, move ahead to the next position.
 
 For part two, get all the units, then get the length per reaction without each distinct unit, get the min value. When 
 using streams it requires just a few lines of code.
@@ -56,7 +56,7 @@ I thought why bother? If I know which steps have been taken, I can also determin
 to know is which steps are possible and for each step, which ones must be finished before this one can. So the next 
 possible steps are those that can be taken given the set of finished steps. 
 
-I created a ```Step``` class, to know whis\ch steps need to be finished before the step itself can finish. Based on 
+I created a ```Step``` class, to know which steps need to be finished before the step itself can finish. Based on 
 a set of finished steps, the class can tell if it's available or not. A ```Steps``` class has the list of steps, and 
 can provide an ```OrderedSet``` of options to go next, based on a set of already finished steps. When the finished steps 
 set is still empty, of course you get the only step without required predecessors.   
@@ -76,7 +76,7 @@ Some challenge of parsing the input into a tree of nodes. However, when you use 
 integers, you can pass the iterator to a factory method that recursively creates nodes (while passing on the iterator 
 to the recursive calls). Each Node builds a list of child notes, and a list of metadata values (integers).
 
-Once you have the tree structure, its relatively simple to use streams to calculate the values. As I was worried about
+Once you have the tree structure, it's relatively simple to use streams to calculate the values. As I was worried about
 speed I added memoization, that only calculates a value once and remembers it (```OptionalInt``` is very practical 
 here). Although for this exercise not required, I cleared the memoized value when the node data changes (i.e. when 
 metadata, or a child gets added).
@@ -107,7 +107,7 @@ would not create a grid until its size would be smaller than 80x40.
 For part 2, I only had to count the calls to ```move()``` all the points until the smallest possible grid was found.
 
 ## Day 11
-Nothing special on this one. Once the grid has been setup, it's a simple search. On part 2 a better performance can be 
+Nothing special on this one. Once the grid has been set up, it's a simple search. On part 2 a better performance can be 
 made, by reusing the calculations of the previous searches (the values of the 4x4 grids can start with the values of 
 the 3x3 grids), but I didn't take that effort. Part two ran within 30 seconds, which is slow but still acceptable.
 
@@ -118,17 +118,15 @@ zero accordingly, when dots are added to the front).
 
 Part one is pretty straight forward. Don't do any difficult translations with the rules. Just create a ```Set<String>``` 
 with all the combinations that lead to a new plant, and ignore all other rules. Grow a plant in the pot if the 
-combination is part of the set. No difficult rule matching is required.
+combination is part of the set. No difficult rule matching is required. This can solve it for part one very fast. 
 
-This can solved it for part one very fast. For part 2 additional steps where required.
-
-When I printed the pots as string after 1.000 generations, it contained a lot of dots in at the start of the string. 
-So, I enhanced the ```Pots``` class, to remove dots from the start of the string (leave max 5) and update an offset 
-accordingly. Now up to 1.000.000 generations were doable within 3,5 seconds. But that's still far from the required 
-50.000.000.000 generations.
+For part 2 additional steps where required. When I printed the pots as string after 1.000 generations, it contained a 
+lot of dots in at the start of the string. So, I enhanced the ```Pots``` class, to remove dots from the start of the 
+string (leave max 5) and update an offset accordingly. Now up to 1.000.000 generations were doable within 3,5 seconds. 
+But that's still far from the required 50.000.000.000 generations.
 
 When I then printed the string of pots for every 1.000th generation, I saw the strings were all identical. What 
-differed was only the offset. It appeared that after generation 86, no the string stays the same, but the offset 
+differed was only the offset. It appeared that after generation 86, now the string stays the same, but the offset 
 increases with 1 for every generation, which means the location of pot zero doesn't change, and neither the sequence
 of plants, but the sequence does move one position further away every generation. And with that info, I could calculate
 the positions after 50.000.000.000 generations.
@@ -179,22 +177,22 @@ to the grid (flowing watter and still water). When done, I just had to count the
 (|) or still (~) water. That approach worked well as part two of the assignment only wants to know the count of
 still-water grid-elements.
 
-I used a recursive approach (method using a '''Stack<Point>'''', not recursive calls) which allowed me to flow down and
+I used a recursive approach (method using a ```Stack<Point>```, not recursive calls) which allowed me to flow down and
 backtrack to previous positions when the watter could not flow down or left/right anymore.
 
 ## Day 18
 I reused the Grid class of day 17 (so moved it into the utilities package). A new GridFactory creates the Grid from the
 puzzle input. A AcreScan object is being used to contain the info from the scan of a specific point in the grid (the 
-number of adjacent open grounds, trees, and lumberyards). An AcreScanner performs a scan on a grid and returns a map
-of AcreScna objects (one map entry for each point of the grid).
-The GridFactory also contains a '''next(Grid grid)''' method, which copies the grid, performs an scan on the grid, and 
-calculates new elements for each point in the grid, based on its AcreScan data. This approach suffices for part 1.
+number of adjacent open grounds, trees, and lumberyards). An ```AcreScanner``` performs a scan on a grid and returns a 
+map of ```AcreScan``` objects (one map entry for each point of the grid).
+The ```GridFactory``` also contains a ```next(Grid grid)``` method, which copies the grid, performs a scan on the grid, 
+and calculates new elements for each point in the grid, based on its AcreScan data. This approach suffices for part 1.
 
 Part two requires a ridiculous number of minutes (grid generations), so it's likely
 there is a repetition of the initial grid after some minutes. The trick is to find the number of minutes after which a 
 repetition occurs. This can be done by collecting the hash for each grid in a set, and as soon as the hash cannot be 
-added, thhe repetition is found. Then rerun again but with adjusted minutes (1.000.000.000 % (set.size() - 1); don't 
-forget the -1 as the set also contains version 0 of the grid so it contains 1 hash more than the number of minutes that 
+added, the repetition is found. Then rerun again but with adjusted minutes (1.000.000.000 % (set.size() - 1); don't 
+forget the -1 as the set also contains version 0 of the grid, so it contains 1 hash more than the number of minutes that 
 has passed). 
 
 ## Day 19
@@ -216,7 +214,7 @@ While parsing the regex I created a map of ```Cell``` objects (point of the obje
 list of ```Door``` and ```Room``` objects. From that list I created a ```Grid``` (room = '.', door = '-' or '|', 
 starting point = 'X'). Finally, a ```RoomFinder``` was created for the grid that could create a list of ```Room```
 objects and could calculate the least number of doors to take to each room from the starting point (using standard BFS).
-To solve part 1, create alist of the number of doors to each individual room, and get the highest value in the list.
+To solve part 1, create a list of the number of doors to each individual room, and get the highest value in the list.
 For part 2, count the number of rooms with a door count of 1000 or higher.
 
 ## Day 21
@@ -229,18 +227,18 @@ breakpoint returns false, the program will halt.
 
 For part 1, I've set a breakpoint at line 28 that just shows the value of register 4 after which it returns false 
 (so the program halts). For part 2, I used a smarter breakpoint at line 28, that remembers the last value of register 4
-and keepslooping until register 4 produces a non-unique value (meanwhile it records all regeneratedv values in a 
-```Set```). The last unique value is the one that causes the most instructions eing executer to get the program halted. 
+and keeps looping until register 4 produces a non-unique value (meanwhile it records all generated values in a 
+```Set```). The last unique value is the one that causes the most instructions being executed to get the program halted. 
 
 ## Day 22
-I started with a ```Region``` object to form a grid (with the input depth). The ```Region``` has a attributes like
+I started with a ```Region``` object to form a grid (with the input depth). The ```Region``` has attributes like
 ```type```, ```coordinate```, ```geologicIndex```, ```erosionLevel```, and ```riskLevel```. The derived values are
 only calculated when required but memorized (otherwise the calculation would take exponential time). A ```Calculator```
 object with access to the entire grid, performs the calculations.
 
 To solve part 1, a grid is constructed of the required size, and then the ```riskLevel``` for all ```Region``` objects
 in the rectangle from MOUTH to TARGET is added starting at (0,0) moving towards target. While collecting the
-```riskLevel``` values, all required attributes for all the reagions involved get calculated only once and only when 
+```riskLevel``` values, all required attributes for all the regions involved get calculated only once and only when 
 needed.
 
 Part 2 is a bit more tricky and requires a breath-first-search (BFS) for all possible paths from MOUTH to TARGET, and
