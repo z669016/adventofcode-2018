@@ -218,3 +218,16 @@ starting point = 'X'). Finally, a ```RoomFinder``` was created for the grid that
 objects and could calculate the least number of doors to take to each room from the starting point (using standard BFS).
 To solve part 1, create alist of the number of doors to each individual room, and get the highest value in the list.
 For part 2, count the number of rooms with a door count of 1000 or higher.
+
+## Day 21
+So, the only instruction in the program that checks register 0 is ```eqrr 4 0 2``` at line 28. When you run the program
+the first time, this line will check register 4 against register 0 with a certain value. The answer for part 1, is the
+value in register 4 the very first time. In order to extract this value, I've added the options of setting breakpoints 
+to the ```Device```. A breakpoint being a function that's called at a certain line in the program (ip value), and the
+breakpoint gets the device instance as a parameter, so it can check all registers, ip and even the instruction. When the
+breakpoint returns false, the program will halt.
+
+For part 1, I've set a breakpoint at line 28 that just shows the value of register 4 after which it returns false 
+(so the program halts). For part 2, I used a smarter breakpoint at line 28, that remembers the last value of register 4
+and keepslooping until register 4 produces a non-unique value (meanwhile it records all regeneratedv values in a 
+```Set```). The last unique value is the one that causes the most instructions eing executer to get the program halted. 
