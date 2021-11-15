@@ -231,3 +231,19 @@ For part 1, I've set a breakpoint at line 28 that just shows the value of regist
 (so the program halts). For part 2, I used a smarter breakpoint at line 28, that remembers the last value of register 4
 and keepslooping until register 4 produces a non-unique value (meanwhile it records all regeneratedv values in a 
 ```Set```). The last unique value is the one that causes the most instructions eing executer to get the program halted. 
+
+## Day 22
+I started with a ```Region``` object to form a grid (with the input depth). The ```Region``` has a attributes like
+```type```, ```coordinate```, ```geologicIndex```, ```erosionLevel```, and ```riskLevel```. The derived values are
+only calculated when required but memorized (otherwise the calculation would take exponential time). A ```Calculator```
+object with access to the entire grid, performs the calculations.
+
+To solve part 1, a grid is constructed of the required size, and then the ```riskLevel``` for all ```Region``` objects
+in the rectangle from MOUTH to TARGET is added starting at (0,0) moving towards target. While collecting the
+```riskLevel``` values, all required attributes for all the reagions involved get calculated only once and only when 
+needed.
+
+Part 2 is a bit more tricky and requires a breath-first-search (BFS) for all possible paths from MOUTH to TARGET, and
+once a solution is found, that search will set the time to beat. From that moment on, all active search paths on the 
+queue with a total time longer than the time to beat can be purged and further ignored. Everytime a faster route has 
+been found, this will be used as the new time to beat. This algorithm does not allow for the use of a generic BFS. 
