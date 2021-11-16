@@ -4,8 +4,6 @@ import com.putoet.grid.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class Day22Test {
@@ -21,5 +19,10 @@ class Day22Test {
     @Test
     void targetAreaRiskLevel() {
         assertEquals(114, Day22.targetAreaRiskLevel(grid, TARGET));
+    }
+
+    @Test
+    void part2() {
+        assertEquals(45, Day22.rescue(grid, TARGET));
     }
 }

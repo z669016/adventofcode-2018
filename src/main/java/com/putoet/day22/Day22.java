@@ -2,6 +2,8 @@ package com.putoet.day22;
 
 import com.putoet.grid.Point;
 
+import java.util.Optional;
+
 public class Day22 {
     public static final int DEPTH = 5355;
     public static Point TARGET = Point.of(14,796);
@@ -10,6 +12,7 @@ public class Day22 {
         final Region[][] grid = CaveFactory.of(DEPTH, TARGET);
 
         part1(grid);
+        part2(grid);
     }
 
     private static void part1(Region[][] grid) {
@@ -28,5 +31,19 @@ public class Day22 {
         }
 
         return riskLevel;
+    }
+
+    private static void part2(Region[][] grid) {
+        System.out.println("Minutes to target is " + rescue(grid, TARGET));
+    }
+
+    public static int rescue(Region[][] grid, Point target) {
+        final Rescue rescue = new Rescue(grid, target);
+        final Optional<Rescue.Node> node = rescue.rescue();
+
+        if (node.isEmpty())
+            throw new IllegalStateException("No path found to target region");
+
+        return node.get().timer;
     }
 }

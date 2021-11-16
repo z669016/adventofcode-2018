@@ -241,7 +241,7 @@ in the rectangle from MOUTH to TARGET is added starting at (0,0) moving towards 
 ```riskLevel``` values, all required attributes for all the regions involved get calculated only once and only when 
 needed.
 
-Part 2 is a bit more tricky and requires a breath-first-search (BFS) for all possible paths from MOUTH to TARGET, and
-once a solution is found, that search will set the time to beat. From that moment on, all active search paths on the 
-queue with a total time longer than the time to beat can be purged and further ignored. Everytime a faster route has 
-been found, this will be used as the new time to beat. This algorithm does not allow for the use of a generic BFS. 
+Part 2 is simply a breath-first-search (BFS) for the shortest path from MOUTH to TARGET. The tricky part is in limiting 
+the routes to search (drop exploring a path when it's already longer than the shortest path until that point). 
+So, remember the shortest time to arrive at a certain location with a certain tool (the key to that map is build from
+a coordinate and the tool used on entry of the region!).
