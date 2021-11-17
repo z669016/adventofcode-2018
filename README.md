@@ -245,3 +245,14 @@ Part 2 is simply a breath-first-search (BFS) for the shortest path from MOUTH to
 the routes to search (drop exploring a path when it's already longer than the shortest path until that point). 
 So, remember the shortest time to arrive at a certain location with a certain tool (the key to that map is build from
 a coordinate and the tool used on entry of the region!).
+
+## Day 23
+The description make look things worse than they possibly are. Each NanoBot is basically a sphere, though that's 
+irrelevant for part 1. I reused ```Point3D``` from my library that also provides a ```manhattenDistance(Point3D other)```
+method. First find the point with the highest r-value, using a simple stream ```max(Comparator.comparing(r))``` 
+operation. Then stream again the list of bots filtering the bots in range of the strongest and count the elements in 
+the stream.
+
+Part 2 is nasty, and requires too much math. I reused the simplest solution available at Reddit,and that worked for me 
+as well (thnx EriiKKo).
+
