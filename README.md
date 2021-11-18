@@ -256,3 +256,14 @@ the stream.
 Part 2 is nasty, and requires too much math. I reused the simplest solution available at Reddit,and that worked for me 
 as well (thnx EriiKKo).
 
+## Day 24
+A long description today, so probably also alot of opportunities to make mistakes. In the end not truly difficult, but 
+beware of using the right order (sometimes sorting on multiple properties). The order of target selection differs from
+the order of attacking, so watch out. Part 1 in the end was pretty straight forward (when I found I din't correctly test
+if groups were still 'alive'). What surprised mewas seing reports of fights without the opponent losing units. It 
+appeared that after a while, the ```effectiveDamage(attacker)``` was less than the ```hitPoints``` per unit, so the 
+attacker was not able to kill even a single unit.
+
+For part 2 there is one edge case, which was the case that neither army was able to kill any opponents' units, which
+basically means the battle could end in a tie. Taking this into account, meant part 2 could be solved with brute force, 
+increasing the boost by 1 until the immune system would win. 
