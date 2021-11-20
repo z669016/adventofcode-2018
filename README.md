@@ -151,7 +151,17 @@ to be aware that there can be one additional generated recipe, as regularly two 
 might need to ignore the very last recipe.
 
 ## Day 15
-not solved yet ....
+Started all over again (2nd time already). Rewritten ```Unit```,and ```Game``` classes and still get the sae wrong 
+answers. Run one of the Python solutions from Reddit, which failed,ran another one and that one worked ... weird. It
+has to do something with the order of processing units or points, so I ensured all lists are in reading order, even the 
+list of the points provided by the successor-method used for the breath-first-search ... eureka this makes all the 
+difference. SSo, the order of the successor points used by the BFS impacts the shortest route alternative (of course), 
+but for this assignment that actually matters. I didn't see that coming,though in hindsight it makes sense.
+
+So, the approach was fine all a long, but that tiny mistake in the BFS-successor caused a lot of frustration.
+
+Part 2 was less of an issue. Simply replay the game with a different attackPower for Elves until the elves win 
+without casualties. Even with a slow game (runs roughly one second), it luckily didn't take too long.
 
 ## Day 16
 Started with an immutable Regs class that contains an array of int registers and operations to get and set values. 

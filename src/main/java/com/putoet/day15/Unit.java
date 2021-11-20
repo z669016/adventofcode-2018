@@ -4,7 +4,7 @@ import com.putoet.grid.Point;
 
 public class Unit {
     private final UnitType type;
-    private final int attackPower = 3;
+    private final int attackPower;
 
     private int hitPoints = 200;
     private Point point;
@@ -15,6 +15,16 @@ public class Unit {
 
         this.type = type;
         this.point = point;
+        this.attackPower = 3;
+    }
+
+    public Unit(UnitType type, Point point, int attackPower) {
+        assert type != null;
+        assert point != null;
+
+        this.type = type;
+        this.point = point;
+        this.attackPower = attackPower;
     }
 
     public UnitType type() { return type; }
@@ -39,6 +49,6 @@ public class Unit {
 
     @Override
     public String toString() {
-        return type() + "(" + hitPoints + ")";
+        return type() + "(" + hitPoints + ")/" + point;
     }
 }
