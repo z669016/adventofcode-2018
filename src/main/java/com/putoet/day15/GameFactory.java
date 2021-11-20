@@ -1,45 +1,31 @@
 package com.putoet.day15;
 
-import com.putoet.grid.Grid;
 import com.putoet.grid.Point;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameFactory {
-    public static Game of(List<String> map) {
-        assert map != null;
-        assert map.isEmpty() == false;
-
-        final char grid[][] = new char[map.size()][];
-        for (int y = 0; y < map.size(); y++) {
-            grid[y] = map.get(y).toCharArray();
-        }
-
-        return of(grid);
-    }
-
-    public static Game of(char[][] map) {
-        assert map != null;
-        assert map.length > 0;
-        for (char[] chars : map) assert chars.length == map[0].length;
-
-        final int maxY = map.length;
-        final int maxX = map[0].length;
-
-        final char[][] grid = new char[maxY][maxX];
+    public static Game of(List<String> lines) {
         final List<Unit> units = new ArrayList<>();
+        final char[][] grid = new char[lines.size()][lines.get(0).length()];
 
-        for (int y = 0; y < maxY; y++) {
-            for (int x = 0; x < maxX; x++) {
-                grid[y][x] = map[y][x];
-                if (grid[y][x] == Goblin.SYMBOL)
-                    units.add(new Goblin(Point.of(x, y)));
-                else if (grid[y][x] == Elf.SYMBOL)
-                    units.add(new Elf(Point.of(x, y)));
+        final int lineLength = lines.get(0).length();
+        for (int y = 0; y < lines.size(); y++) {
+            final String line = lines.get(y);
+            for(int x = 0; x < line.length(); x++) {
+                final char c = line.charAt(x);
+                if ("#.EG".indexOf(c) == -1 || line.length() != lineLength)
+                    throw new IllegalArgumentException("Invalid board for this game");
+
+                if (c == 'E' || c == 'G')
+                    units.add(new Unit(UnitType.of(c), Point.of(x, y)));
+                grid[y][x] = c;
             }
         }
 
-        return new Game(new Grid(grid), units);
+        return new Game(grid,units);
     }
+
+    private GameFactory() {}
 }
