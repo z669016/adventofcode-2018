@@ -20,7 +20,7 @@ public class GridFactory {
         final Grid next = grid.copy();
 
         final Map<Point, AcreScan> acreScans = AcreScanner.scan(grid);
-        acreScans.forEach((point, acreScan) -> next.set(point.x, point.y, next(acreScan, grid.get(point.x, point.y))));
+        acreScans.forEach((point, acreScan) -> next.set(point.x(), point.y(), next(acreScan, grid.get(point.x(), point.y()))));
 
         return next;
     }

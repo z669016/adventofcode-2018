@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GirdFactoryTest {
 
@@ -15,11 +15,11 @@ class GirdFactoryTest {
         final List<String> lines = ResourceLines.list("/day17.txt");
         final Grid grid = GirdFactory.of(lines);
 
-        assertThat(grid.minX()).isEqualTo(494);
-        assertThat(grid.maxX()).isEqualTo(508);
-        assertThat(grid.minY()).isEqualTo(0);
-        assertThat(grid.maxY()).isEqualTo(14);
-        assertThat(grid.get(GirdFactory.WATER_X, GirdFactory.WATER_Y)).isEqualTo('+');
+        assertEquals(494, grid.minX());
+        assertEquals(508, grid.maxX());
+        assertEquals(0, grid.minY());
+        assertEquals(14,grid.maxY());
+        assertEquals('+', grid.get(GirdFactory.WATER_X, GirdFactory.WATER_Y));
 
         System.out.println(grid);
     }

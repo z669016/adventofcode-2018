@@ -65,10 +65,10 @@ public class Message {
         int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
 
         for (MovingPoint point : movingPoints) {
-            minX = Math.min(minX, point.position().x);
-            maxX = Math.max(maxX, point.position().x);
-            minY = Math.min(minY, point.position().y);
-            maxY = Math.max(maxY, point.position().y);
+            minX = Math.min(minX, point.position().x());
+            maxX = Math.max(maxX, point.position().x());
+            minY = Math.min(minY, point.position().y());
+            maxY = Math.max(maxY, point.position().y());
         }
 
         final int sx = Math.abs(minX - maxX);
@@ -82,8 +82,8 @@ public class Message {
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
 
         for (MovingPoint point : movingPoints) {
-            minX = Math.min(minX, point.position().x);
-            minY = Math.min(minY, point.position().y);
+            minX = Math.min(minX, point.position().x());
+            minY = Math.min(minY, point.position().y());
         }
 
         final char[][] grid = new char[size.dy][size.dx];
@@ -91,7 +91,7 @@ public class Message {
             Arrays.fill(row, '.');
 
         for (MovingPoint point : movingPoints)
-            grid[point.position().y - minY][point.position().x - minX] = '#';
+            grid[point.position().y() - minY][point.position().x() - minX] = '#';
 
         return grid;
     }

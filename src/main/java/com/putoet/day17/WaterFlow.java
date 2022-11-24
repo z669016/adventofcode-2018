@@ -23,7 +23,7 @@ public class WaterFlow {
 
         while (!stack.empty()) {
             final Point point = stack.pop();
-            if (grid.get(point.x, point.y) != FLOWING_WATER)
+            if (grid.get(point.x(), point.y()) != FLOWING_WATER)
                 continue;
 
             final Point next = point.add(Point.of(0, 1));
@@ -31,36 +31,36 @@ public class WaterFlow {
             final Optional<Point> right = x < grid.maxX() ? Optional.of(point.add(Point.of(1, 0))) : Optional.empty();
 
             // Don;t fall off the grid
-            if (next.y >= grid.maxY())
+            if (next.y() >= grid.maxY())
                 continue;
 
             // if flowing watter can go down it will
-            if (grid.get(next.x, next.y) == OPEN) {
+            if (grid.get(next.x(), next.y()) == OPEN) {
                 stack.push(point);
-                grid.set(next.x, next.y, FLOWING_WATER);
+                grid.set(next.x(), next.y(), FLOWING_WATER);
                 stack.push(next);
                 continue;
             }
 
             // if flowing watter hits clay, move left (if possible) and move right (if possible)
-            if (grid.get(next.x, next.y) == CLAY || grid.get(next.x, next.y) == STILL_WATER) {
+            if (grid.get(next.x(), next.y()) == CLAY || grid.get(next.x(), next.y()) == STILL_WATER) {
                 boolean pushed = false;
 
-                if (left.isPresent() && grid.get(left.get().x, left.get().y) == OPEN) {
+                if (left.isPresent() && grid.get(left.get().x(), left.get().y()) == OPEN) {
                     stack.push(point);
                     pushed = true;
 
-                    grid.set(left.get().x, left.get().y, FLOWING_WATER);
+                    grid.set(left.get().x(), left.get().y(), FLOWING_WATER);
                     stack.push(left.get());
                 }
 
-                if (right.isPresent() && grid.get(right.get().x, right.get().y) == OPEN) {
+                if (right.isPresent() && grid.get(right.get().x(), right.get().y()) == OPEN) {
                     if (!pushed) {
                         stack.push(point);
                         pushed = true;
                     }
 
-                    grid.set(right.get().x, right.get().y, FLOWING_WATER);
+                    grid.set(right.get().x(), right.get().y(), FLOWING_WATER);
                     stack.push(right.get());
                 }
                 if (pushed)
@@ -68,8 +68,8 @@ public class WaterFlow {
             }
 
             // if below has been visited already, check if it should be converted into still water and go back
-            if (grid.get(next.x, next.y) == FLOWING_WATER) {
-                if (checkStillWater(next.x, next.y, grid))
+            if (grid.get(next.x(), next.y()) == FLOWING_WATER) {
+                if (checkStillWater(next.x(), next.y(), grid))
                     stack.push(point);
             }
         }

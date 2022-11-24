@@ -14,6 +14,17 @@ public class Cart implements Comparable<Cart> {
     private final Direction direction;
     private final Point location;
 
+    public static Supplier<DirectionTurn> directionTurnSupplier() {
+        return new Supplier<>() {
+            private DirectionTurn dt = DirectionTurn.RIGHT;
+
+            @Override
+            public DirectionTurn get() {
+                return dt = dt.next();
+            }
+        };
+    }
+
     public Cart(String name, Direction direction, Supplier<DirectionTurn> directionTurnSupplier, Point location) {
         assert name != null && name.length() > 0;
         assert direction != null;
@@ -33,16 +44,6 @@ public class Cart implements Comparable<Cart> {
         return new Cart(name, direction, directionTurnSupplier(), location);
     }
 
-    public static Supplier<DirectionTurn> directionTurnSupplier() {
-        return new Supplier<DirectionTurn>() {
-            private DirectionTurn dt = DirectionTurn.RIGHT;
-
-            @Override
-            public DirectionTurn get() {
-                return dt = dt.next();
-            }
-        };
-    }
 
     public String name() {
         return name;
@@ -59,8 +60,7 @@ public class Cart implements Comparable<Cart> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Cart)) return false;
-        Cart cart = (Cart) o;
+        if (!(o instanceof Cart cart)) return false;
         return Objects.equals(name, cart.name);
     }
 
@@ -71,17 +71,17 @@ public class Cart implements Comparable<Cart> {
 
     @Override
     public int compareTo(Cart other) {
-        int result = Integer.compare(location.y, other.location.y);
+        int result = Integer.compare(location.y(), other.location.y());
         if (result == 0)
-            result = Integer.compare(location.x, other.location.x);
+            result = Integer.compare(location.x(), other.location.x());
 
         return result;
     }
 
     public Cart move(Tracks tracks) {
         Direction direction = this.direction;
-        int x = location.x;
-        int y = location.y;
+        int x = location.x();
+        int y = location.y();
 
         final Tracks.TrackElement element = tracks.at(direction, location);
         switch (element) {

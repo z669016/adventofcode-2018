@@ -1,13 +1,10 @@
 package com.putoet.device;
 
-import com.putoet.device.Instruction;
-import com.putoet.device.Regs;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InstructionTest {
@@ -18,8 +15,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.addr(0, 1, 2, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(5);
-        assertThat(instruction.name()).isEqualTo("addr");
+        assertEquals(5, after.get(3));
+        assertEquals("addr", instruction.name());
     }
 
     @Test
@@ -28,8 +25,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.addi(0, 2, 4, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(7);
-        assertThat(instruction.name()).isEqualTo("addi");
+        assertEquals(7, after.get(3));
+        assertEquals("addi", instruction.name());
     }
 
     @Test
@@ -38,8 +35,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.mulr(0, 1, 2, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(6);
-        assertThat(instruction.name()).isEqualTo("mulr");
+        assertEquals(6, after.get(3));
+        assertEquals("mulr", instruction.name());
     }
 
     @Test
@@ -48,8 +45,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.muli(0, 2, 4, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(12);
-        assertThat(instruction.name()).isEqualTo("muli");
+        assertEquals(12, after.get(3));
+        assertEquals("muli", instruction.name());
     }
 
     @Test
@@ -58,8 +55,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.banr(0, 1, 2, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(2);
-        assertThat(instruction.name()).isEqualTo("banr");
+        assertEquals(2, after.get(3));
+        assertEquals("banr", instruction.name());
     }
 
     @Test
@@ -68,8 +65,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.bani(0, 2, 3, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(3);
-        assertThat(instruction.name()).isEqualTo("bani");
+        assertEquals(3, after.get(3));
+        assertEquals("bani", instruction.name());
     }
 
     @Test
@@ -78,8 +75,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.borr(0, 0, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(3);
-        assertThat(instruction.name()).isEqualTo("borr");
+        assertEquals(3, after.get(3));
+        assertEquals("borr", instruction.name());
     }
 
     @Test
@@ -88,8 +85,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.bori(0, 1, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(3);
-        assertThat(instruction.name()).isEqualTo("bori");
+        assertEquals(3, after.get(3));
+        assertEquals("bori", instruction.name());
     }
 
     @Test
@@ -98,8 +95,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.setr(0, 0, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(1);
-        assertThat(instruction.name()).isEqualTo("setr");
+        assertEquals(1, after.get(3));
+        assertEquals("setr", instruction.name());
     }
 
     @Test
@@ -108,8 +105,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.seti(0, 7, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(7);
-        assertThat(instruction.name()).isEqualTo("seti");
+        assertEquals(7, after.get(3));
+        assertEquals("seti", instruction.name());
     }
 
     @Test
@@ -118,8 +115,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.gtir(0, 4, 3, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(0);
-        assertThat(instruction.name()).isEqualTo("gtir");
+        assertEquals(0, after.get(3));
+        assertEquals("gtir", instruction.name());
     }
 
     @Test
@@ -128,8 +125,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.gtri(0, 1, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(1);
-        assertThat(instruction.name()).isEqualTo("gtri");
+        assertEquals(1, after.get(3));
+        assertEquals("gtri", instruction.name());
     }
 
     @Test
@@ -138,8 +135,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.gtrr(0, 2, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(1);
-        assertThat(instruction.name()).isEqualTo("gtrr");
+        assertEquals(1, after.get(3));
+        assertEquals("gtrr", instruction.name());
     }
 
     @Test
@@ -148,8 +145,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.eqir(0, 4, 3, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(1);
-        assertThat(instruction.name()).isEqualTo("eqir");
+        assertEquals(1, after.get(3));
+        assertEquals("eqir", instruction.name());
     }
 
     @Test
@@ -158,8 +155,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.eqri(0, 1, 2, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(1);
-        assertThat(instruction.name()).isEqualTo("eqri");
+        assertEquals(1, after.get(3));
+        assertEquals("eqri", instruction.name());
     }
 
     @Test
@@ -168,8 +165,8 @@ class InstructionTest {
         final Instruction instruction = Instruction.eqrr(0, 2, 1, 3);
         final Regs after = before.apply(instruction);
 
-        assertThat(after.get(3)).isEqualTo(0);
-        assertThat(instruction.name()).isEqualTo("eqrr");
+        assertEquals(0, after.get(3));
+        assertEquals("eqrr", instruction.name());
     }
 
     @Test
@@ -177,7 +174,7 @@ class InstructionTest {
         final List<String> instructionSet = Instruction.instructionSet(0, 1, 2, 3).stream()
                 .sequential()
                 .map(Instruction::name)
-                .collect(Collectors.toList());
+                .toList();
 
         assertEquals(List.of("addr", "addi", "mulr", "muli", "banr", "bani", "borr", "bori", "setr", "seti", "gtir", "gtri", "gtrr", "eqir", "eqri", "eqrr"), instructionSet);
     }

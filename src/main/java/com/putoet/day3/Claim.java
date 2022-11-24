@@ -40,6 +40,6 @@ public class Claim {
 
     @Override
     public String toString() {
-        return String.format("#%d @ %d,%d: %s", id, at.x, at.y, size);
+        return String.format("#%d @ %d,%d: %s", id, at.x(), at.y(), size);
     }
 }

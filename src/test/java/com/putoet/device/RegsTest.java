@@ -1,20 +1,18 @@
 package com.putoet.device;
 
-import com.putoet.device.Instruction;
-import com.putoet.device.Regs;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RegsTest {
     @Test
     void get() {
         final Regs regs = new Regs().set(0, 1).set(1, 2).set(2, 3).set(3, 4);
-        assertThat(regs.get(0)).isEqualTo(1);
-        assertThat(regs.get(1)).isEqualTo(2);
-        assertThat(regs.get(2)).isEqualTo(3);
-        assertThat(regs.get(3)).isEqualTo(4);
+        assertEquals(1, regs.get(0));
+        assertEquals(2, regs.get(1));
+        assertEquals(3, regs.get(2));
+        assertEquals(4, regs.get(3));
     }
 
     @Test
@@ -22,24 +20,24 @@ class RegsTest {
         final Regs a = new Regs();
         final Regs b = a.set(0,1);
 
-        assertThat(a.toString()).isEqualTo("[0, 0, 0, 0]");
-        assertThat(b.toString()).isEqualTo("[1, 0, 0, 0]");
+        assertEquals("[0, 0, 0, 0]", a.toString());
+        assertEquals("[1, 0, 0, 0]", b.toString());
     }
 
     @Test
     void testEquals() {
         final Regs a = new Regs();
         final Regs b = a.set(0, 1);
-        assertThat(a).isNotEqualTo(b);
+        assertNotEquals(a, b);
 
         final Regs c = a.set(0, 1);
-        assertThat(b).isEqualTo(c);
+        assertEquals(b, c);
     }
 
     @Test
     void testToString() {
         final Regs regs = new Regs().set(0, 1).set(1, 2).set(2, 3).set(3, 4);
-        assertThat(regs.toString()).isEqualTo("[1, 2, 3, 4]");
+        assertEquals("[1, 2, 3, 4]", regs.toString());
     }
 
     @Test

@@ -21,7 +21,6 @@ public class Game {
 
     private final char[][] grid;
     private final List<Unit> units;
-    private int rounds = -1;
 
     public Game(char[][] grid, List<Unit> units) {
         this.grid = grid;
@@ -39,7 +38,7 @@ public class Game {
     }
 
     private boolean contains(Point point) {
-        return point.x >= 0 && point.x < grid[0].length && point.y >= 0 && point.x < grid.length;
+        return point.x() >= 0 && point.x() < grid[0].length && point.y() >= 0 && point.x() < grid.length;
     }
 
     @Override
@@ -58,9 +57,8 @@ public class Game {
     private String unitsForLine(int y) {
         final List<Unit> unitsForLine = units.stream()
                 .filter(Unit::alive)
-                .filter(u -> u.point().y == y)
-                .sorted(unitReadingOrder)
-                .collect(Collectors.toList());
+                .filter(u -> u.point().y() == y)
+                .sorted(unitReadingOrder).toList();
 
         return unitsForLine.isEmpty() ? "" : "   " +
                 unitsForLine.stream()
@@ -69,7 +67,7 @@ public class Game {
     }
 
     public Pair<UnitType, Integer> combat() {
-        rounds = 0;
+        int rounds = 0;
         while (round()) {
             rounds++;
         }
@@ -108,7 +106,7 @@ public class Game {
             targetAdjacent.ifPresent(target -> {
                 target.defend(attacker);
                 if (!target.alive())
-                    grid[target.point().y][target.point().x] = EMPTY;
+                    grid[target.point().y()][target.point().x()] = EMPTY;
             });
         }
 
@@ -120,7 +118,7 @@ public class Game {
                 .filter(u -> u.type() != attacker.type())
                 .filter(Unit::alive)
                 .sorted(unitReadingOrder)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Optional<Unit> targetAdjacent(Unit attacker, List<Unit> targets) {
@@ -134,16 +132,16 @@ public class Game {
                 .map(this::inRange)
                 .flatMap(List::stream)
                 .sorted(pointReadingOrder)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Point> inRange(Unit target) {
         return DIRECTIONS.stream()
                 .map(direction -> direction.add(target.point()))
                 .filter(this::contains)
-                .filter(point -> grid[point.y][point.x] == EMPTY)
+                .filter(point -> grid[point.y()][point.x()] == EMPTY)
                 .sorted(pointReadingOrder)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Game move(Unit unit, Point to) {
@@ -164,7 +162,7 @@ public class Game {
     private Game paintUnit(Unit unit, char c) {
         assert contains(unit.point());
 
-        grid[unit.point().y][unit.point().x] = c;
+        grid[unit.point().y()][unit.point().x()] = c;
         return this;
     }
 
@@ -176,7 +174,7 @@ public class Game {
                         p -> DIRECTIONS.stream()
                                 .map(direction -> direction.add(p))
                                 .filter(this::contains)
-                                .filter(point -> grid[point.y][point.x] == EMPTY)
+                                .filter(point -> grid[point.y()][point.x()] == EMPTY)
                                 .sorted(pointReadingOrder)
                                 .collect(Collectors.toList())
                 ))
@@ -188,6 +186,6 @@ public class Game {
     }
 
     private UnitType winner() {
-        return units.stream().filter(u -> u.hitPoints() > 0).findFirst().get().type();
+        return units.stream().filter(u -> u.hitPoints() > 0).findFirst().orElseThrow().type();
     }
 }

@@ -6,7 +6,7 @@ import com.putoet.utilities.Direction;
 import java.util.List;
 
 public class Tracks {
-    public static enum TrackElement {
+    public enum TrackElement {
         HLINE,
         VLINE,
         INTERSECTION,
@@ -39,13 +39,13 @@ public class Tracks {
         assert direction != null;
         assert checkpoint(point);
 
-        return TrackElement.of(direction, grid[point.y][point.x]);
+        return TrackElement.of(direction, grid[point.y()][point.x()]);
     }
 
     private boolean checkpoint(Point point) {
         return point != null
-                && point.y >= 0 && point.y < grid.length
-                && point.x >= 0 && point.x <= grid[point.y].length;
+                && point.y() >= 0 && point.y() < grid.length
+                && point.x() >= 0 && point.x() <= grid[point.y()].length;
     }
 
     public static Tracks of(List<String> lines) {

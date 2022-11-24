@@ -1,13 +1,12 @@
 package com.putoet.device;
 
-import com.putoet.device.InstructionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InstructionFactoryTest {
     private Map<Long, String> opcodes;
@@ -37,7 +36,7 @@ class InstructionFactoryTest {
     void of() {
         final InstructionFactory factory = new InstructionFactory(opcodes);
         for (long idx = 0; idx < 16; idx++) {
-            assertThat(factory.of(idx, 0, 0, 0).name()).isEqualTo(opcodes.get(idx));
+            assertEquals(opcodes.get(idx), factory.of(idx, 0, 0, 0).name());
         }
     }
 }

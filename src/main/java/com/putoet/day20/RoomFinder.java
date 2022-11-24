@@ -25,9 +25,9 @@ public class RoomFinder {
             final List<Point> nextPoints = new ArrayList<>();
             for (Point direction : Point.directions(true)) {
                 Point next = p.add(direction);
-                if (grid.contains(next.x, next.y) && Door.isDoor(grid.get(next.x, next.y))) {
+                if (grid.contains(next.x(), next.y()) && Door.isDoor(grid.get(next.x(), next.y()))) {
                     next = next.add(direction);
-                    if (!Room.isRoom(grid.get(next.x, next.y)))
+                    if (!Room.isRoom(grid.get(next.x(), next.y())))
                         throw new IllegalStateException("Looking for " + room + "  entering invalid location " + next);
 
                     nextPoints.add(next);

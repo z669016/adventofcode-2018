@@ -3,7 +3,6 @@ package com.putoet.day17;
 import com.putoet.grid.Grid;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -14,12 +13,12 @@ class RangeTest {
         final String xLine = "x=569, y=570..582";
 
         Range range = Range.of(xLine);
-        assertThat(range instanceof YRange).isTrue();
-        assertThat(range.minX()).isEqualTo(569);
-        assertThat(range.maxX()).isEqualTo(569);
-        assertThat(range.minY()).isEqualTo(570);
-        assertThat(range.maxY()).isEqualTo(582);
-        assertThat(range.toString()).isEqualTo(xLine);
+        assertTrue(range instanceof YRange);
+        assertEquals(569, range.minX());
+        assertEquals(569, range.maxX());
+        assertEquals(570, range.minY());
+        assertEquals(582, range.maxY());
+        assertEquals(xLine, range.toString());
 
         final Grid grid = mock(Grid.class);
         range.apply(grid);
@@ -32,12 +31,12 @@ class RangeTest {
         final String yLine = "y=372, x=495..519";
 
         Range range = Range.of(yLine);
-        assertThat(range instanceof XRange).isTrue();
-        assertThat(range.minX()).isEqualTo(495);
-        assertThat(range.maxX()).isEqualTo(519);
-        assertThat(range.minY()).isEqualTo(372);
-        assertThat(range.maxY()).isEqualTo(372);
-        assertThat(range.toString()).isEqualTo(yLine);
+        assertTrue(range instanceof XRange);
+        assertEquals(495, range.minX());
+        assertEquals(519, range.maxX());
+        assertEquals(372, range.minY());
+        assertEquals(372, range.maxY());
+        assertEquals(yLine, range.toString());
 
         final Grid grid = mock(Grid.class);
         range.apply(grid);

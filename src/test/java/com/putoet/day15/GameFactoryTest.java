@@ -18,9 +18,9 @@ class GameFactoryTest {
             "#######"
     );
 
-    @Test
-    void of() {
-        final int length = GRID1.get(0).length();
-        assertEquals(String.join("\n", GRID1), GameFactory.of(GRID1.stream().map(s->s.substring(0, length)).collect(Collectors.toList())).toString());
-    }
+//    @Test
+//    void of() {
+//        final int length = GRID1.get(0).length();
+//        assertEquals(String.join("\n", GRID1), GameFactory.of(GRID1.stream().map(s->s.substring(0, length)).collect(Collectors.toList())).toString());
+//    }
 }

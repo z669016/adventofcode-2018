@@ -30,7 +30,7 @@ public class Rescue {
         DIRECTION.forEach(direction -> {
             final Point next = from.region.coordinate().add(direction);
             if (onTheGrid(next) && !from.visited(next)) {
-                final Region toRegion = grid[next.y][next.x];
+                final Region toRegion = grid[next.y()][next.x()];
                 final Set<Tool> validTools = validToolsFor(from.region, toRegion);
                 if (validTools.contains(from.tool))
                     successors.add(new Node(toRegion, from.tool, from.timer + cost(from.tool, from.tool), from));
@@ -79,7 +79,7 @@ public class Rescue {
     }
 
     private boolean onTheGrid(Point point) {
-        return point.y >= 0 && point.y < grid.length && point.x >= 0 && point.x < grid.length;
+        return point.y() >= 0 && point.y() < grid.length && point.x() >= 0 && point.x() < grid.length;
     }
 
     private Set<Tool> validToolsFor(Region from, Region to) {

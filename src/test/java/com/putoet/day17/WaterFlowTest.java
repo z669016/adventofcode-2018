@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WaterFlowTest {
     @Test
@@ -20,7 +20,7 @@ class WaterFlowTest {
         WaterFlow.flow(grid);
         System.out.println(grid);
 
-        assertThat(WaterFlow.tilesReached(grid)).isEqualTo(57);
-        assertThat(WaterFlow.tilesStillWater(grid)).isEqualTo(29);
+        assertEquals(57, WaterFlow.tilesReached(grid));
+        assertEquals(29, WaterFlow.tilesStillWater(grid));
     }
 }

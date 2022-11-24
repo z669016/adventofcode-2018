@@ -6,15 +6,14 @@ import com.putoet.utilities.Size;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Grid {
     public static Grid of(List<Point> points) {
         assert points != null && points.size() > 0;
 
-        final int maxX = points.stream().mapToInt(p -> p.x).max().getAsInt();
-        final int maxY = points.stream().mapToInt(p -> p.y).max().getAsInt();
+        final int maxX = points.stream().mapToInt(Point::x).max().orElseThrow();
+        final int maxY = points.stream().mapToInt(Point::y).max().orElseThrow();
         final int size = Math.max(maxX + 2, maxY + 2);
 
         return new Grid(Size.of(size, size), points);
@@ -38,7 +37,7 @@ public class Grid {
         IntStream.range(0, points.size())
                 .forEach(i -> {
                     final Point p = points.get(i);
-                    grid[p.y][p.x] = asLetter(i);
+                    grid[p.y()][p.x()] = asLetter(i);
                 });
     }
 
@@ -66,7 +65,7 @@ public class Grid {
 
     private char[] closest(Point of) {
         final int[] distances = points.stream().mapToInt(of::manhattanDistance).toArray();
-        final int min = Arrays.stream(distances).min().getAsInt();
+        final int min = Arrays.stream(distances).min().orElseThrow();
         final int count = (int) Arrays.stream(distances).filter(i -> i == min).count();
         final char[] letters = new char[count];
 
@@ -80,9 +79,12 @@ public class Grid {
     public List<Character> enclosedLetters() {
         final List<Character> letters = IntStream.range(0, points.size())
                 .mapToObj(this::asLetter)
-                .collect(Collectors.toList());
+                .toList();
 
-        return letters.stream().filter(this::notAtEdge).sorted().collect(Collectors.toList());
+        return letters.stream().
+                filter(this::notAtEdge)
+                .sorted()
+                .toList();
     }
 
     private boolean notAtEdge(char letter) {

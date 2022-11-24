@@ -30,9 +30,8 @@ public class GridFactory {
         int offset = 0;
         while (offset < regex.length()) {
             if (regex.charAt(offset) == '(') {
-                final int start = offset;
                 final int end = choiceEnd(offset, regex);
-                final List<String> regexes = choiceSplit(start, end, regex);
+                final List<String> regexes = choiceSplit(offset, end, regex);
                 final Set<Point> endPoints = parse(level+ 1, map, point, regexes);
                 for (Point next : endPoints) {
                     parse(level + 1, map, next, regex.substring(end + 1));
@@ -122,10 +121,10 @@ public class GridFactory {
     private static Grid grid(Map<Point, Cell> locations) {
         assert !locations.isEmpty();
 
-        final int minX = locations.keySet().stream().mapToInt(point -> point.x).min().getAsInt();
-        final int minY = locations.keySet().stream().mapToInt(point -> point.y).min().getAsInt();
-        final int maxX = locations.keySet().stream().mapToInt(point -> point.x).max().getAsInt();
-        final int maxY = locations.keySet().stream().mapToInt(point -> point.y).max().getAsInt();
+        final int minX = locations.keySet().stream().mapToInt(Point::x).min().orElseThrow();
+        final int minY = locations.keySet().stream().mapToInt(Point::y).min().orElseThrow();
+        final int maxX = locations.keySet().stream().mapToInt(Point::x).max().orElseThrow();
+        final int maxY = locations.keySet().stream().mapToInt(Point::y).max().orElseThrow();
 
         final int height = Math.abs(maxY - minY) + 3;
         final int width = Math.abs(maxX - minX) + 3;
@@ -134,7 +133,7 @@ public class GridFactory {
             Arrays.fill(line, '#');
         }
 
-        locations.values().forEach(cell -> grid[height - 2 - cell.location.y + minY][cell.location.x - minX + 1] = cell.symbol());
+        locations.values().forEach(cell -> grid[height - 2 - cell.location.y() + minY][cell.location.x() - minX + 1] = cell.symbol());
 
         return new Grid(grid);
     }

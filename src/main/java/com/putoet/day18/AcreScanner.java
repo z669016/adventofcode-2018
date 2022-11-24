@@ -4,7 +4,6 @@ package com.putoet.day18;
 import com.putoet.grid.Grid;
 import com.putoet.grid.Point;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,7 @@ public class AcreScanner {
         int adjacentLumberyards = 0;
 
         for (Point adjacent : adjacentPoints) {
-            switch (grid.get(adjacent.x, adjacent.y)) {
+            switch (grid.get(adjacent.x(), adjacent.y())) {
                 case GridFactory.LUMBERYARD -> adjacentLumberyards++;
                 case GridFactory.OPEN_GROUD -> adjacentOpen++;
                 case GridFactory.TREES -> adjacentTrees++;
@@ -63,7 +62,7 @@ public class AcreScanner {
     protected static List<Point> adjacendPoints(Point point, Grid grid) {
         return ADJACENT.stream()
                 .map(point::add)
-                .filter(p -> grid.contains(p.x, p.y))
+                .filter(p -> grid.contains(p.x(), p.y()))
                 .collect(Collectors.toList());
     }
 }

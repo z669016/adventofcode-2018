@@ -5,11 +5,9 @@ import com.putoet.utilities.Size;
 
 public class FuelGrid {
     private final Size size = Size.of(300, 300);
-    private final int serialNumber;
     private final int[][] grid = new int[size.dy][size.dx];
 
     public FuelGrid(int serialNumber) {
-        this.serialNumber = serialNumber;
         setupGrid(serialNumber, grid);
     }
 
@@ -23,7 +21,7 @@ public class FuelGrid {
         assert point != null;
 
         final int rackId = rackId(point);
-        int powerLevel = rackId * point.y;
+        int powerLevel = rackId * point.y();
         powerLevel += serialNumber;
         powerLevel *= rackId;
         powerLevel = hundreds(powerLevel);
@@ -35,7 +33,7 @@ public class FuelGrid {
     public static int rackId(Point point) {
         assert point != null;
 
-        return point.x + 10;
+        return point.x() + 10;
     }
 
     public static int hundreds(int value) {
@@ -44,10 +42,10 @@ public class FuelGrid {
 
     public int get(Point point) {
         assert point != null;
-        assert point.x > 0 && point.x <= size.dx;
-        assert point.y > 0 && point.y <= size.dy;
+        assert point.x() > 0 && point.x() <= size.dx;
+        assert point.y() > 0 && point.y() <= size.dy;
 
-        return grid[point.y - 1][point.x - 1];
+        return grid[point.y() - 1][point.x() - 1];
     }
 
     public int threeByThreeSum(Point point) {
@@ -56,10 +54,10 @@ public class FuelGrid {
 
     public int xByXSum(Point point, int size) {
         assert point != null;
-        assert point.x > 0 && point.x <= this.size.dx - size + 1;
-        assert point.y > 0 && point.y <= this.size.dy - size + 1;
+        assert point.x() > 0 && point.x() <= this.size.dx - size + 1;
+        assert point.y() > 0 && point.y() <= this.size.dy - size + 1;
 
-        final int x = point.x - 1, y = point.y - 1;
+        final int x = point.x() - 1, y = point.y() - 1;
         int sum = 0;
         for (int dy = 0; dy < size; dy++)
             for (int dx = 0; dx < size; dx++)

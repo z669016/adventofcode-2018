@@ -11,8 +11,8 @@ public class Calculator {
         if (region.isMouth()) return 0;
         if (region.isTarget()) return 0;
 
-        final int y = region.coordinate().y;
-        final int x = region.coordinate().x;
+        final int y = region.coordinate().y();
+        final int x = region.coordinate().x();
 
         if (y == 0) return x * 16807L;
         if (x == 0) return y * 48271L;
