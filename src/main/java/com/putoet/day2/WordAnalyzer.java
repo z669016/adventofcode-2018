@@ -3,9 +3,7 @@ package com.putoet.day2;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import java.util.stream.Collectors;
 
 public class WordAnalyzer {
     private final String word;
@@ -15,7 +13,7 @@ public class WordAnalyzer {
         assert word != null;
 
         this.word = word;
-        occurrences = word.chars().boxed().collect(toMap(k -> (char) k.intValue(), v -> 1, Integer::sum));
+        occurrences = word.chars().boxed().collect(Collectors.toMap(k -> (char) k.intValue(), v -> 1, Integer::sum));
     }
 
     public List<Character> doubles() {
@@ -30,7 +28,7 @@ public class WordAnalyzer {
         return occurrences.entrySet().stream()
                 .filter(e -> e.getValue() == count)
                 .map(Map.Entry::getKey)
-                .collect(toList());
+                .toList();
     }
 
     public Optional<String> oneLetterDifference(WordAnalyzer other) {

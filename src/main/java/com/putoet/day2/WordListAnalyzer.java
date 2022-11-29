@@ -3,7 +3,6 @@ package com.putoet.day2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class WordListAnalyzer {
     private final List<WordAnalyzer> analyzers;
@@ -17,7 +16,7 @@ public class WordListAnalyzer {
     public static WordListAnalyzer of(List<String> words) {
         assert words != null;
 
-        return new WordListAnalyzer(words.stream().map(WordAnalyzer::new).collect(Collectors.toList()));
+        return new WordListAnalyzer(words.stream().map(WordAnalyzer::new).toList());
     }
 
     public int checksum() {
