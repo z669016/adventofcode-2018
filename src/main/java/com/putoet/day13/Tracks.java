@@ -1,7 +1,6 @@
 package com.putoet.day13;
 
 import com.putoet.grid.Point;
-import com.putoet.utilities.Direction;
 
 import java.util.List;
 

@@ -4,20 +4,18 @@ import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.PointFactory;
-import com.putoet.utilities.Size;
+import com.putoet.grid.Size;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
-    private List<Point> points;
     private Grid grid;
 
     @BeforeEach
     void setup() {
-        points = PointFactory.of(ResourceLines.list("/day6.txt"));
+        final List<Point> points = PointFactory.of(ResourceLines.list("/day6.txt"));
         grid = Grid.of(points);
         grid.fillClosest();
     }
@@ -27,7 +25,7 @@ class GridTest {
         final List<Point> points = PointFactory.of(ResourceLines.list("/day6.txt"));
         final Grid grid = Grid.of(points);
 
-        assertEquals(Size.of(11, 11), grid.size());
+        assertEquals(new Size(11, 11), grid.size());
     }
 
     @Test

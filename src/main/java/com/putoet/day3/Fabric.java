@@ -11,8 +11,8 @@ public class Fabric {
     public Fabric(List<Claim> claims) {
         assert claims != null;
 
-        final OptionalInt dy = claims.stream().mapToInt(c -> c.at().y() + c.size().dy).max();
-        final OptionalInt dx = claims.stream().mapToInt(c -> c.at().x() + c.size().dx).max();
+        final OptionalInt dy = claims.stream().mapToInt(c -> c.at().y() + c.size().dy()).max();
+        final OptionalInt dx = claims.stream().mapToInt(c -> c.at().x() + c.size().dx()).max();
 
         if (dy.isEmpty() || dx.isEmpty())
             throw new IllegalArgumentException("Cannot create Fabric for " + claims);
@@ -23,8 +23,8 @@ public class Fabric {
     }
 
     public void claim(Claim claim) {
-        for (int y = 0; y < claim.size().dy; y++)
-            for (int x = 0; x < claim.size().dx; x++) {
+        for (int y = 0; y < claim.size().dy(); y++)
+            for (int x = 0; x < claim.size().dx(); x++) {
                 if (fabric[y + claim.at().y()][x + claim.at().x()] == 0)
                     fabric[y + claim.at().y()][x + claim.at().x()] = claim.id();
                 else
@@ -43,8 +43,8 @@ public class Fabric {
     }
 
     private boolean hasNoOverlap(Claim claim) {
-        for (int y = 0; y < claim.size().dy; y++)
-            for (int x = 0; x < claim.size().dx; x++) {
+        for (int y = 0; y < claim.size().dy(); y++)
+            for (int x = 0; x < claim.size().dx(); x++) {
                 if (fabric[y + claim.at().y()][x + claim.at().x()] != claim.id())
                     return false;
             }

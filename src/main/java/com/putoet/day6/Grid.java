@@ -2,7 +2,7 @@ package com.putoet.day6;
 
 import com.putoet.grid.GridUtils;
 import com.putoet.grid.Point;
-import com.putoet.utilities.Size;
+import com.putoet.grid.Size;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,20 +16,20 @@ public class Grid {
         final int maxY = points.stream().mapToInt(Point::y).max().orElseThrow();
         final int size = Math.max(maxX + 2, maxY + 2);
 
-        return new Grid(Size.of(size, size), points);
+        return new Grid(new Size(size, size), points);
     }
 
     private final char[][] grid;
     private final List<Point> points;
 
     public Grid(Size size, List<Point> points) {
-        this.grid = new char[size.dy][size.dx];
+        this.grid = new char[size.dy()][size.dx()];
         this.points = List.copyOf(points);
 
         fill();
     }
 
-    public Size size() { return Size.of(grid.length, grid.length); }
+    public Size size() { return new Size(grid.length, grid.length); }
 
     public void fill() {
         for (char[] chars : grid) Arrays.fill(chars, '.');

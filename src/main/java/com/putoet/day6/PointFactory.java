@@ -1,9 +1,8 @@
-package com.putoet.utilities;
+package com.putoet.day6;
 
 import com.putoet.grid.Point;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PointFactory {
     public static List<Point> of(List<String> csvs) {
@@ -11,7 +10,7 @@ public class PointFactory {
 
         return csvs.stream()
             .map(PointFactory::of)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public static Point of(String csv) {

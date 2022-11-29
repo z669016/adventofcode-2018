@@ -1,5 +1,6 @@
-package com.putoet.utilities;
+package com.putoet.day6;
 
+import com.putoet.day6.PointFactory;
 import com.putoet.grid.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -2,7 +2,7 @@ package com.putoet.day3;
 
 import com.putoet.grid.Point;
 import org.junit.jupiter.api.Test;
-import com.putoet.utilities.Size;
+import com.putoet.grid.Size;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +14,6 @@ class ClaimTest {
 
         assertEquals(3, claim.id());
         assertEquals(Point.of(5, 6), claim.at());
-        assertEquals(Size.of(2, 4), claim.size());
+        assertEquals(new Size(2, 4), claim.size());
     }
 }

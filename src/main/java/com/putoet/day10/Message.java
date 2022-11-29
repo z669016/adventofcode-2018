@@ -1,7 +1,7 @@
 package com.putoet.day10;
 
 import com.putoet.grid.GridUtils;
-import com.putoet.utilities.Size;
+import com.putoet.grid.Size;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Message {
     public char[][] decrypt() {
         decryptTime = 0;
 
-        // The text is probably smaller then a page, so keep moving until the message size is reasonable
+        // The text is probably smaller than a page, so keep moving until the message size is reasonable
         while (size().count() > 80 * 40)
             move();
 
@@ -74,7 +74,7 @@ public class Message {
         final int sx = Math.abs(minX - maxX);
         final int sy = Math.abs(minY - maxY);
 
-        return Size.of(sx + 1, sy + 1);
+        return new Size(sx + 1, sy + 1);
     }
 
     public char[][] grid() {
@@ -86,7 +86,7 @@ public class Message {
             minY = Math.min(minY, point.position().y());
         }
 
-        final char[][] grid = new char[size.dy][size.dx];
+        final char[][] grid = new char[size.dy()][size.dx()];
         for (char[] row : grid)
             Arrays.fill(row, '.');
 

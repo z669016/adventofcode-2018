@@ -1,4 +1,4 @@
-package com.putoet.utilities;
+package com.putoet.day13;
 
 public enum Direction {
     NORTH,

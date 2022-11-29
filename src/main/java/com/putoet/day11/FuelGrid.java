@@ -1,11 +1,11 @@
 package com.putoet.day11;
 
 import com.putoet.grid.Point;
-import com.putoet.utilities.Size;
+import com.putoet.grid.Size;
 
 public class FuelGrid {
-    private final Size size = Size.of(300, 300);
-    private final int[][] grid = new int[size.dy][size.dx];
+    private final Size size = new Size(300, 300);
+    private final int[][] grid = new int[size.dy()][size.dx()];
 
     public FuelGrid(int serialNumber) {
         setupGrid(serialNumber, grid);
@@ -42,8 +42,8 @@ public class FuelGrid {
 
     public int get(Point point) {
         assert point != null;
-        assert point.x() > 0 && point.x() <= size.dx;
-        assert point.y() > 0 && point.y() <= size.dy;
+        assert point.x() > 0 && point.x() <= size.dx();
+        assert point.y() > 0 && point.y() <= size.dy();
 
         return grid[point.y() - 1][point.x() - 1];
     }
@@ -54,8 +54,8 @@ public class FuelGrid {
 
     public int xByXSum(Point point, int size) {
         assert point != null;
-        assert point.x() > 0 && point.x() <= this.size.dx - size + 1;
-        assert point.y() > 0 && point.y() <= this.size.dy - size + 1;
+        assert point.x() > 0 && point.x() <= this.size.dx() - size + 1;
+        assert point.y() > 0 && point.y() <= this.size.dy() - size + 1;
 
         final int x = point.x() - 1, y = point.y() - 1;
         int sum = 0;

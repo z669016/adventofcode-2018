@@ -2,18 +2,13 @@ package com.putoet.day1;
 
 import com.putoet.resources.ResourceLines;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Day1 {
     public static void main(String[] args) {
-        final List<Integer> numbers = ResourceLines.list("/day1.txt")
-                .stream()
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+        final List<Integer> numbers = ResourceLines.intList("/day1.txt");
 
         part1(numbers);
         part2(numbers);
