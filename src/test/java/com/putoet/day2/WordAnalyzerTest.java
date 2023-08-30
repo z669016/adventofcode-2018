@@ -3,7 +3,6 @@ package com.putoet.day2;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,11 +16,6 @@ class WordAnalyzerTest {
             new WordAnalyzer("abcdee"),
             new WordAnalyzer("ababab")
     );
-
-    @Test
-    void create() {
-        assertThrows(AssertionError.class, () -> new WordAnalyzer(null));
-    }
 
     @Test
     void doubles() {
@@ -47,16 +41,14 @@ class WordAnalyzerTest {
 
     @Test
     void oneLetterDifference() {
-        final WordAnalyzer one = new WordAnalyzer("fghij");
-        final WordAnalyzer two = new WordAnalyzer("fguij");
-        final WordAnalyzer three = new WordAnalyzer("fguaa");
+        final var one = new WordAnalyzer("fghij");
+        final var two = new WordAnalyzer("fguij");
+        final var three = new WordAnalyzer("fguaa");
 
-        Optional<String> diff = one.oneLetterDifference(two);
+        final var diff = one.oneLetterDifference(two);
         assertTrue(diff.isPresent());
         assertEquals("fgij", diff.get());
         assertFalse(one.oneLetterDifference(three).isPresent());
         assertFalse(three.oneLetterDifference(three).isPresent());
-
-        assertThrows(AssertionError.class, () -> one.oneLetterDifference(null));
     }
 }

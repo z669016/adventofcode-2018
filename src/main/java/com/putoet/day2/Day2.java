@@ -1,15 +1,14 @@
 package com.putoet.day2;
 
 import com.putoet.resources.ResourceLines;
-
-import java.util.List;
+import com.putoet.utils.Timer;
 
 public class Day2 {
     public static void main(String[] args) {
-        final WordListAnalyzer analyzer = WordListAnalyzer.of(ResourceLines.list("/day2.txt"));
+        final var analyzer = WordListAnalyzer.of(ResourceLines.list("/day2.txt"));
 
-        part1(analyzer);
-        part2(analyzer);
+        Timer.run(() -> part1(analyzer));
+        Timer.run(() -> part2(analyzer));
     }
 
     private static void part1(WordListAnalyzer analyzer) {
@@ -17,7 +16,7 @@ public class Day2 {
     }
 
     private static void part2(WordListAnalyzer analyzer) {
-        final List<String> diffs = analyzer.oneLetterDifference();
+        final var diffs = analyzer.oneLetterDifference();
         System.out.println("Words with one letter difference are " + diffs);
     }
 }

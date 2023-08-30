@@ -1,17 +1,17 @@
 package com.putoet.day2;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class WordAnalyzer {
+class WordAnalyzer {
     private final String word;
     private final Map<Character, Integer> occurrences;
 
-    public WordAnalyzer(String word) {
-        assert word != null;
-
+    public WordAnalyzer(@NotNull String word) {
         this.word = word;
         occurrences = word.chars().boxed().collect(Collectors.toMap(k -> (char) k.intValue(), v -> 1, Integer::sum));
     }
@@ -31,15 +31,13 @@ public class WordAnalyzer {
                 .toList();
     }
 
-    public Optional<String> oneLetterDifference(WordAnalyzer other) {
-        assert other != null;
-
+    public Optional<String> oneLetterDifference(@NotNull WordAnalyzer other) {
         if (word.length() != other.word.length())
             return Optional.empty();
 
-        final StringBuilder sb = new StringBuilder();
-        int difference = 0;
-        for (int i = 0; i < word.length(); i++) {
+        final var sb = new StringBuilder();
+        var difference = 0;
+        for (var i = 0; i < word.length(); i++) {
             if (word.charAt(i) != other.word.charAt(i)) {
                 difference++;
                 if (difference > 1)
