@@ -11,7 +11,7 @@ class NodeTest {
 
     @Test
     void addChild() {
-        final Node node = Node.newNode();
+        final var node = Node.newNode();
         assertEquals(0, node.children().size());
 
         node.addChild(Node.newNode());
@@ -22,7 +22,7 @@ class NodeTest {
 
     @Test
     void addMetaData() {
-        final Node node = Node.newNode();
+        final var node = Node.newNode();
         assertEquals(0, node.children().size());
 
         node.addMetaData(3);
@@ -33,22 +33,22 @@ class NodeTest {
 
     @Test
     void metadataSum() {
-        final List<String> lines = ResourceLines.list("/day8.txt");
-        final Node node = Node.of(lines.get(0));
-        assertEquals(138, node.metadatasum());
+        final var lines = ResourceLines.list("/day8.txt");
+        final var node = Node.of(lines.get(0));
+        assertEquals(138, node.metaDataSum());
     }
 
     @Test
     void value() {
-        final List<String> lines = ResourceLines.list("/day8.txt");
-        final Node node = Node.of(lines.get(0));
+        final var lines = ResourceLines.list("/day8.txt");
+        final var node = Node.of(lines.get(0));
         assertEquals(66, node.value());
     }
 
     @Test
     void of() {
-        final List<String> lines = ResourceLines.list("/day8.txt");
-        final Node node = Node.of(lines.get(0));
+        final var lines = ResourceLines.list("/day8.txt");
+        final var node = Node.of(lines.get(0));
         node.print();
     }
 }

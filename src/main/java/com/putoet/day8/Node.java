@@ -1,14 +1,17 @@
 package com.putoet.day8;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
 
-public class Node {
+import java.util.*;
+
+class Node {
     private static int seq = 0;
     private final String name;
     private final List<Node> children = new ArrayList<>();
     private final List<Integer> metadata = new ArrayList<>();
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private OptionalInt metadataSum = OptionalInt.empty(); // for memoization
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private OptionalInt value = OptionalInt.empty(); // for memoization
 
     private Node(String name) {
@@ -19,31 +22,29 @@ public class Node {
         return new Node("NAME-" + seq++);
     }
 
-    public static Node of(String line) {
-        assert line != null;
-
-        final List<Integer> values = Arrays.stream(line.split(" "))
+    public static Node of(@NotNull String line) {
+        final var values = Arrays.stream(line.split(" "))
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .toList();
 
         return of(values.iterator());
     }
 
     private static Node of(Iterator<Integer> values) {
-        final Node node = newNode();
-        final int childCount = values.next();
-        final int metadataCount = values.next();
+        final var node = newNode();
+        final var childCount = values.next();
+        final var metadataCount = values.next();
 
-        for (int i = 0; i < childCount; i++)
+        for (var i = 0; i < childCount; i++)
             node.addChild(of(values));
 
-        for (int i = 0; i < metadataCount; i++)
+        for (var i = 0; i < metadataCount; i++)
             node.addMetaData(values.next());
 
         return node;
     }
 
-    public void addChild(Node child) {
+    public void addChild(@NotNull Node child) {
         children.add(child);
         metadataSum = value = OptionalInt.empty(); // reset memoized value
     }
@@ -61,19 +62,19 @@ public class Node {
         return metadata;
     }
 
-    public int metadatasum() {
+    public int metaDataSum() {
         if (metadataSum.isEmpty())
             metadataSum = OptionalInt.of(metadata.stream()
                     .mapToInt(i -> i).sum() + children.stream()
-                    .mapToInt(Node::metadatasum)
+                    .mapToInt(Node::metaDataSum)
                     .sum());
 
         return metadataSum.getAsInt();
     }
 
     public int value() {
-        if (children.size() == 0)
-            return metadatasum();
+        if (children.isEmpty())
+            return metaDataSum();
 
         if (value.isEmpty())
             value = OptionalInt.of(metadata.stream()
