@@ -1,39 +1,26 @@
 package com.putoet.day9;
 
 import com.putoet.resources.ResourceLines;
-
-import java.util.List;
+import com.putoet.utils.Timer;
 
 public class Day9 {
     public static void main(String[] args) {
-        final List<String> lines = ResourceLines.list("/day9.txt");
-        final int players = players(lines.get(0));
-        final int lastMarble = lastMarble(lines.get(0));
+        final var line = ResourceLines.line("/day9.txt");
+        final var players = players(line);
+        final var lastMarble = lastMarble(line);
 
-        part1(players, lastMarble);
-        part2(players, lastMarble);
-    }
-
-    private static void part1(int players, int lastMarble) {
-        play(players, lastMarble);
-    }
-
-    private static void part2(int players, int lastMarble) {
-        play(players, lastMarble * 100);
+        Timer.run(() -> play(players, lastMarble));
+        Timer.run(() -> play(players, lastMarble * 100));
     }
 
     private static void play(int players, int lastMarble) {
-        final Stock stock = new Stock(lastMarble);
-        final MarbleGame game = new MarbleGame(stock, players);
-        final Circle circle = new CircleDoubleLinkedList();
+        final var stock = new Stock(lastMarble);
+        final var game = new MarbleGame(stock, players);
+        final var circle = new CircleDoubleLinkedList();
 
-        final long start = System.currentTimeMillis();
         game.play(circle);
-        final long end = System.currentTimeMillis();
 
         System.out.println("High score is " + game.highScore());
-        System.out.println("The game took " + (end - start) + " ms");
-        System.out.println("Circle size is " + circle.size());
     }
 
     private static int players(String line) {
@@ -45,7 +32,7 @@ public class Day9 {
     }
 
     private static int value(String line, int idx) {
-        final String[] words = line.split(" ");
+        final var words = line.split(" ");
         return Integer.parseInt(words[idx]);
     }
 }

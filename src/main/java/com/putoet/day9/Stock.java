@@ -3,7 +3,7 @@ package com.putoet.day9;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Stock implements Iterator<Integer> {
+class Stock implements Iterator<Integer> {
     private final int last;
     private int next = 1;
 

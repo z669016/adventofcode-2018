@@ -1,7 +1,7 @@
 package com.putoet.day9;
 
-public class CircleDoubleLinkedList implements Circle {
-    private class Node {
+class CircleDoubleLinkedList implements Circle {
+    private static class Node {
         public final int value;
         public Node next;
         public Node prev;
@@ -16,7 +16,7 @@ public class CircleDoubleLinkedList implements Circle {
 
     @Override
     public int place(int marble) {
-        int score = 0;
+        var score = 0;
         if (marble % 23 == 0) {
             score += marble;
             counterclockWise();
@@ -24,7 +24,7 @@ public class CircleDoubleLinkedList implements Circle {
         } else {
             clockwise();
 
-            final Node node = new Node(marble);
+            final var node = new Node(marble);
             insert(node);
         }
 
@@ -32,7 +32,7 @@ public class CircleDoubleLinkedList implements Circle {
     }
 
     private int delete() {
-        final int score = current.value;
+        final var score = current.value;
 
         current.prev.next = current.next;
         current.next.prev = current.prev;
@@ -52,7 +52,7 @@ public class CircleDoubleLinkedList implements Circle {
     }
 
     private void counterclockWise() {
-        for (int idx = 0; idx < 7; idx++)
+        for (var idx = 0; idx < 7; idx++)
             current = current.prev;
     }
 
@@ -62,7 +62,7 @@ public class CircleDoubleLinkedList implements Circle {
 
     @Override
     public int size() {
-        Node ptr = current;
+        var ptr = current;
         int size = 0;
         do {
             size++;
@@ -74,11 +74,11 @@ public class CircleDoubleLinkedList implements Circle {
 
     @Override
     public String toString() {
-        Node ptr = current;
+        var ptr = current;
         while (ptr.value != 0)
             ptr = ptr.next;
 
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         for (int idx = 0; idx < size(); idx++, ptr = ptr.next)
             sb.append(ptr.value == current.value ? "(" + ptr.value + ")" : ptr.value).append(" ");
 

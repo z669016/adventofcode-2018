@@ -8,9 +8,9 @@ class MarbleGameTest {
 
     @Test
     void play() {
-        final Stock stock = new Stock(25);
-        final MarbleGame game = new MarbleGame(stock, 9);
-        final Circle circle = new CircleDoubleLinkedList();
+        final var stock = new Stock(25);
+        final var game = new MarbleGame(stock, 9);
+        final var circle = new CircleDoubleLinkedList();
 
         game.play(circle);
 
@@ -29,9 +29,9 @@ class MarbleGameTest {
     }
 
     private long playGame(int players, int lastMarble) {
-        final Stock stock = new Stock(lastMarble);
-        final MarbleGame game = new MarbleGame(stock, players);
-        final Circle circle = new CircleDoubleLinkedList();
+        final var stock = new Stock(lastMarble);
+        final var game = new MarbleGame(stock, players);
+        final var circle = new CircleDoubleLinkedList();
 
         game.play(circle);
 
