@@ -1,31 +1,23 @@
 package com.putoet.day6;
 
-import com.putoet.grid.Point;
 import com.putoet.resources.ResourceLines;
-
-import java.util.List;
-import java.util.OptionalLong;
+import com.putoet.utils.Timer;
 
 public class Day6 {
     public static void main(String[] args) {
-        final List<Point> points = PointFactory.of(ResourceLines.list("/day6.txt"));
-        final Grid grid = Grid.of(points);
+        final var grid = Grid.of(PointFactory.of(ResourceLines.list("/day6.txt")));
 
-        part1(grid);
-        part2(grid);
+        Timer.run(() -> part1(grid));
+        Timer.run(() -> part2(grid));
     }
 
     private static void part1(Grid grid) {
         grid.fillClosest();
 
-        final List<Character> enclosed = grid.enclosedLetters();
-        final OptionalLong max = enclosed.stream().mapToLong(grid::count).max();
-        if (max.isEmpty()) {
-            System.out.println("No largest area found ...");
-            return;
-        }
+        final var enclosed = grid.enclosedLetters();
+        final var max = enclosed.stream().mapToLong(grid::count).max().orElseThrow();
 
-        System.out.println("The largest area is " + max.getAsLong());
+        System.out.println("The largest area is " + max);
     }
 
     private static void part2(Grid grid) {
