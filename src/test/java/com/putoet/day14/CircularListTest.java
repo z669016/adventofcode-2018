@@ -9,7 +9,7 @@ class CircularListTest {
 
     @Test
     void get() {
-        final CircularList<Integer> array = new CircularList<>(10);
+        final var array = new CircularList<Integer>(10);
 
         assertThrows(IndexOutOfBoundsException.class, () -> array.get(0));
         array.add(3);

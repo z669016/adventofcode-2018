@@ -2,7 +2,7 @@ package com.putoet.day14;
 
 import java.util.ArrayList;
 
-public class CircularList<T> extends ArrayList<T> {
+class CircularList<T> extends ArrayList<T> {
     public CircularList(int initialSize) {
         super(initialSize);
     }
@@ -12,9 +12,7 @@ public class CircularList<T> extends ArrayList<T> {
         if (size() == 0 || index < 0)
             throw new IndexOutOfBoundsException("Invalid index " + index + " for CircularList (size " + size() + ")");
 
-        if (index >= size())
-            return super.get(index % size());
-
+        index = (index >= size() ? index % size() : index);
         return super.get(index);
     }
 }

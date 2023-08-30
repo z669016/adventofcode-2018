@@ -1,12 +1,14 @@
 package com.putoet.day14;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RecipeScores {
+class RecipeScores {
     private final CircularList<Integer> array;
 
-    public RecipeScores(int initialSize, List<Integer> initialValues) {
+    public RecipeScores(int initialSize, @NotNull List<Integer> initialValues) {
         array = new CircularList<>(initialSize + 100);
         array.addAll(initialValues);
     }
@@ -14,19 +16,18 @@ public class RecipeScores {
     public RecipeScores bake(int count) {
         assert count > 0;
 
-        final int[] elvesIndex = new int[] {0, 1};
+        final var elvesIndex = new int[] {0, 1};
         while (count > array.size() - 2) {
             bake(elvesIndex);
         }
-        System.out.println();
         return this;
     }
 
     public RecipeScores bake(String code) {
-        assert code.length() > 0;
+        assert !code.isEmpty();
 
-        final int[] digits = code.chars().map(i -> i - '0').toArray();
-        final int[] elvesIndex = new int[] {0, 1};
+        final var digits = code.chars().map(i -> i - '0').toArray();
+        final var elvesIndex = new int[] {0, 1};
         while (array.size() < digits.length + 1)
             bake(elvesIndex);
 
@@ -37,12 +38,12 @@ public class RecipeScores {
     }
 
     public boolean endsWith(String code) {
-        final int[] digits = code.chars().map(i -> i - '0').toArray();
+        final var digits = code.chars().map(i -> i - '0').toArray();
         return endsWith(digits, 0);
     }
 
     private boolean endsWith(int[] digits, int offset) {
-        for (int i = 0; i < digits.length; i++) {
+        for (var i = 0; i < digits.length; i++) {
             if (array.get(array.size() - digits.length - offset + i) != digits[i])
                 return false;
         }
@@ -51,9 +52,8 @@ public class RecipeScores {
     }
 
     private void bake(int[] elvesIndex) {
-        final int[] currentScores = {array.get(elvesIndex[0]), array.get(elvesIndex[1])};
-
-        final int score = currentScores[0] + currentScores[1];
+        final var currentScores = new int[] {array.get(elvesIndex[0]), array.get(elvesIndex[1])};
+        final var score = currentScores[0] + currentScores[1];
 
         array.add(score > 9 ? score / 10 : score % 10);
         if (score > 9)
@@ -73,8 +73,8 @@ public class RecipeScores {
     public int size() { return array.size(); }
 
     public String toString(int[] elves) {
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.size(); i++) {
+        final var sb = new StringBuilder();
+        for (var i = 0; i < array.size(); i++) {
 
             if (i == elves[0] % array.size()) sb.append('(');
             else if (i == elves[1] % array.size()) sb.append('[');
