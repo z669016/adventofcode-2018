@@ -1,24 +1,25 @@
 package com.putoet.day15;
 
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFactory {
-    public static Game of(List<String> lines) {
+class GameFactory {
+    public static Game of(@NotNull List<String> lines) {
         return of(lines, 3);
     }
 
-    public static Game of(List<String> lines, int elfAttackPower) {
-        final List<Unit> units = new ArrayList<>();
-        final char[][] grid = new char[lines.size()][lines.get(0).length()];
+    public static Game of(@NotNull List<String> lines, int elfAttackPower) {
+        final var units = new ArrayList<Unit>();
+        final var grid = new char[lines.size()][lines.get(0).length()];
 
-        final int lineLength = lines.get(0).length();
-        for (int y = 0; y < lines.size(); y++) {
-            final String line = lines.get(y);
-            for(int x = 0; x < line.length(); x++) {
-                final char c = line.charAt(x);
+        final var lineLength = lines.get(0).length();
+        for (var y = 0; y < lines.size(); y++) {
+            final var line = lines.get(y);
+            for(var x = 0; x < line.length(); x++) {
+                final var c = line.charAt(x);
                 if ("#.EG".indexOf(c) == -1 || line.length() != lineLength)
                     throw new IllegalArgumentException("Invalid board for this game");
 

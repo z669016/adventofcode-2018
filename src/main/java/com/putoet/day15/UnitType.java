@@ -1,6 +1,6 @@
 package com.putoet.day15;
 
-public enum UnitType {
+enum UnitType {
     ELF,
     GOBLIN;
 
@@ -17,10 +17,5 @@ public enum UnitType {
             case ELF -> 'E';
             case GOBLIN -> 'G';
         };
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(toChar());
     }
 }

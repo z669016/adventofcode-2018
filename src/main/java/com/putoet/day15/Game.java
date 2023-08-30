@@ -2,7 +2,7 @@ package com.putoet.day15;
 
 import com.putoet.grid.Point;
 import com.putoet.search.GenericSearch;
-import org.javatuples.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,19 +10,18 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Game {
+class Game {
     private static final List<Point> DIRECTIONS = Point.directions(true);
     private static final Comparator<Unit> unitAttackOrder = Comparator.comparing(Unit::hitPoints).thenComparing((Unit::point));
     private static final Comparator<Unit> unitReadingOrder = Comparator.comparing(Unit::point);
     private static final Comparator<Point> pointReadingOrder = Point::compareTo;
 
-    private static final char WALL = '#';
     private static final char EMPTY = '.';
 
     private final char[][] grid;
     private final List<Unit> units;
 
-    public Game(char[][] grid, List<Unit> units) {
+    public Game(char[][] grid, @NotNull List<Unit> units) {
         this.grid = grid;
         this.units = units;
 
@@ -55,7 +54,7 @@ public class Game {
     }
 
     private String unitsForLine(int y) {
-        final List<Unit> unitsForLine = units.stream()
+        final var unitsForLine = units.stream()
                 .filter(Unit::alive)
                 .filter(u -> u.point().y() == y)
                 .sorted(unitReadingOrder).toList();
@@ -66,36 +65,36 @@ public class Game {
                         .collect(Collectors.joining(", "));
     }
 
-    public Pair<UnitType, Integer> combat() {
-        int rounds = 0;
+    public Outcome combat() {
+        var rounds = 0;
         while (round()) {
             rounds++;
         }
-        return new Pair<>(winner(), rounds * units.stream().mapToInt(Unit::hitPoints).sum());
+        return new Outcome(winner(), rounds * units.stream().mapToInt(Unit::hitPoints).sum());
     }
 
     private boolean round() {
-        boolean done = false;
+        var done = false;
         units.sort(unitReadingOrder);
 
-        for (Unit attacker : units) {
+        for (var attacker : units) {
             // Only living units take a turn
             if (!attacker.alive())
                 continue;
 
             //Select all possible targets/enemies for this attacker
-            final List<Unit> targets = targets(attacker);
+            final var targets = targets(attacker);
 
             // quit when there are no more  targets left
             done = targets.isEmpty();
             if (done) break;
 
             // find adjacent target
-            Optional<Unit> targetAdjacent = targetAdjacent(attacker, targets);
+            var targetAdjacent = targetAdjacent(attacker, targets);
             if (targetAdjacent.isEmpty()) {
                 // Move closer to a target
-                final List<Point> inRange = inRange(targets);
-                final Optional<Point> to = moveTo(attacker, inRange);
+                final var inRange = inRange(targets);
+                final var to = moveTo(attacker, inRange);
                 to.ifPresent(p -> move(attacker, p));
 
                 // find adjacent target
@@ -144,7 +143,7 @@ public class Game {
                 .toList();
     }
 
-    public Game move(Unit unit, Point to) {
+    public Game move(@NotNull Unit unit, @NotNull Point to) {
         assert unit.alive();
         assert unit.point().manhattanDistance(to) == 1;
 
@@ -155,19 +154,18 @@ public class Game {
         return this;
     }
 
-    private Game paintUnit(Unit unit) {
-        return paintUnit(unit, unit.type().toChar());
+    private void paintUnit(Unit unit) {
+        paintUnit(unit, unit.type().toChar());
     }
 
-    private Game paintUnit(Unit unit, char c) {
+    private void paintUnit(Unit unit, char c) {
         assert contains(unit.point());
 
         grid[unit.point().y()][unit.point().x()] = c;
-        return this;
     }
 
     private Optional<Point> moveTo(Unit attacker, List<Point> inRange) {
-        final Optional<GenericSearch.Node<Point>> route = inRange.stream()
+        final var route = inRange.stream()
                 .map(pointInRange -> GenericSearch.bfs(
                         attacker.point(),
                         p -> p.equals(pointInRange),

@@ -1,26 +1,26 @@
 package com.putoet.day15;
 
 import com.putoet.resources.ResourceLines;
-import org.javatuples.Pair;
+import com.putoet.utils.Timer;
 
 import java.util.List;
 
 public class Day15 {
     public static void main(String[] args) {
-        final List<String> lines = ResourceLines.list("/day15.txt");
-        part1(lines);
-        part2(lines);
+        final var lines = ResourceLines.list("/day15.txt");
+        Timer.run(() -> part1(lines));
+        Timer.run(() -> part2(lines));
     }
 
     private static void part1(List<String> lines) {
-        final Game game = GameFactory.of(lines);
-        final Pair<UnitType,Integer> winner = game.combat();
+        final var game = GameFactory.of(lines);
+        final var outcome = game.combat();
 
-        System.out.println("Game was won by " + winner.getValue0() + " with a score of " + winner.getValue1());
+        System.out.println("Game was won by " + outcome.unit() + " with a score of " + outcome.score());
     }
 
     private static void part2(List<String> lines) {
-        Pair<UnitType,Integer> winner;
+        Outcome outcome;
         Game game;
         int elves;
 
@@ -32,10 +32,10 @@ public class Day15 {
             elves = game.elves().size();
 
             System.out.print(elfAttackPower + "\r");
-            winner = game.combat();
-        } while (winner.getValue0() == UnitType.GOBLIN || (winner.getValue0() == UnitType.ELF && game.elves().size() != elves));
+            outcome = game.combat();
+        } while (outcome.unit() == UnitType.GOBLIN || (outcome.unit() == UnitType.ELF && game.elves().size() != elves));
 
         System.out.println();
-        System.out.println("Game was won by " + winner.getValue0() + " with a score of " + winner.getValue1());
+        System.out.println("Game was won by " + outcome.unit() + " with a score of " + outcome.score());
     }
 }

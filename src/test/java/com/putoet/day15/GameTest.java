@@ -1,6 +1,5 @@
 package com.putoet.day15;
 
-import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -100,10 +99,10 @@ class GameTest {
         combat(GRID6, UnitType.GOBLIN, 18740);
     }
 
-    void combat(List<String> grid, UnitType type, int score) {
-        final Game game = GameFactory.of(grid);
-        final Pair<UnitType, Integer> winner = game.combat();
-        assertEquals(type, winner.getValue0());
-        assertEquals(score, winner.getValue1());
+    private void combat(List<String> grid, UnitType type, int score) {
+        final var game = GameFactory.of(grid);
+        final var winner = game.combat();
+        assertEquals(type, winner.unit());
+        assertEquals(score, winner.score());
     }
 }
