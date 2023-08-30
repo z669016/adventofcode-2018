@@ -3,7 +3,6 @@ package com.putoet.day10;
 import com.putoet.grid.Point;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class MovingPoint {
