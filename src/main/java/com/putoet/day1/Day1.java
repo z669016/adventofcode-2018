@@ -1,21 +1,21 @@
 package com.putoet.day1;
 
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Day1 {
     public static void main(String[] args) {
-        final List<Integer> numbers = ResourceLines.intList("/day1.txt");
+        final var numbers = ResourceLines.stream("/day1.txt").map(Integer::parseInt).toList();
 
-        part1(numbers);
-        part2(numbers);
+        Timer.run(() -> part1(numbers));
+        Timer.run(() -> part2(numbers));
     }
 
     private static void part1(List<Integer> numbers) {
-        final int sum = numbers.stream()
+        final var sum = numbers.stream()
                 .mapToInt(i -> i)
                 .sum();
 
@@ -23,9 +23,9 @@ public class Day1 {
     }
 
     private static void part2(List<Integer> numbers) {
-        final Set<Integer> frequencies = new HashSet<>();
-        int frequency = 0;
-        int i = 0;
+        final var frequencies = new HashSet<Integer>();
+        var frequency = 0;
+        var i = 0;
         while (frequencies.add(frequency)) {
             frequency += numbers.get(i);
             i = (i + 1) % numbers.size();
