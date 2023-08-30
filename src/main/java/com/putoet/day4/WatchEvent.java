@@ -1,6 +1,6 @@
 package com.putoet.day4;
 
-public enum WatchEVent {
+enum WatchEvent {
     START_WATCH,
     FALL_ASLEEP,
     WAKE_UP

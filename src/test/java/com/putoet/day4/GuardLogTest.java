@@ -4,10 +4,7 @@ import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,12 +24,12 @@ class GuardLogTest {
     @Test
     void guards() {
         assertEquals(2, log.guards().size());
-        assertEquals(List.of(10, 99), log.guards().stream().map(g -> g.id).collect(Collectors.toList()));
+        assertEquals(List.of(10, 99), log.guards().stream().map(Guard::id).toList());
     }
 
     @Test
     void shifts() {
-        final Map<LocalDate,List<GuardEvent>> shifts = log.shifts(new Guard(99));
+        final var shifts = log.shifts(new Guard(99));
         assertEquals(3, shifts.size());
     }
 
@@ -47,12 +44,12 @@ class GuardLogTest {
     }
 
     @Test
-    void sliepiest() {
-        assertEquals(10, log.longestSleeper().get().id);
+    void sleepiest() {
+        assertEquals(10, log.longestSleeper().orElseThrow().id());
     }
 
     @Test
     void mostFrequentSleeper() {
-        assertEquals(99, log.mostFrequentSleeper().get().id);
+        assertEquals(99, log.mostFrequentSleeper().orElseThrow().id());
     }
 }

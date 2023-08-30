@@ -1,26 +1,23 @@
 package com.putoet.day4;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
 
-public class GuardEvent implements Comparable<GuardEvent> {
+class GuardEvent implements Comparable<GuardEvent> {
     private final LocalDateTime dateTime;
-    private final WatchEVent event;
+    private final WatchEvent event;
     private Guard guard;
 
-    public GuardEvent(LocalDateTime dateTime, WatchEVent event) {
-        assert dateTime != null;
-
+    public GuardEvent(@NotNull LocalDateTime dateTime, @NotNull WatchEvent event) {
         this.dateTime = dateTime;
         this.event = event;
     }
 
-    public GuardEvent(LocalDateTime dateTime, Guard guard) {
-        assert dateTime != null;
-        assert guard != null;
-
+    public GuardEvent(@NotNull LocalDateTime dateTime, @NotNull Guard guard) {
         this.dateTime = dateTime;
         this.guard = guard;
-        this.event = WatchEVent.START_WATCH;
+        this.event = WatchEvent.START_WATCH;
     }
 
     public LocalDateTime dateTime() {
@@ -31,7 +28,7 @@ public class GuardEvent implements Comparable<GuardEvent> {
         return guard;
     }
 
-    public WatchEVent event() {
+    public WatchEvent event() {
         return event;
     }
 
@@ -40,7 +37,7 @@ public class GuardEvent implements Comparable<GuardEvent> {
     }
 
     @Override
-    public int compareTo(GuardEvent other) {
+    public int compareTo(@NotNull GuardEvent other) {
         return dateTime.compareTo(other.dateTime);
     }
 
