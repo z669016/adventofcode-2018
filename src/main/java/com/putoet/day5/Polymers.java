@@ -1,7 +1,9 @@
 package com.putoet.day5;
 
-public class Polymers {
-    public static String units(String polymer) {
+import org.jetbrains.annotations.NotNull;
+
+class Polymers {
+    public static String units(@NotNull String polymer) {
         return polymer
                 .toLowerCase()
                 .chars()
@@ -11,19 +13,19 @@ public class Polymers {
                 .toString();
     }
 
-    public static String reactWithout(String polymer, char without) {
-        final String temp =
+    public static String reactWithout(@NotNull String polymer, char without) {
+        final var temp =
                 polymer.replaceAll(String.valueOf(Character.toLowerCase(without)), "")
                         .replaceAll(String.valueOf(Character.toUpperCase(without)), "");
         return react(temp);
     }
 
-    public static String react(String polymer) {
-        final StringBuilder temp = new StringBuilder(polymer);
-        int i = 0;
+    public static String react(@NotNull String polymer) {
+        final var temp = new StringBuilder(polymer);
+        var i = 0;
         while (i < temp.length() - 1) {
-            char a = temp.charAt(i);
-            char b = temp.charAt(i + 1);
+            final var a = temp.charAt(i);
+            final var b = temp.charAt(i + 1);
             if (similarType(a, b) && (oppositePolarity(a, b))) {
                 temp.delete(i, i + 2);
                 if (i > 0) i--;
