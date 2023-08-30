@@ -2,21 +2,17 @@ package com.putoet.day10;
 
 import com.putoet.grid.GridUtils;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 public class Day10 {
     public static void main(String[] args) {
-        final Message message = Message.of(ResourceLines.list("/day10.txt"));
-        final char[][] grid = message.decrypt();
+        final var message = Message.of(ResourceLines.list("/day10.txt"));
 
-        part1(grid);
-        part2(message);
-    }
+        Timer.run(() -> {
+            final var grid = message.decrypt();
+            GridUtils.print(grid);
+        });
 
-    private static void part1(char[][] grid) {
-        GridUtils.print(grid);
-    }
-
-    private static void part2(Message message) {
-        System.out.println("Waiting time would have been " + message.decryptTime() + " seconds.");
+        Timer.run(() -> System.out.println("Waiting time would have been " + message.decryptTime() + " seconds."));
     }
 }
