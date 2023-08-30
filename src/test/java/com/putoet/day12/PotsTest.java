@@ -19,7 +19,7 @@ class PotsTest {
 
     @Test
     void size() {
-        final Pots pots = new Pots("#..#.#..##......###...###", Set.of());
+        final var pots = new Pots("#..#.#..##......###...###", Set.of());
         assertTrue(pots.toString().startsWith("....."));
         assertTrue(pots.toString().endsWith("....."));
     }
@@ -32,7 +32,7 @@ class PotsTest {
 
     @Test
     void next() {
-        final List<String> nextList = List.of(
+        final var nextList = List.of(
                 "...#..#.#..##......###...###..",
                 "...#...#....#.....#..#..#..#..",
                 "...##..##...##....#..#..#..##..",
@@ -67,11 +67,11 @@ class PotsTest {
 
     @Test
     void bignumber() {
-        final long count = 1_000;
-        int first = 0;
-        final long start = System.currentTimeMillis();
-        for (long i = 0; i < count; i++) {
-            final Pots next = pots.next();
+        final var count = 1_000L;
+        var first = 0;
+        final var start = System.currentTimeMillis();
+        for (var i = 0L; i < count; i++) {
+            final var next = pots.next();
 
             if (pots.toString().equals(next.toString()) && first < 10) {
                 System.out.println("Unchanged at generation " + i);
@@ -83,7 +83,7 @@ class PotsTest {
 
             pots = next;
         }
-        final long end = System.currentTimeMillis();
+        final var end = System.currentTimeMillis();
 
         System.out.println("The run for " + count + " generations took " + (end - start) + " ms");
         System.out.printf("zero: %d, offset: %d, pots: %s%n", pots.zero(), pots.offset(), pots.toString());

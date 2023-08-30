@@ -1,15 +1,16 @@
 package com.putoet.day12;
 
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 public class Day12 {
     public static void main(String[] args) {
-        part1();
-        part2();
+        Timer.run(Day12::part1);
+        Timer.run(Day12::part2);
     }
 
     private static void part1() {
-        Pots pots = Pots.of(ResourceLines.list("/day12.txt"));
+        var pots = Pots.of(ResourceLines.list("/day12.txt"));
 
         for (int i = 0; i < 20; i++)
             pots = pots.next();
@@ -18,7 +19,7 @@ public class Day12 {
     }
 
     private static void part2() {
-        Pots pots = Pots.of(ResourceLines.list("/day12.txt"));
+        var pots = Pots.of(ResourceLines.list("/day12.txt"));
 
         for (int i = 0; i < 1_000; i++)
             pots = pots.next();
