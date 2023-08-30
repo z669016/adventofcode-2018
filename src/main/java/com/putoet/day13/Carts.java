@@ -1,12 +1,13 @@
 package com.putoet.day13;
 
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Carts implements Iterable<Cart> {
-    public static class CartCrashException extends IllegalStateException {
+class Carts implements Iterable<Cart> {
+    static class CartCrashException extends IllegalStateException {
         private final Cart cart;
 
         public CartCrashException(Cart cart) {
@@ -22,14 +23,12 @@ public class Carts implements Iterable<Cart> {
         this.carts = carts;
     }
 
-    public static Carts of(List<String> lines) {
-        assert lines != null;
-
-        final Set<Cart> carts = new TreeSet<>();
-        for (int y = 0; y < lines.size(); y++) {
-            final String line = lines.get(y);
-            for (int x = 0; x < line.length(); x++) {
-                final char c = line.charAt(x);
+    public static Carts of(@NotNull List<String> lines) {
+        final var carts = new TreeSet<Cart>();
+        for (var y = 0; y < lines.size(); y++) {
+            final var line = lines.get(y);
+            for (var x = 0; x < line.length(); x++) {
+                final var c = line.charAt(x);
                 if ("^>v<".indexOf(c) != -1)
                     carts.add(Cart.of(Point.of(x, y), c));
             }
@@ -41,19 +40,17 @@ public class Carts implements Iterable<Cart> {
     public Set<Cart> carts() { return carts; }
     public int size() { return carts.size(); }
 
-    public Carts move(Tracks tracks) {
+    public Carts move(@NotNull Tracks tracks) {
         return move(tracks, false);
     }
 
-    public Carts move(Tracks tracks, boolean remove) {
-        assert tracks != null;
+    public Carts move(@NotNull Tracks tracks, boolean remove) {
+        final var from = new TreeSet<>(carts);
+        final var to = new TreeSet<Cart>();
 
-        final Set<Cart> from = new TreeSet<>(carts);
-        final Set<Cart> to = new TreeSet<>();
-
-        while (from.size() > 0) {
-            final Cart cart = from.iterator().next();
-            final Cart next = cart.move(tracks);
+        while (!from.isEmpty()) {
+            final var cart = from.iterator().next();
+            final var next = cart.move(tracks);
             if (from.contains(next) || !to.add(next)) {
                 if (!remove)
                     throw new CartCrashException(next);
@@ -68,7 +65,7 @@ public class Carts implements Iterable<Cart> {
     }
 
     @Override
-    public Iterator<Cart> iterator() {
+    public @NotNull Iterator<Cart> iterator() {
         return carts.iterator();
     }
 

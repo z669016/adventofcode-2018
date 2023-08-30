@@ -8,16 +8,16 @@ class TracksTest {
 
     @Test
     void trackElementAt() {
-        assertEquals(Tracks.TrackElement.HLINE, Tracks.TrackElement.of(Direction.NORTH, '-'));
-        assertEquals(Tracks.TrackElement.VLINE, Tracks.TrackElement.of(Direction.EAST, '|'));
-        assertEquals(Tracks.TrackElement.INTERSECTION, Tracks.TrackElement.of(Direction.SOUTH, '+'));
-        assertEquals(Tracks.TrackElement.TOP_LEFT, Tracks.TrackElement.of(Direction.WEST, '/'));
-        assertEquals(Tracks.TrackElement.TOP_LEFT, Tracks.TrackElement.of(Direction.NORTH, '/'));
-        assertEquals(Tracks.TrackElement.BOTTOM_RIGHT, Tracks.TrackElement.of(Direction.EAST, '/'));
-        assertEquals(Tracks.TrackElement.BOTTOM_RIGHT, Tracks.TrackElement.of(Direction.SOUTH, '/'));
-        assertEquals(Tracks.TrackElement.TOP_RIGHT, Tracks.TrackElement.of(Direction.EAST, '\\'));
-        assertEquals(Tracks.TrackElement.TOP_RIGHT, Tracks.TrackElement.of(Direction.NORTH, '\\'));
-        assertEquals(Tracks.TrackElement.BOTTOM_LEFT, Tracks.TrackElement.of(Direction.WEST, '\\'));
-        assertEquals(Tracks.TrackElement.BOTTOM_LEFT, Tracks.TrackElement.of(Direction.SOUTH, '\\'));
+        assertEquals(TrackElement.HORIZONTAL_LINE, TrackElement.of(Direction.NORTH, '-'));
+        assertEquals(TrackElement.VERTICAL_LINE, TrackElement.of(Direction.EAST, '|'));
+        assertEquals(TrackElement.INTERSECTION, TrackElement.of(Direction.SOUTH, '+'));
+        assertEquals(TrackElement.TOP_LEFT, TrackElement.of(Direction.WEST, '/'));
+        assertEquals(TrackElement.TOP_LEFT, TrackElement.of(Direction.NORTH, '/'));
+        assertEquals(TrackElement.BOTTOM_RIGHT, TrackElement.of(Direction.EAST, '/'));
+        assertEquals(TrackElement.BOTTOM_RIGHT, TrackElement.of(Direction.SOUTH, '/'));
+        assertEquals(TrackElement.TOP_RIGHT, TrackElement.of(Direction.EAST, '\\'));
+        assertEquals(TrackElement.TOP_RIGHT, TrackElement.of(Direction.NORTH, '\\'));
+        assertEquals(TrackElement.BOTTOM_LEFT, TrackElement.of(Direction.WEST, '\\'));
+        assertEquals(TrackElement.BOTTOM_LEFT, TrackElement.of(Direction.SOUTH, '\\'));
     }
 }

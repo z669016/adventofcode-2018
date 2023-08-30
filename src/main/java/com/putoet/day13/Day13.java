@@ -1,32 +1,34 @@
 package com.putoet.day13;
 
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 import java.util.List;
 
 public class Day13 {
     public static void main(String[] args) {
-        final List<String> lines = ResourceLines.list("/day13.txt");
+        final var lines = ResourceLines.list("/day13.txt");
 
-        part1(lines);
-        part2(lines);
+        Timer.run(() -> part1(lines));
+        Timer.run(() -> part2(lines));
     }
 
     public static void part1(List<String> lines) {
-        final Tracks tracks = Tracks.of(lines);
+        final var tracks = Tracks.of(lines);
 
-        Carts carts = Carts.of(lines);
+        var carts = Carts.of(lines);
         try {
+            //noinspection InfiniteLoopStatement
             while (true)
                 carts = carts.move(tracks);
         } catch (Carts.CartCrashException exc) {
-            System.out.printf("Cart %s crashed at %s%n", exc.cart().name(), exc.cart().location());
+            System.out.println("Cart crashed " + exc.cart());
         }
     }
 
     public static void part2(List<String> lines) {
-        final Tracks tracks = Tracks.of(lines);
-        Carts carts = Carts.of(lines);
+        final var tracks = Tracks.of(lines);
+        var carts = Carts.of(lines);
 
         while (carts.size() > 1)
             carts = carts.move(tracks, true);

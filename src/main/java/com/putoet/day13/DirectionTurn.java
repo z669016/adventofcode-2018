@@ -1,6 +1,6 @@
 package com.putoet.day13;
 
-public enum DirectionTurn {
+enum DirectionTurn {
     LEFT,
     STRAIGHT,
     RIGHT;

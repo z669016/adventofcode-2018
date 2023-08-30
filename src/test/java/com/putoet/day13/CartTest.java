@@ -32,8 +32,8 @@ class CartTest {
 
     @Test
     void compareTo() {
-        final Set<Cart> carts = new TreeSet<>(Set.of(one, two, three, four));
-        final Iterator<Cart> iter = carts.iterator();
+        final var carts = new TreeSet<>(Set.of(one, two, three, four));
+        final var iter = carts.iterator();
         assertEquals(three, iter.next());
         assertEquals(two, iter.next());
         assertEquals(one, iter.next());
@@ -41,28 +41,20 @@ class CartTest {
     }
 
     @Test
-    void directionTurnSupplier() {
-        final Supplier<DirectionTurn> directionTurnSupplier = Cart.directionTurnSupplier();
-
-        assertEquals(DirectionTurn.LEFT, directionTurnSupplier.get());
-        assertEquals(DirectionTurn.STRAIGHT, directionTurnSupplier.get());
-        assertEquals(DirectionTurn.RIGHT, directionTurnSupplier.get());
-        assertEquals(DirectionTurn.LEFT, directionTurnSupplier.get());
-    }
-
-    @Test
     void moveIntersectionSouth() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 " | ",
                 "-+-",
                 " | "
         ));
 
-        Cart cart = new Cart("TEST", Direction.SOUTH, directionTurnSupplier, Point.of(1, 1));
+        final var cart = new Cart("TEST", Direction.SOUTH, directionTurnSupplier, Point.of(1, 1));
 
         when(directionTurnSupplier.get()).thenReturn(DirectionTurn.RIGHT);
-        Cart next = cart.move(tracks);
+
+        var next = cart.move(tracks);
         assertEquals(Point.of(0, 1), next.location());
         assertEquals(Direction.WEST, next.direction());
 
@@ -79,17 +71,19 @@ class CartTest {
 
     @Test
     void moveIntersectionWest() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 " | ",
                 "-+-",
                 " | "
         ));
 
-        Cart cart = new Cart("TEST", Direction.WEST, directionTurnSupplier, Point.of(1, 1));
+        final var cart = new Cart("TEST", Direction.WEST, directionTurnSupplier, Point.of(1, 1));
 
         when(directionTurnSupplier.get()).thenReturn(DirectionTurn.RIGHT);
-        Cart next = cart.move(tracks);
+
+        var next = cart.move(tracks);
         assertEquals(Point.of(1, 0), next.location());
         assertEquals(Direction.NORTH, next.direction());
 
@@ -106,17 +100,19 @@ class CartTest {
 
     @Test
     void moveIntersectionNorth() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
         final Tracks tracks = Tracks.of(List.of(
                 " | ",
                 "-+-",
                 " | "
         ));
 
-        Cart cart = new Cart("TEST", Direction.NORTH, directionTurnSupplier, Point.of(1, 1));
+        final var cart = new Cart("TEST", Direction.NORTH, directionTurnSupplier, Point.of(1, 1));
 
         when(directionTurnSupplier.get()).thenReturn(DirectionTurn.RIGHT);
-        Cart next = cart.move(tracks);
+
+        var next = cart.move(tracks);
         assertEquals(Point.of(2, 1), next.location());
         assertEquals(Direction.EAST, next.direction());
 
@@ -133,17 +129,19 @@ class CartTest {
 
     @Test
     void moveIntersectionEast() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 " | ",
                 "-+-",
                 " | "
         ));
 
-        Cart cart = new Cart("TEST", Direction.EAST, directionTurnSupplier, Point.of(1, 1));
+        final var cart = new Cart("TEST", Direction.EAST, directionTurnSupplier, Point.of(1, 1));
 
         when(directionTurnSupplier.get()).thenReturn(DirectionTurn.RIGHT);
-        Cart next = cart.move(tracks);
+
+        var next = cart.move(tracks);
         assertEquals(Point.of(1, 2), next.location());
         assertEquals(Direction.SOUTH, next.direction());
 
@@ -160,17 +158,18 @@ class CartTest {
 
     @Test
     void moveHLine() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 "---"
         ));
 
-        Cart west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(1, 0));
-        Cart east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 0));
+        final var west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(1, 0));
+        final var east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 0));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = east.move(tracks);
+        var next = east.move(tracks);
         assertEquals(Point.of(2, 0), next.location());
         assertEquals(Direction.EAST, next.direction());
 
@@ -181,19 +180,20 @@ class CartTest {
 
     @Test
     void moveVLine() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 "|",
                 "|",
                 "|"
         ));
 
-        Cart north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(0, 1));
-        Cart south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(0, 1));
+        final var north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(0, 1));
+        final var south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(0, 1));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = north.move(tracks);
+        var next = north.move(tracks);
         assertEquals(Point.of(0, 0), next.location());
         assertEquals(Direction.NORTH, next.direction());
 
@@ -204,18 +204,19 @@ class CartTest {
 
     @Test
     void moveTopLeft() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 "/-",
                 "| "
         ));
 
-        Cart west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(0, 0));
-        Cart north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(0, 0));
+        final var west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(0, 0));
+        final var north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(0, 0));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = west.move(tracks);
+        var next = west.move(tracks);
         assertEquals(Point.of(0, 1), next.location());
         assertEquals(Direction.SOUTH, next.direction());
 
@@ -226,18 +227,19 @@ class CartTest {
 
     @Test
     void moveTopRight() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 "-\\",
                 " |"
         ));
 
-        Cart east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 0));
-        Cart north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(1, 0));
+        final var east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 0));
+        final var north = new Cart("NORTH", Direction.NORTH, directionTurnSupplier, Point.of(1, 0));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = east.move(tracks);
+        var next = east.move(tracks);
         assertEquals(Point.of(1, 1), next.location());
         assertEquals(Direction.SOUTH, next.direction());
 
@@ -248,18 +250,19 @@ class CartTest {
 
     @Test
     void moveBottomLeft() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 "| ",
                 "\\-"
         ));
 
-        Cart south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(0, 1));
-        Cart west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(0, 1));
+        final var south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(0, 1));
+        final var west = new Cart("WEST", Direction.WEST, directionTurnSupplier, Point.of(0, 1));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = south.move(tracks);
+        var next = south.move(tracks);
         assertEquals(Point.of(1, 1), next.location());
         assertEquals(Direction.EAST, next.direction());
 
@@ -270,18 +273,19 @@ class CartTest {
 
     @Test
     void moveBottomRight() {
-        final Supplier<DirectionTurn> directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
-        final Tracks tracks = Tracks.of(List.of(
+        @SuppressWarnings("unchecked")
+        final var directionTurnSupplier = (Supplier<DirectionTurn>) mock(Supplier.class);
+        final var tracks = Tracks.of(List.of(
                 " |",
                 "-/"
         ));
 
-        Cart east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 1));
-        Cart south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(1, 1));
+        final var east = new Cart("EAST", Direction.EAST, directionTurnSupplier, Point.of(1, 1));
+        final var south = new Cart("SOUTH", Direction.SOUTH, directionTurnSupplier, Point.of(1, 1));
 
         when(directionTurnSupplier.get()).thenThrow(new AssertionError());
 
-        Cart next = east.move(tracks);
+        var next = east.move(tracks);
         assertEquals(Point.of(1, 0), next.location());
         assertEquals(Direction.NORTH, next.direction());
 
