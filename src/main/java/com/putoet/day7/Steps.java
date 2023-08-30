@@ -1,13 +1,15 @@
 package com.putoet.day7;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Steps {
+class Steps {
     private final Map<String, Step> steps = new HashMap<>();
 
-    public static Steps of(List<String> lines) {
-        final Steps steps = new Steps();
+    public static Steps of(@NotNull List<String> lines) {
+        final var steps = new Steps();
 
         lines.stream()
                 .map(Instruction::new)
@@ -16,18 +18,12 @@ public class Steps {
         return steps;
     }
 
-    public Step get(String name) {
-        name = name.toUpperCase();
-
-        if (!steps.containsKey(name)) {
-            steps.put(name, new Step(name));
-        }
-
-        return steps.get(name);
+    public Step get(@NotNull String name) {
+        return steps.computeIfAbsent(name.toUpperCase(), Step::new);
     }
 
-    public Optional<Step> next(Set<Step> finished) {
-        final Optional<Step> next = steps.values().stream()
+    public Optional<Step> next(@NotNull Set<Step> finished) {
+        final var next = steps.values().stream()
                 .filter(step -> step.available(finished))
                 .sorted()
                 .findFirst();
@@ -43,7 +39,7 @@ public class Steps {
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 
-    public void remove(Step step) {
+    public void remove(@NotNull Step step) {
         steps.remove(step.name());
     }
 

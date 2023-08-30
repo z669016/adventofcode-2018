@@ -9,8 +9,8 @@ class ConcurrentStepWalkerTest {
 
     @Test
     void walkOne() {
-        final Steps steps = Steps.of(ResourceLines.list("/day7.txt"));
-        final ConcurrentStepWalker walker = new ConcurrentStepWalker(steps);
+        final var steps = Steps.of(ResourceLines.list("/day7.txt"));
+        final var walker = new ConcurrentStepWalker(steps);
 
         assertEquals("CABDFE", walker.walk());
         assertEquals(6, walker.duration());
@@ -18,8 +18,8 @@ class ConcurrentStepWalkerTest {
 
     @Test
     void walkMultiple() {
-        final Steps steps = Steps.of(ResourceLines.list("/day7.txt"));
-        final ConcurrentStepWalker walker = new ConcurrentStepWalker(steps, 2);
+        final var steps = Steps.of(ResourceLines.list("/day7.txt"));
+        final var walker = new ConcurrentStepWalker(steps, 2);
 
         assertEquals("CABFDE", walker.walkMultiple());
         assertEquals(15, walker.duration());

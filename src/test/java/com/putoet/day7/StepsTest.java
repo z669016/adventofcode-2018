@@ -4,7 +4,6 @@ import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,19 +24,17 @@ class StepsTest {
     void next() {
         assertEquals(4, steps.size());
 
-        Optional<Step> next = steps.next(Set.of());
+        final var next = steps.next(Set.of());
         assertTrue(next.isPresent());
         assertEquals("A", next.get().name());
-
         assertEquals(3, steps.size());
-
-        assertEquals("B", steps.next(Set.of(next.get())).get().name());
+        assertEquals("B", steps.next(Set.of(next.get())).orElseThrow().name());
     }
 
     @Test
     void of() {
-        final Steps steps = Steps.of(ResourceLines.list("/day7.txt"));
+        final var steps = Steps.of(ResourceLines.list("/day7.txt"));
         assertEquals(6, steps.size());
-        assertEquals("C", steps.next(Set.of()).get().name());
+        assertEquals("C", steps.next(Set.of()).orElseThrow().name());
     }
 }

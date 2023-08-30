@@ -1,18 +1,20 @@
 package com.putoet.day7;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
-public class ConcurrentStepWalker {
+class ConcurrentStepWalker {
     private final Steps steps;
     private final int concurrent;
     private int duration = 0;
 
-    public ConcurrentStepWalker(Steps steps) {
+    public ConcurrentStepWalker(@NotNull Steps steps) {
         this(steps, 1);
     }
 
-    public ConcurrentStepWalker(Steps steps, int concurrent) {
+    public ConcurrentStepWalker(@NotNull Steps steps, int concurrent) {
         this.steps = steps;
         this.concurrent = concurrent;
     }
@@ -28,14 +30,14 @@ public class ConcurrentStepWalker {
     public String walkMultiple(int delay) {
         duration = 0;
 
-        final StringBuilder sb = new StringBuilder();
-        final List<StepWalker> walkers = new ArrayList<>();
-        final Set<Step> finished = new TreeSet<>();
+        final var sb = new StringBuilder();
+        final var walkers = new ArrayList<StepWalker>();
+        final var finished = new TreeSet<Step>();
 
-        Set<Step> options = steps.options(finished);
+        var options = steps.options(finished);
         do {
-            for (StepWalker walker : walkers) {
-                final Optional<String> letter = walker.walk();
+            for (var walker : walkers) {
+                final var letter = walker.walk();
                 if (letter.isPresent()) {
                     finished.add(walker.step());
                     sb.append(letter.get());
@@ -44,26 +46,26 @@ public class ConcurrentStepWalker {
             walkers.removeIf(walker -> walker.walking() == 0);
 
             options = steps.options(finished);
-            final Iterator<Step> iter = options.iterator();
+            final var iter = options.iterator();
             while (iter.hasNext() && walkers.size() < concurrent) {
                 final Step step = iter.next();
                 walkers.add(new StepWalker(step, delay));
                 steps.remove(step);
             }
 
-            if (walkers.size() > 0)
+            if (!walkers.isEmpty())
                 duration++;
 
-        } while (walkers.size() > 0);
+        } while (!walkers.isEmpty());
 
         return sb.toString();
     }
 
     public String walkOne() {
-        final StringBuilder sb = new StringBuilder();
-        final Set<Step> finished = new TreeSet<>();
+        final var sb = new StringBuilder();
+        final var finished = new TreeSet<Step>();
 
-        for (Optional<Step> next = steps.next(finished); next.isPresent(); next = steps.next(finished)) {
+        for (var next = steps.next(finished); next.isPresent(); next = steps.next(finished)) {
             duration++;
             sb.append(next.get().name());
             finished.add(next.get());

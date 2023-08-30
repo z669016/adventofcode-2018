@@ -1,18 +1,14 @@
 package com.putoet.day7;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Optional;
 
-public class StepWalker {
-    public static final int MIN_DURATION = 60;
-
+class StepWalker {
     private final Step step;
     private int walking;
 
-    public StepWalker(Step step) {
-        this(step, MIN_DURATION);
-    }
-
-    public StepWalker(Step step, int delay) {
+    public StepWalker(@NotNull Step step, int delay) {
         this.step = step;
         walking = 1 + delay + step.name().charAt(0) - 'A';
     }
