@@ -23,7 +23,6 @@ class FabricTest {
 
     @Test
     void of() {
-        assertThrows(AssertionError.class, () -> new Fabric(null));
         assertThrows(IllegalArgumentException.class, () -> new Fabric(List.of()));
     }
 
@@ -34,7 +33,7 @@ class FabricTest {
 
     @Test
     void nonOverlap() {
-        final List<Claim> claims = fabric.nonOverlap(this.claims);
+        final var claims = fabric.nonOverlap(this.claims);
         assertEquals(1, claims.size());
         assertEquals(3, claims.get(0).id());
     }

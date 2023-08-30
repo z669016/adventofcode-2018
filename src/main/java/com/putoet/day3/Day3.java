@@ -1,26 +1,16 @@
 package com.putoet.day3;
 
 import com.putoet.resources.ResourceLines;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.putoet.utils.Timer;
 
 public class Day3 {
     public static void main(String[] args) {
-        final List<Claim> claims = ResourceLines.list("/day3.txt").stream()
+        final var claims = ResourceLines.stream("/day3.txt")
                 .map(Claim::of)
-                .collect(Collectors.toList());
+                .toList();
         final Fabric fabric = new Fabric(claims);
 
-        part1(fabric);
-        part2(claims, fabric);
-    }
-
-    private static void part1(Fabric fabric) {
-        System.out.println("Overlap is " + fabric.overlap());
-    }
-
-    private static void part2(List<Claim> claims, Fabric fabric) {
-        System.out.println("Non overlap is " + fabric.nonOverlap(claims));
+        Timer.run(() -> System.out.println("Overlap is " + fabric.overlap()));
+        Timer.run(() -> System.out.println("Non overlap is " + fabric.nonOverlap(claims)));
     }
 }

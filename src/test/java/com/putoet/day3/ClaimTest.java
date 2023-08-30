@@ -10,7 +10,7 @@ class ClaimTest {
 
     @Test
     void of() {
-        final Claim claim = Claim.of("#3 @ 5,6: 2x4");
+        final var claim = Claim.of("#3 @ 5,6: 2x4");
 
         assertEquals(3, claim.id());
         assertEquals(Point.of(5, 6), claim.at());

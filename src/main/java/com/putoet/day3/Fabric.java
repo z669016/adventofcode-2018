@@ -1,30 +1,28 @@
 package com.putoet.day3;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.OptionalInt;
-import java.util.stream.Collectors;
 
-public class Fabric {
+class Fabric {
     private final int[][] fabric;
 
-    public Fabric(List<Claim> claims) {
-        assert claims != null;
+    public Fabric(@NotNull List<Claim> claims) {
+        if (claims.isEmpty())
+            throw new IllegalArgumentException();
 
-        final OptionalInt dy = claims.stream().mapToInt(c -> c.at().y() + c.size().dy()).max();
-        final OptionalInt dx = claims.stream().mapToInt(c -> c.at().x() + c.size().dx()).max();
+        final var dy = claims.stream().mapToInt(c -> c.at().y() + c.size().dy()).max().orElseThrow();
+        final var dx = claims.stream().mapToInt(c -> c.at().x() + c.size().dx()).max().orElseThrow();
 
-        if (dy.isEmpty() || dx.isEmpty())
-            throw new IllegalArgumentException("Cannot create Fabric for " + claims);
-
-        fabric = new int[dy.getAsInt()][dx.getAsInt()];
+        fabric = new int[dy][dx];
 
         claims.forEach(this::claim);
     }
 
-    public void claim(Claim claim) {
-        for (int y = 0; y < claim.size().dy(); y++)
-            for (int x = 0; x < claim.size().dx(); x++) {
+    public void claim(@NotNull Claim claim) {
+        for (var y = 0; y < claim.size().dy(); y++)
+            for (var x = 0; x < claim.size().dx(); x++) {
                 if (fabric[y + claim.at().y()][x + claim.at().x()] == 0)
                     fabric[y + claim.at().y()][x + claim.at().x()] = claim.id();
                 else
@@ -36,15 +34,15 @@ public class Fabric {
         return Arrays.stream(fabric).flatMapToInt(Arrays::stream).filter(i -> i == -1).count();
     }
 
-    public List<Claim> nonOverlap(List<Claim> claims) {
+    public List<Claim> nonOverlap(@NotNull List<Claim> claims) {
         return claims.stream()
                 .filter(this::hasNoOverlap)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private boolean hasNoOverlap(Claim claim) {
-        for (int y = 0; y < claim.size().dy(); y++)
-            for (int x = 0; x < claim.size().dx(); x++) {
+        for (var y = 0; y < claim.size().dy(); y++)
+            for (var x = 0; x < claim.size().dx(); x++) {
                 if (fabric[y + claim.at().y()][x + claim.at().x()] != claim.id())
                     return false;
             }
