@@ -3,32 +3,33 @@ package com.putoet.day17;
 import com.putoet.grid.Grid;
 import com.putoet.grid.GridUtils;
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.Stack;
 
-public class WaterFlow {
+class WaterFlow {
     public static final char FLOWING_WATER = '|';
     public static final char STILL_WATER = '~';
     public static final char OPEN = '.';
     public static final char CLAY = '#';
 
-    public static void flow(Grid grid) {
-        final int x = GirdFactory.WATER_X;
-        final int y = grid.minY() + 1;
+    public static void flow(@NotNull Grid grid) {
+        final var x = GirdFactory.WATER_X;
+        final var y = grid.minY() + 1;
         grid.set(x, y, FLOWING_WATER);
 
-        final Stack<Point> stack = new Stack<>();
+        final var stack = new Stack<Point>();
         stack.push(Point.of(x, y));
 
         while (!stack.empty()) {
-            final Point point = stack.pop();
+            final var point = stack.pop();
             if (grid.get(point.x(), point.y()) != FLOWING_WATER)
                 continue;
 
-            final Point next = point.add(Point.of(0, 1));
-            final Optional<Point> left = x >= grid.minX() ? Optional.of(point.add(Point.of(-1, 0))) : Optional.empty();
-            final Optional<Point> right = x < grid.maxX() ? Optional.of(point.add(Point.of(1, 0))) : Optional.empty();
+            final var next = point.add(Point.of(0, 1));
+            final var left = Optional.ofNullable(x >= grid.minX() ? point.add(Point.of(-1, 0)) : null);
+            final var right = Optional.ofNullable(x < grid.maxX() ? point.add(Point.of(1, 0)) : null);
 
             // Don;t fall off the grid
             if (next.y() >= grid.maxY())
@@ -84,8 +85,9 @@ public class WaterFlow {
         return false;
     }
 
+     @SuppressWarnings("StatementWithEmptyBody")
      private static boolean isInbetweenClay(int x, int y, Grid grid) {
-        int xd = x;
+        var xd = x;
         while (--xd > grid.minX() && grid.get(xd, y) == FLOWING_WATER) {}
         if (xd <= grid.minX() || grid.get(xd, y) != CLAY)
             return false;

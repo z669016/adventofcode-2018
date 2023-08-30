@@ -1,8 +1,8 @@
 package com.putoet.day17;
 
 import com.putoet.grid.Grid;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Range {
@@ -24,18 +24,16 @@ public abstract class Range {
 
     private static final Pattern PATTERN = Pattern.compile("([xy])=(\\d+), ([xy])=(\\d+)\\.\\.(\\d+)");
 
-    public static Range of(String line) {
-        assert line != null;
-
-        final Matcher matcher = PATTERN.matcher(line);
+    public static Range of(@NotNull String line) {
+        final var matcher = PATTERN.matcher(line);
         if (!matcher.matches())
             throw new IllegalArgumentException("Invalid range: " + line);
         else {
-            final String first = matcher.group(1);
-            final int fixed = Integer.parseInt(matcher.group(2));
-            final String second = matcher.group(3);
-            final int min = Integer.parseInt(matcher.group(4));
-            final int max = Integer.parseInt(matcher.group(5));
+            final var first = matcher.group(1);
+            final var fixed = Integer.parseInt(matcher.group(2));
+            final var second = matcher.group(3);
+            final var min = Integer.parseInt(matcher.group(4));
+            final var max = Integer.parseInt(matcher.group(5));
 
             if (first.equals(second))
                 throw new IllegalArgumentException("Invalid range: " + line);

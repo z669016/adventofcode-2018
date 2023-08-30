@@ -2,7 +2,7 @@ package com.putoet.day17;
 
 import com.putoet.grid.Grid;
 
-public class XRange extends Range {
+class XRange extends Range {
 
     public XRange(int fixed, int min, int max) {
         super(fixed, min, max);
@@ -10,7 +10,7 @@ public class XRange extends Range {
 
     @Override
     public void apply(Grid grid) {
-        for (int idx = min; idx <= max; idx++)
+        for (var idx = min; idx <= max; idx++)
             grid.set(idx, fixed, '#');
     }
 

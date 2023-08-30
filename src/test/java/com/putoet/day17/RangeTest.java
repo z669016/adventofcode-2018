@@ -10,7 +10,7 @@ class RangeTest {
 
     @Test
     void ofXLine() {
-        final String xLine = "x=569, y=570..582";
+        final var xLine = "x=569, y=570..582";
 
         Range range = Range.of(xLine);
         assertTrue(range instanceof YRange);
@@ -20,17 +20,17 @@ class RangeTest {
         assertEquals(582, range.maxY());
         assertEquals(xLine, range.toString());
 
-        final Grid grid = mock(Grid.class);
+        final var grid = mock(Grid.class);
         range.apply(grid);
-        for (int y = 570; y <= 582; y++)
+        for (var y = 570; y <= 582; y++)
             verify(grid, times(1)).set(569, y, '#');
     }
 
     @Test
     void ofYLine() {
-        final String yLine = "y=372, x=495..519";
+        final var yLine = "y=372, x=495..519";
 
-        Range range = Range.of(yLine);
+        final var range = Range.of(yLine);
         assertTrue(range instanceof XRange);
         assertEquals(495, range.minX());
         assertEquals(519, range.maxX());
@@ -38,9 +38,9 @@ class RangeTest {
         assertEquals(372, range.maxY());
         assertEquals(yLine, range.toString());
 
-        final Grid grid = mock(Grid.class);
+        final var grid = mock(Grid.class);
         range.apply(grid);
-        for (int x = 495; x <= 519; x++)
+        for (var x = 495; x <= 519; x++)
             verify(grid, times(1)).set(x, 372, '#');
     }
 

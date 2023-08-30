@@ -9,7 +9,7 @@ public class YRange extends Range {
 
     @Override
     public void apply(Grid grid) {
-        for (int idy = min; idy <= max; idy++)
+        for (var idy = min; idy <= max; idy++)
             grid.set(fixed, idy, '#');
     }
 
