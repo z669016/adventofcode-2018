@@ -1,14 +1,14 @@
 package com.putoet.day11;
 
 import com.putoet.grid.Point;
+import com.putoet.utils.Timer;
 
 public class Day11 {
     public static void main(String[] args) {
-        final int input = 8199;
-        final FuelGrid grid = new FuelGrid(input);
+        final var grid = new FuelGrid(8199);
 
-        part1(grid);
-        part2(grid);
+        Timer.run(() -> part1(grid));
+        Timer.run(() -> part2(grid));
     }
 
     private static void part1(FuelGrid grid) {
@@ -16,17 +16,18 @@ public class Day11 {
     }
 
     private static void part2(FuelGrid grid) {
-        int max = Integer.MIN_VALUE;
-        int maxSize = 0;
-        Point maxPoint = Point.of(1, 1);
-        for (int size = 3; size <= 300; size++) {
-            final Point point = grid.maxXByX(size);
-            final int sum = grid.xByXSum(point, size);
+        var maxSum = Integer.MIN_VALUE;
+        var maxSize = 0;
+        var maxPoint = Point.of(1, 1);
 
-            if (sum > max) {
+        for (int size = 3; size <= 300; size++) {
+            final var point = grid.maxXByX(size);
+            final var sum = grid.xByXSum(point, size);
+
+            if (sum > maxSum) {
                 maxSize = size;
                 maxPoint = point;
-                max = sum;
+                maxSum = sum;
             }
         }
 

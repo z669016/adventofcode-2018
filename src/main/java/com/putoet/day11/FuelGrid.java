@@ -2,8 +2,9 @@ package com.putoet.day11;
 
 import com.putoet.grid.Point;
 import com.putoet.grid.Size;
+import org.jetbrains.annotations.NotNull;
 
-public class FuelGrid {
+class FuelGrid {
     private final Size size = new Size(300, 300);
     private final int[][] grid = new int[size.dy()][size.dx()];
 
@@ -12,16 +13,15 @@ public class FuelGrid {
     }
 
     private static void setupGrid(int serialNumber, int[][] grid) {
-        for (int y = 0; y < grid.length; y++)
-            for (int x = 0; x < grid.length; x++)
+        for (var y = 0; y < grid.length; y++)
+            for (var x = 0; x < grid.length; x++)
                 grid[y][x] = powerLevel(serialNumber, Point.of(x + 1, y + 1));
     }
 
-    public static int powerLevel(int serialNumber, Point point) {
-        assert point != null;
+    public static int powerLevel(int serialNumber, @NotNull Point point) {
+        final var rackId = rackId(point);
 
-        final int rackId = rackId(point);
-        int powerLevel = rackId * point.y();
+        var powerLevel = rackId * point.y();
         powerLevel += serialNumber;
         powerLevel *= rackId;
         powerLevel = hundreds(powerLevel);
@@ -30,30 +30,32 @@ public class FuelGrid {
         return powerLevel;
     }
 
-    public static int rackId(Point point) {
-        assert point != null;
-
+    public static int rackId(@NotNull Point point) {
         return point.x() + 10;
     }
 
     public static int hundreds(int value) {
-        return (value % 1_000) / 100;
+        if (value < 100)
+            return 0;
+
+        if (value < 1000)
+            return value / 100;
+
+        return (value % 1000) / 100;
     }
 
-    public int get(Point point) {
-        assert point != null;
+    public int get(@NotNull Point point) {
         assert point.x() > 0 && point.x() <= size.dx();
         assert point.y() > 0 && point.y() <= size.dy();
 
         return grid[point.y() - 1][point.x() - 1];
     }
 
-    public int threeByThreeSum(Point point) {
+    public int threeByThreeSum(@NotNull Point point) {
         return xByXSum(point, 3);
     }
 
-    public int xByXSum(Point point, int size) {
-        assert point != null;
+    public int xByXSum(@NotNull Point point, int size) {
         assert point.x() > 0 && point.x() <= this.size.dx() - size + 1;
         assert point.y() > 0 && point.y() <= this.size.dy() - size + 1;
 
@@ -71,12 +73,12 @@ public class FuelGrid {
     }
 
     public Point maxXByX(int size) {
-        Point maxPoint = Point.of(1, 1);
+        var maxPoint = Point.of(1, 1);
         int max = Integer.MIN_VALUE;
 
         for (int y = 0; y < grid.length - size + 1; y++)
             for (int x = 0; x < grid.length - size + 1; x++) {
-                final Point point = Point.of(x + 1, y + 1);
+                final var point = Point.of(x + 1, y + 1);
                 int gridPower = xByXSum(point, size);
                 if (gridPower > max) {
                     max = gridPower;

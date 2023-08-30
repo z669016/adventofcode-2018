@@ -7,18 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FuelGridTest {
     @Test
-    void create() {
-        final FuelGrid grid = new FuelGrid(18);
-//        for (int y = 0; y < 3; y++) {
-//            for (int x = 0; x < 3; x++) {
-//                System.out.print(grid.get(Point.of( x + 33, y + 45)));
-//                System.out.print(" ");
-//            }
-//            System.out.println();
-//        }
-    }
-
-    @Test
     void threeByThreeSum() {
         assertEquals(29, new FuelGrid(18).threeByThreeSum(Point.of(33,45)));
         assertEquals(30, new FuelGrid(42).threeByThreeSum(Point.of(21,61)));
