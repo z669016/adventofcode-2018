@@ -1,29 +1,27 @@
 package com.putoet.day18;
 
-import com.putoet.grid.Grid;
-import com.putoet.grid.GridUtils;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 import java.util.*;
 
 public class Day18 {
     public static void main(String[] args) {
-        part(10);
-        part(1_000_000_000);
+        Timer.run(() -> part(10));
+        Timer.run(() -> part(1_000_000_000));
     }
 
     private static void part(long minutes) {
-        final List<Integer> history = new ArrayList<>();
-        Grid next = GridFactory.of(ResourceLines.list("/day18.txt"));
+        final var history = new ArrayList<Integer>();
+        var next = GridFactory.of(ResourceLines.list("/day18.txt"));
 
         history.add(next.hashCode());
-        long count = minutes;
-        int firstDuplicate = 0;
+        var count = minutes;
+        var firstDuplicate = 0;
         while (count-- > 0) {
-            System.out.print(count + "\r");
             next = GridFactory.next(next);
 
-            final int hash = next.hashCode();
+            final var hash = next.hashCode();
             firstDuplicate = history.indexOf(hash);
             if (firstDuplicate != -1) {
                 break;

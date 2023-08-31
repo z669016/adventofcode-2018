@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,30 +20,31 @@ class AcreScannerTest {
 
     @Test
     void scan() {
-        final Map<Point, AcreScan> acreScans = AcreScanner.scan(grid);
+        final var acreScans = AcreScanner.scan(grid);
         assertEquals(100, acreScans.size());
     }
 
     @Test
     void scanPoint() {
-        final List<String> lines = List.of(
+        final var lines = List.of(
                 ".|#",
                 "||#",
                 "#|#"
         );
 
-        final Grid grid = GridFactory.of(lines);
-        final AcreScan acreScan = AcreScanner.scanPoint(Point.of(1, 1), grid);
+        final var grid = GridFactory.of(lines);
+        final var acreScan = AcreScanner.scanPoint(Point.of(1, 1), grid);
 
-        assertEquals(4, acreScan.adjacentLumberyards);
-        assertEquals(3, acreScan.adjacentTrees);
-        assertEquals(1, acreScan.adjacentOpen);
+        assertEquals(4, acreScan.adjacentLumberyards());
+        assertEquals(3, acreScan.adjacentTrees());
+        assertEquals(1, acreScan.adjacentOpen());
     }
 
     @Test
     void adjacendPoints() {
-        List<Point> adjacentPoints = AcreScanner.adjacendPoints(Point.ORIGIN, grid);
+        var adjacentPoints = AcreScanner.adjacendPoints(Point.ORIGIN, grid);
         assertEquals(3, adjacentPoints.size());
+
         adjacentPoints = AcreScanner.adjacendPoints(Point.of(1, 0), grid);
         assertEquals(5, adjacentPoints.size());
 
