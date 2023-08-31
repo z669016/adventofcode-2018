@@ -1,14 +1,25 @@
 package com.putoet.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RegsTest {
+    private Regs regs;
+
+    @BeforeEach
+    void setup() {
+        regs = new Regs();
+        regs.set(0, 1);
+        regs.set(1, 2);
+        regs.set(2, 3);
+        regs.set(3, 4);
+    }
+
     @Test
     void get() {
-        final var regs = new Regs().set(0, 1).set(1, 2).set(2, 3).set(3, 4);
         assertEquals(1, regs.get(0));
         assertEquals(2, regs.get(1));
         assertEquals(3, regs.get(2));
@@ -17,15 +28,13 @@ class RegsTest {
 
     @Test
     void set() {
-        final var a = new Regs();
-        a.set(0, 1);
+        regs.set(0, 7);
 
-        assertEquals("[1, 0, 0, 0]", a.toString());
+        assertEquals("[7, 2, 3, 4]", regs.toString());
     }
 
     @Test
     void testToString() {
-        final var regs = new Regs().set(0, 1).set(1, 2).set(2, 3).set(3, 4);
         assertEquals("[1, 2, 3, 4]", regs.toString());
     }
 
@@ -33,8 +42,8 @@ class RegsTest {
     void apply() {
         final var instruction = mock(Instruction.class);
         final var regs = new Regs();
-        regs.apply(instruction);
+        regs.accept(instruction);
 
-        verify(instruction, times(1)).apply(regs);
+        verify(instruction, times(1)).accept(regs);
     }
 }
