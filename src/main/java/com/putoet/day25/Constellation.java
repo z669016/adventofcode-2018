@@ -3,7 +3,7 @@ package com.putoet.day25;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Constellation {
+class Constellation {
     private final Set<Point4D> points = new HashSet<>();
 
     public Constellation add(Point4D point) {
@@ -11,9 +11,8 @@ public class Constellation {
         return this;
     }
 
-    public Constellation merge(Constellation other) {
+    public void merge(Constellation other) {
         points.addAll(other.points);
-        return this;
     }
 
     public boolean contains(Point4D point) {

@@ -1,20 +1,6 @@
 package com.putoet.day25;
 
-public class Point4D {
-    public static Point4D ORIGIN = new Point4D(0, 0, 0, 0);
-
-    public final int x, y, z, q;
-
-    public Point4D(int x, int y, int z, int q) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.q = q;
-    }
-
-    public int manhattanDistance() {
-        return manhattanDistance(ORIGIN);
-    }
+record Point4D(int x, int y, int z, int q) {
 
     public int manhattanDistance(Point4D other) {
         return Math.abs(x - other.x) + Math.abs(y - other.y) + Math.abs(z - other.z) + Math.abs(q - other.q);
@@ -23,7 +9,7 @@ public class Point4D {
     public static Point4D of(String line) {
         assert line != null;
 
-        final String split[] = line.split(",");
+        final var split = line.split(",");
         assert split.length == 4;
 
         final int x = Integer.parseInt(split[0].strip());

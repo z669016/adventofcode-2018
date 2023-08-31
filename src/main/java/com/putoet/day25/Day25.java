@@ -1,20 +1,17 @@
 package com.putoet.day25;
 
 import com.putoet.resources.ResourceLines;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.putoet.utils.Timer;
 
 public class Day25 {
     public static void main(String[] args) {
-        final List<String> lines = ResourceLines.list("/day25.txt");
-        final List<Point4D> points = lines.stream().map(Point4D::of).collect(Collectors.toList());
+        final var points = ResourceLines.stream("/day25.txt")
+                .map(Point4D::of)
+                .toList();
 
-        part1(points);
-    }
-
-    private static void part1(List<Point4D> points) {
-        final Galaxy galaxy = new Galaxy().add(points);
-        System.out.println("The galaxy consists of " + galaxy.size() + " constellations.");
+        Timer.run(() -> {
+            final var galaxy = new Galaxy().add(points);
+            System.out.println("The galaxy consists of " + galaxy.size() + " constellations.");
+        });
     }
 }
