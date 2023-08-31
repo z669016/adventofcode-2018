@@ -5,7 +5,6 @@ import com.putoet.resources.ResourceLines;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,16 +19,15 @@ class NanoBotsTest {
 
     @Test
     void strongest() {
-        final Optional<NanoBot> bot = NanoBots.strongest(bots);
-        assertTrue(bot.isPresent());
-        assertEquals(Point3D.ORIGIN, bot.get().coordinate);
-        assertEquals(4, bot.get().r);
+        final var bot = NanoBots.strongest(bots).orElseThrow();
+        assertEquals(Point3D.ORIGIN, bot.coordinate());
+        assertEquals(4, bot.r());
     }
 
     @Test
     void inRange() {
-        final NanoBot target = NanoBots.strongest(bots).get();
-        final List<NanoBot> inRange = NanoBots.inRange(target, bots);
+        final var target = NanoBots.strongest(bots).orElseThrow();
+        final var inRange = NanoBots.inRange(target, bots);
         assertEquals(7, inRange.size());
     }
 }
