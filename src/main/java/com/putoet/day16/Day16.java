@@ -32,9 +32,9 @@ public class Day16 {
         final var factory = new InstructionFactory(opcodes);
 
         final var instructions = ResourceLines.list("/day16-2.txt");
-        var regs = new Regs();
+        final var regs = new Regs();
         for (var line : instructions) {
-            regs = regs.apply(factory.of(InstructionMatcher.instruction(line)));
+            regs.accept(factory.of(InstructionMatcher.instruction(line)));
         }
 
         System.out.println("The value in register 0 is " + regs.get(0));
@@ -44,11 +44,9 @@ public class Day16 {
         final var opcodes = new HashMap<Long, Set<String>>();
 
         for (var idx = 0; idx < lines.size(); idx += 4) {
-            final var before = InstructionMatcher.before(lines.get(idx));
             final var instruction = InstructionMatcher.instruction(lines.get(idx + 1));
-            final var after = InstructionMatcher.after(lines.get(idx + 2));
 
-            final var instructionSet = InstructionMatcher.match(before, after, instruction);
+            final var instructionSet = inStructionSet(lines, idx);
             if (!opcodes.containsKey(instruction[0])) {
                 opcodes.put(instruction[0], instructionSet);
             } else {

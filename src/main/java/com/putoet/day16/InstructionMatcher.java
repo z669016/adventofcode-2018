@@ -17,12 +17,14 @@ class InstructionMatcher {
     public static Set<String> match(long[] b, long[] a, long[] i) {
         assert b.length == 4 && a.length == 4 && i.length == 4;
 
-        final var before = new Regs(b);
         final var after = new Regs(a);
-
         final var instructionSet = Instruction.instructionSet(i[0], i[1], i[2], i[3]);
         return instructionSet.stream()
-                .filter(instruction -> before.apply(instruction).equals(after))
+                .filter(instruction -> {
+                    final var before = new Regs(b);
+                    before.accept(instruction);
+                    return before.equals(after);
+                })
                 .map(Instruction::name)
                 .collect(Collectors.toSet());
     }

@@ -18,10 +18,9 @@ class RegsTest {
     @Test
     void set() {
         final var a = new Regs();
-        final var b = a.set(0,1);
+        a.set(0, 1);
 
-        assertEquals("[0, 0, 0, 0]", a.toString());
-        assertEquals("[1, 0, 0, 0]", b.toString());
+        assertEquals("[1, 0, 0, 0]", a.toString());
     }
 
     @Test

@@ -3,10 +3,10 @@ package com.putoet.device;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 @AllArgsConstructor
-public abstract class Instruction implements Function<Regs,Regs> {
+public abstract class Instruction implements Consumer<Regs> {
     private final long opcode;
     private final long a;
     private final long b;
@@ -28,8 +28,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction addr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) + regs.get(b));
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) + regs.get(b));
             }
 
             @Override
@@ -42,8 +42,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction addi (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) + b);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) + b);
             }
 
             @Override
@@ -56,8 +56,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction mulr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) * regs.get(b));
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) * regs.get(b));
             }
 
             @Override
@@ -70,8 +70,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction muli (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) * b);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) * b);
             }
 
             @Override
@@ -84,8 +84,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction banr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) & regs.get(b));
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) & regs.get(b));
             }
 
             @Override
@@ -98,8 +98,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction bani (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) & b);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) & b);
             }
 
             @Override
@@ -112,8 +112,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction borr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) | regs.get(b));
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) | regs.get(b));
             }
 
             @Override
@@ -126,8 +126,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction bori (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) | b);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) | b);
             }
 
             @Override
@@ -140,8 +140,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction setr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a));
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a));
             }
 
             @Override
@@ -154,8 +154,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction seti (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, a);
+            public void accept(Regs regs) {
+                regs.set(c, a);
             }
 
             @Override
@@ -168,8 +168,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction gtir (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, a > regs.get(b) ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, a > regs.get(b) ? 1 : 0);
             }
 
             @Override
@@ -182,8 +182,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction gtri (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) > b ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) > b ? 1 : 0);
             }
 
             @Override
@@ -196,8 +196,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction gtrr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) > regs.get(b) ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) > regs.get(b) ? 1 : 0);
             }
 
             @Override
@@ -210,8 +210,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction eqir (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, a == regs.get(b) ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, a == regs.get(b) ? 1 : 0);
             }
 
             @Override
@@ -224,8 +224,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction eqri (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) == b ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) == b ? 1 : 0);
             }
 
             @Override
@@ -238,8 +238,8 @@ public abstract class Instruction implements Function<Regs,Regs> {
     public static Instruction eqrr (long opcode, long a, long b, long c) {
         return new Instruction(opcode, a, b, c) {
             @Override
-            public Regs apply(Regs regs) {
-                return regs.set(c, regs.get(a) == regs.get(b) ? 1 : 0);
+            public void accept(Regs regs) {
+                regs.set(c, regs.get(a) == regs.get(b) ? 1 : 0);
             }
 
             @Override

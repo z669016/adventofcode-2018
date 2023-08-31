@@ -1,19 +1,17 @@
 package com.putoet.device;
 
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
-public record Regs(long[] regs) implements Function<Instruction,Regs> {
+public class Regs implements Consumer<Instruction> {
+    private final long[] regs;
 
     public Regs() {
-        this(new long[] {0, 0, 0, 0});
+        this.regs = new long[] {0, 0, 0, 0};
     }
 
-    public Regs {
-        final var copy = new long[regs.length];
-        System.arraycopy(regs, 0, copy, 0, regs.length);
-
-        regs = copy;
+    public Regs(long[] regs) {
+        this.regs = Arrays.copyOf(regs, regs.length);
     }
 
     public long get(long reg) {
@@ -21,13 +19,10 @@ public record Regs(long[] regs) implements Function<Instruction,Regs> {
         return regs[(int) reg];
     }
 
-    public Regs set(long reg, long value) {
+    public void set(long reg, long value) {
         assert reg >=0 && reg < regs.length;
 
-        final var updated = new Regs(regs);
-        updated.regs[(int) reg] = value;
-
-        return updated;
+        regs[(int) reg] = value;
     }
 
     public int size() {
@@ -35,8 +30,20 @@ public record Regs(long[] regs) implements Function<Instruction,Regs> {
     }
 
     @Override
-    public Regs apply(Instruction instruction) {
-        return instruction.apply(this);
+    public void accept(Instruction instruction) {
+        instruction.accept(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Regs regs1)) return false;
+        return Arrays.equals(regs, regs1.regs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(regs);
     }
 
     @Override

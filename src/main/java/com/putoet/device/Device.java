@@ -7,9 +7,11 @@ import java.util.regex.Pattern;
 
 public class Device implements Runnable {
     private static final Pattern PATTERN = Pattern.compile("([a-z]{4}) (\\d+) (\\d+) (\\d+)");
+
     private final List<Instruction> program;
     private final Map<Long, List<Debug>> breakpoints = new HashMap<>();
-    private Regs regs;
+    private final Regs regs;
+
     private long ip;
     private long ipRegister = -1;
     private Instruction instruction;
@@ -83,10 +85,10 @@ public class Device implements Runnable {
         while (ip >= 0 && ip < program.size()) {
             instruction = program.get((int) ip);
 
-            if (noBreakpoints(ip))
+            if (stopOnBreakpoint(ip))
                 return;
 
-            regs = regs.apply(instruction);
+            regs.accept(instruction);
             retrieveIP();
 
             ip++;
@@ -94,17 +96,20 @@ public class Device implements Runnable {
         }
     }
 
-    private boolean noBreakpoints(long instructionPointer) {
-        // Breakpoint -1 must be performed on all instructions
-        if (instructionPointer != -1 && noBreakpoints(-1))
-            return true;
+    private boolean stopOnBreakpoint(long instructionPointer) {
+        var debuggers = breakpoints.get(-1L);
+        if (debuggers != null)
+            for (var debug : debuggers) {
+                if (!debug.test(this))
+                    return true;
+            }
 
-        // Breakpoint on
-        final var debuggers = breakpoints.getOrDefault(instructionPointer + 1, Collections.emptyList());
-        for (var debug : debuggers) {
-            if (debug.enabled() && !debug.test(this))
-                return true;
-        }
+        debuggers = breakpoints.get(instructionPointer + 1);
+        if (debuggers != null)
+            for (var debug : debuggers) {
+                if (!debug.test(this))
+                    return true;
+            }
 
         return false;
     }
@@ -112,10 +117,7 @@ public class Device implements Runnable {
     public void addBreakpoint(long instructionPointer, @NotNull Debug debug) {
         assert instructionPointer >= -1 && instructionPointer < program.size();
 
-        final var breakpointsOnLine = breakpoints.getOrDefault(instructionPointer + 1, new ArrayList<>());
-        breakpointsOnLine.add(debug);
-        breakpoints.put(instructionPointer + 1,breakpointsOnLine);
-
+        breakpoints.computeIfAbsent(instructionPointer + 1, i -> new ArrayList<>()).add(debug);
     }
 
     public List<Instruction> program() {
@@ -124,7 +126,7 @@ public class Device implements Runnable {
 
     private void storeIP() {
         if (ipRegister != -1)
-            regs = regs.set(ipRegister, ip);
+            regs.set(ipRegister, ip);
     }
 
     private void retrieveIP() {
