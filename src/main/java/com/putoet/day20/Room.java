@@ -1,11 +1,12 @@
 package com.putoet.day20;
 
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
-public class Room extends Cell{
+class Room extends Cell {
     public static final char SYMBOL = '.';
 
-    public Room(Point location) {
+    public Room(@NotNull Point location) {
         super(location);
     }
 

@@ -1,11 +1,12 @@
 package com.putoet.day20;
 
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class Cell {
+abstract class Cell {
     public final Point location;
 
-    public Cell(Point location) {
+    public Cell(@NotNull Point location) {
         this.location = location;
     }
 

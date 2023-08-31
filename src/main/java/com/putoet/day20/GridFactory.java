@@ -2,24 +2,21 @@ package com.putoet.day20;
 
 import com.putoet.grid.Grid;
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class GridFactory {
-    public static Grid of(String regex) {
+class GridFactory {
+    public static Grid of(@NotNull String regex) {
         assert regex.charAt(0) == '^';
         assert regex.charAt(regex.length() - 1) == '$';
 
-        final long start = System.currentTimeMillis();
-        final Map<Point,Cell> locations = parse(regex.substring(1, regex.length() - 1));
-        System.out.println("Map parsed in " + (System.currentTimeMillis()- start) + " ms");
-
-        return grid(locations);
+        return grid(parse(regex.substring(1, regex.length() - 1)));
     }
 
     private static Map<Point,Cell> parse(final String regex) {
-        final Map<Point,Cell> map = new HashMap<>();
-        final Cell start = new Start();
+        final var map = new HashMap<Point,Cell>();
+        final var start = new Start();
         map.put(start.location,start);
         parse(0, map, start.location, regex);
 
@@ -27,13 +24,13 @@ public class GridFactory {
     }
 
     private static Point parse(int level, final Map<Point,Cell> map, Point point, final String regex) {
-        int offset = 0;
+        var offset = 0;
         while (offset < regex.length()) {
             if (regex.charAt(offset) == '(') {
-                final int end = choiceEnd(offset, regex);
-                final List<String> regexes = choiceSplit(offset, end, regex);
-                final Set<Point> endPoints = parse(level+ 1, map, point, regexes);
-                for (Point next : endPoints) {
+                final var end = choiceEnd(offset, regex);
+                final var regexes = choiceSplit(offset, end, regex);
+                final var endPoints = parse(level+ 1, map, point, regexes);
+                for (var next : endPoints) {
                     parse(level + 1, map, next, regex.substring(end + 1));
                 }
                 break;
@@ -57,9 +54,9 @@ public class GridFactory {
     }
 
     private static Set<Point> parse(int level, final Map<Point,Cell> map, Point point, final List<String> regexes) {
-        final Set<Point> endPoints = new HashSet<>();
+        final var endPoints = new HashSet<Point>();
 
-        for (String choice : regexes) {
+        for (var choice : regexes) {
             endPoints.add(parse(level, map, point, choice));
         }
 
@@ -78,7 +75,7 @@ public class GridFactory {
         assert offset >= 0 && offset < regex.length();
         assert regex.charAt(offset) == '(';
 
-        int cnt = 0;
+        var cnt = 0;
         offset++;
         while (!(regex.charAt(offset) == ')' && cnt == 0)) {
             if (regex.charAt(offset) == '(')
@@ -96,10 +93,10 @@ public class GridFactory {
         assert regex.charAt(start) == '(';
         assert regex.charAt(end) == ')';
 
-        final List<String> regexes = new ArrayList<>();
+        final var regexes = new ArrayList<String>();
 
-        int offset = start + 1;
-        int cnt = 0;
+        var offset = start + 1;
+        var cnt = 0;
 
         while (offset < end) {
             if (regex.charAt(offset) == '(')
@@ -121,15 +118,15 @@ public class GridFactory {
     private static Grid grid(Map<Point, Cell> locations) {
         assert !locations.isEmpty();
 
-        final int minX = locations.keySet().stream().mapToInt(Point::x).min().orElseThrow();
-        final int minY = locations.keySet().stream().mapToInt(Point::y).min().orElseThrow();
-        final int maxX = locations.keySet().stream().mapToInt(Point::x).max().orElseThrow();
-        final int maxY = locations.keySet().stream().mapToInt(Point::y).max().orElseThrow();
+        final var minX = locations.keySet().stream().mapToInt(Point::x).min().orElseThrow();
+        final var minY = locations.keySet().stream().mapToInt(Point::y).min().orElseThrow();
+        final var maxX = locations.keySet().stream().mapToInt(Point::x).max().orElseThrow();
+        final var maxY = locations.keySet().stream().mapToInt(Point::y).max().orElseThrow();
 
-        final int height = Math.abs(maxY - minY) + 3;
-        final int width = Math.abs(maxX - minX) + 3;
-        final char[][] grid = new char[height][width];
-        for (char[] line :grid) {
+        final var height = Math.abs(maxY - minY) + 3;
+        final var width = Math.abs(maxX - minX) + 3;
+        final var grid = new char[height][width];
+        for (var line :grid) {
             Arrays.fill(line, '#');
         }
 

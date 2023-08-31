@@ -1,28 +1,22 @@
 package com.putoet.day20;
 
-import com.putoet.grid.Grid;
 import com.putoet.resources.ResourceLines;
-
-import java.util.OptionalInt;
+import com.putoet.utils.Timer;
 
 public class Day20 {
     public static void main(String[] args) {
-        final Grid grid = GridFactory.of(ResourceLines.line("/day20.txt"));
-        final RoomFinder finder = new RoomFinder(grid);
+        final var finder = new RoomFinder(GridFactory.of(ResourceLines.line("/day20.txt")));
 
-        part1(finder);
-        part2(finder);
+        Timer.run(() -> part1(finder));
+        Timer.run(() -> part2(finder));
     }
 
-    public static void part1(RoomFinder finder) {
-        final OptionalInt furthest = finder.furthestRoom();
-        if (furthest.isEmpty())
-            System.out.println("No furthest room found");
-        else
-            System.out.println("Furthest room route passes " + furthest.getAsInt() + " doors.");
+    static void part1(RoomFinder finder) {
+        final var furthest = finder.furthestRoom().orElseThrow();
+        System.out.println("Furthest room route passes " + furthest + " doors.");
     }
 
-    private static void part2(RoomFinder finder) {
+    static void part2(RoomFinder finder) {
         System.out.println("Rooms with a minimal distance of 1000 is " + finder.distantRooms(1000));
     }
 }

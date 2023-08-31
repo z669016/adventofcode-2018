@@ -1,11 +1,12 @@
 package com.putoet.day20;
 
 import com.putoet.grid.Point;
+import org.jetbrains.annotations.NotNull;
 
-public class Door extends Cell {
+class Door extends Cell {
     final char symbol;
 
-    public Door(Point location, Point direction) {
+    public Door(@NotNull Point location, @NotNull Point direction) {
         super(location);
         this.symbol = direction.equals(Point.NORTH) || direction.equals(Point.SOUTH) ? '-' : '|';
     }
