@@ -34,8 +34,8 @@ class InstructionFactoryTest {
 
     @Test
     void of() {
-        final InstructionFactory factory = new InstructionFactory(opcodes);
-        for (long idx = 0; idx < 16; idx++) {
+        final var factory = new InstructionFactory(opcodes);
+        for (var idx = 0L; idx < 16; idx++) {
             assertEquals(opcodes.get(idx), factory.of(idx, 0, 0, 0).name());
         }
     }

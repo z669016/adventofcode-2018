@@ -1,10 +1,11 @@
 package com.putoet.device;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Device {
+public class Device implements Runnable {
     private static final Pattern PATTERN = Pattern.compile("([a-z]{4}) (\\d+) (\\d+) (\\d+)");
     private final List<Instruction> program;
     private final Map<Long, List<Debug>> breakpoints = new HashMap<>();
@@ -19,9 +20,9 @@ public class Device {
     }
 
     public static Device of(List<String> lines) {
-        final Regs regs = new Regs(new long[6]);
-        final List<Instruction> program = new ArrayList<>();
-        final List<Declaration> declarations = new ArrayList<>();
+        final var regs = new Regs(new long[6]);
+        final var program = new ArrayList<Instruction>();
+        final var declarations = new ArrayList<Declaration>();
 
         lines.forEach(line -> {
             if (line.startsWith("#"))
@@ -30,8 +31,8 @@ public class Device {
                 program.add(parseInstruction(line));
         });
 
-        final Device device = new Device(regs, program);
-        declarations.forEach(declaration -> declaration.apply(device));
+        final var device = new Device(regs, program);
+        declarations.forEach(declaration -> declaration.accept(device));
 
         return device;
     }
@@ -43,23 +44,19 @@ public class Device {
     }
 
     private static Instruction parseInstruction(String line) {
-        final Matcher matcher = PATTERN.matcher(line);
+        final var matcher = PATTERN.matcher(line);
         if (!matcher.matches())
             throw new IllegalArgumentException("Invalid instruction '" + line + "'");
 
-        final String name = matcher.group(1);
-        final int a = Integer.parseInt(matcher.group(2));
-        final int b = Integer.parseInt(matcher.group(3));
-        final int c = Integer.parseInt(matcher.group(4));
+        final var name = matcher.group(1);
+        final var a = Integer.parseInt(matcher.group(2));
+        final var b = Integer.parseInt(matcher.group(3));
+        final var c = Integer.parseInt(matcher.group(4));
         return InstructionFactory.of(name, a, b, c);
     }
 
     public long register(long reg) {
         return regs.get(reg);
-    }
-
-    public void register(long reg, long value) {
-        regs = regs.set(reg, value);
     }
 
     public void ipRegister(long reg) {
@@ -79,13 +76,14 @@ public class Device {
         return regs;
     }
 
+    @Override
     public void run() {
         ip = 0;
         storeIP();
         while (ip >= 0 && ip < program.size()) {
             instruction = program.get((int) ip);
 
-            if (!breakpoints(ip))
+            if (noBreakpoints(ip))
                 return;
 
             regs = regs.apply(instruction);
@@ -96,29 +94,28 @@ public class Device {
         }
     }
 
-    private boolean breakpoints(long instructionPointer) {
+    private boolean noBreakpoints(long instructionPointer) {
         // Breakpoint -1 must be performed on all instructions
-        if (instructionPointer != -1 && !breakpoints(-1))
-            return false;
+        if (instructionPointer != -1 && noBreakpoints(-1))
+            return true;
 
         // Breakpoint on
-        final List<Debug> debuggers = breakpoints.getOrDefault(instructionPointer + 1, Collections.emptyList());
-        for (Debug debug : debuggers) {
+        final var debuggers = breakpoints.getOrDefault(instructionPointer + 1, Collections.emptyList());
+        for (var debug : debuggers) {
             if (debug.enabled() && !debug.test(this))
-                return false;
+                return true;
         }
 
-        return true;
+        return false;
     }
 
-    public Device addBreakpoint(long instructionPointer, Debug debug) {
+    public void addBreakpoint(long instructionPointer, @NotNull Debug debug) {
         assert instructionPointer >= -1 && instructionPointer < program.size();
 
-        final List<Debug> breakpointsOnLine = breakpoints.getOrDefault(instructionPointer + 1, new ArrayList<>());
+        final var breakpointsOnLine = breakpoints.getOrDefault(instructionPointer + 1, new ArrayList<>());
         breakpointsOnLine.add(debug);
         breakpoints.put(instructionPointer + 1,breakpointsOnLine);
 
-        return this;
     }
 
     public List<Instruction> program() {

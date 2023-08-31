@@ -2,6 +2,7 @@ package com.putoet.device;
 
 import java.util.function.Predicate;
 
+@SuppressWarnings("unused")
 public abstract class Debug implements Predicate<Device> {
     private boolean enabled = true;
 

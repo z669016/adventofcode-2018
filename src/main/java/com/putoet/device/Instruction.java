@@ -3,20 +3,21 @@ package com.putoet.device;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.function.Function;
 
 @AllArgsConstructor
-public abstract class Instruction {
+public abstract class Instruction implements Function<Regs,Regs> {
     private final long opcode;
     private final long a;
     private final long b;
     private final long c;
 
+    @SuppressWarnings("unused")
     public long opcode() { return opcode; }
     public long a() { return a; }
     public long b() { return b; }
     public long c() { return c; }
 
-    public abstract Regs apply(Regs regs);
     public abstract String name();
 
     @Override

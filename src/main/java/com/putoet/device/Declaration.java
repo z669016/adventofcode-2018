@@ -1,16 +1,17 @@
 package com.putoet.device;
 
-public abstract class Declaration {
-    public abstract void apply(Device device);
-    public abstract String name();
+import org.jetbrains.annotations.NotNull;
 
-    public static Declaration ip(String line) {
-        assert line != null && line.matches("#ip \\d+");
-        final String[] parts = line.split(" ");
+import java.util.function.Consumer;
+
+public abstract class Declaration implements Consumer<Device> {
+    public static Declaration ip(@NotNull String line) {
+        assert line.matches("#ip \\d+");
+        final var parts = line.split(" ");
 
         return new Declaration() {
             @Override
-            public void apply(Device device) {
+            public void accept(Device device) {
                 device.ipRegister(Integer.parseInt(parts[1]));
             }
 
@@ -20,4 +21,9 @@ public abstract class Declaration {
             }
         };
     }
+
+    public abstract String name();
+
+    @Override
+    public abstract void accept(Device device);
 }

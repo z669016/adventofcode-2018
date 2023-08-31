@@ -1,5 +1,7 @@
 package com.putoet.device;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,10 +29,7 @@ public class InstructionFactory {
 
     private final Map<Long, String> opcodes;
 
-    public InstructionFactory(Map<Long, String> opcodes) {
-        // ensure opcodes are provided
-        assert opcodes != null;
-
+    public InstructionFactory(@NotNull Map<Long, String> opcodes) {
         // ensure it contains 16
         for (long idx = 0; idx < 16; idx++)
             assert opcodes.containsKey(idx);
@@ -51,15 +50,15 @@ public class InstructionFactory {
         if (!opcodes.containsKey(opcode))
             throw new IllegalArgumentException("Invalid opcode " + opcode + " for " + opcodes);
 
-        final String name = opcodes.get(opcode);
+        final var name = opcodes.get(opcode);
         return of(name, opcode, a, b, c);
     }
 
-    public static Instruction of(String name, long a, long b, long c) {
+    public static Instruction of(@NotNull String name, long a, long b, long c) {
         if (!OPCODES.containsKey(name))
             throw new IllegalArgumentException("Invalid opcode " + name + " for " + OPCODES);
 
-        final long opcode = OPCODES.get(name);
+        final var opcode = OPCODES.get(name);
         return of(name, opcode, a, b, c);
     }
 

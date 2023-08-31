@@ -1,17 +1,19 @@
 package com.putoet.device;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
-public class Regs {
-    private long[] regs;
+public record Regs(long[] regs) implements Function<Instruction,Regs> {
 
     public Regs() {
-        regs = new long[] {0, 0, 0, 0};
+        this(new long[] {0, 0, 0, 0});
     }
 
-    public Regs(long[] regs) {
-        this.regs = new long[regs.length];
-        System.arraycopy(regs, 0, this.regs, 0, regs.length);
+    public Regs {
+        final var copy = new long[regs.length];
+        System.arraycopy(regs, 0, copy, 0, regs.length);
+
+        regs = copy;
     }
 
     public long get(long reg) {
@@ -22,14 +24,10 @@ public class Regs {
     public Regs set(long reg, long value) {
         assert reg >=0 && reg < regs.length;
 
-        final Regs updated = new Regs(regs);
+        final var updated = new Regs(regs);
         updated.regs[(int) reg] = value;
 
         return updated;
-    }
-
-    public Regs apply(Instruction instruction) {
-        return instruction.apply(this);
     }
 
     public int size() {
@@ -37,16 +35,8 @@ public class Regs {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Regs)) return false;
-        Regs regs1 = (Regs) o;
-        return Arrays.equals(regs, regs1.regs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(regs);
+    public Regs apply(Instruction instruction) {
+        return instruction.apply(this);
     }
 
     @Override
