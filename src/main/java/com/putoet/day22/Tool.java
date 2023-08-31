@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public enum Tool {
+enum Tool {
     TORCH,
     CLIMBING_GEAR,
     NEITHER

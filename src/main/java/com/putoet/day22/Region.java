@@ -1,10 +1,13 @@
 package com.putoet.day22;
 
 import com.putoet.grid.Point;
+import lombok.Getter;
 
-public class Region {
+class Region {
     private final Point coordinate;
     private final Calculator calculator;
+
+    @Getter
     private final boolean target;
 
     private RegionType type = RegionType.UNKNOWN;
@@ -19,10 +22,6 @@ public class Region {
 
     public boolean isMouth() {
         return coordinate.equals(Point.ORIGIN);
-    }
-
-    public boolean isTarget() {
-        return target;
     }
 
     public Point coordinate() {

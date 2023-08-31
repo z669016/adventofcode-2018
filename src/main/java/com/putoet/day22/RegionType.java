@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public enum RegionType {
+enum RegionType {
     ROCKY,
     WET,
     NARROW,

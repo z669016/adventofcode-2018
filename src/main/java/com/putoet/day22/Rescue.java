@@ -4,13 +4,17 @@ import com.putoet.grid.Point;
 
 import java.util.*;
 
-public class Rescue {
+class Rescue {
     private static final List<Point> DIRECTION = Point.directions(true);
-    private static final Map<RegionType, Set<Tool>> validTools = Map.of(
-            RegionType.ROCKY, Set.of(Tool.CLIMBING_GEAR, Tool.TORCH),
-            RegionType.WET, Set.of(Tool.CLIMBING_GEAR, Tool.NEITHER),
-            RegionType.NARROW, Set.of(Tool.TORCH, Tool.NEITHER)
-    );
+
+    private static final Tool[][] validTools;
+    static {
+        validTools = new Tool[RegionType.values().length][];
+        validTools[RegionType.ROCKY.ordinal()] = new Tool[]{Tool.CLIMBING_GEAR, Tool.TORCH};
+        validTools[RegionType.WET.ordinal()] = new Tool[]{Tool.CLIMBING_GEAR, Tool.NEITHER};
+        validTools[RegionType.NARROW.ordinal()] = new Tool[]{Tool.TORCH, Tool.NEITHER};
+        validTools[RegionType.UNKNOWN.ordinal()] = new Tool[]{};
+    }
 
     private final Region[][] grid;
     private final Point target;
@@ -25,17 +29,16 @@ public class Rescue {
     }
 
     public List<Node> successors(Node from) {
-        final List<Node> successors = new ArrayList<>();
+        final var successors = new ArrayList<Node>();
 
         DIRECTION.forEach(direction -> {
-            final Point next = from.region.coordinate().add(direction);
+            final var next = from.region.coordinate().add(direction);
             if (onTheGrid(next) && !from.visited(next)) {
-                final Region toRegion = grid[next.y()][next.x()];
-                final Set<Tool> validTools = validToolsFor(from.region, toRegion);
-                if (validTools.contains(from.tool))
-                    successors.add(new Node(toRegion, from.tool, from.timer + cost(from.tool, from.tool), from));
-                else
-                    validTools.forEach(tool -> successors.add(new Node(toRegion, tool, from.timer + cost(from.tool, tool), from)));
+                final var toRegion = grid[next.y()][next.x()];
+                final var validTools = validToolsFor(from.tool, from.region, toRegion);
+
+                for(var tool : validTools)
+                    successors.add(new Node(toRegion, tool, from.timer + cost(from.tool, tool), from));
             }
         });
 
@@ -43,23 +46,23 @@ public class Rescue {
     }
 
     public Optional<Node> rescue() {
-        final PriorityQueue<Node> frontier = new PriorityQueue<>(grid.length * grid.length);
-        final Map<String,Integer> shortestPath = new HashMap<>();
-        final Node start = initial();
+        final var frontier = new PriorityQueue<Node>(grid.length * grid.length);
+        final var shortestPath = new HashMap<String,Integer>();
+        final var start = initial();
 
         frontier.offer(start);
         shortestPath.put(start.key(), start.timer);
 
         while (!frontier.isEmpty()) {
-            final Node node = frontier.poll();
+            final var node = frontier.poll();
 
             if (goalTest(node)) {
                 return Optional.of(node);
             }
 
             if (node.timer <= shortestPath.get(node.key())) {
-                for (Node neighbour : successors(node)) {
-                    final int shortest = shortestPath.getOrDefault(neighbour.key(), Integer.MAX_VALUE);
+                for (var neighbour : successors(node)) {
+                    final var shortest = shortestPath.getOrDefault(neighbour.key(), Integer.MAX_VALUE);
                     if (neighbour.timer < shortest) {
                         frontier.offer(neighbour);
                         shortestPath.put(neighbour.key(), neighbour.timer);
@@ -82,16 +85,33 @@ public class Rescue {
         return point.y() >= 0 && point.y() < grid.length && point.x() >= 0 && point.x() < grid.length;
     }
 
-    private Set<Tool> validToolsFor(Region from, Region to) {
+    private Tool[] validToolsFor(Tool current, Region from, Region to) {
         //For the target region,only the torch is the valid tool
         if (to.coordinate().equals(target))
-            return Set.of(Tool.TORCH);
+            return new Tool[] {Tool.TORCH};
 
-        // Otherwise,use the intersection for the from region and the tp region
-        final Set<Tool> intersection = new HashSet<>(validTools.get(from.type()));
-        intersection.retainAll(validTools.get(to.type()));
+        final var toTools = validTools[to.type().ordinal()];
+        final var fromTools = validTools[from.type().ordinal()];
 
-        return intersection;
+        // If the regions are the same, the current tool is the only
+        // valid tool as switching would take additional time
+        if (containsTool(current, toTools))
+            return new Tool[]{current};
+
+        // Otherwise, use the intersection for the from-region and the t0-region
+        return Arrays.stream(toTools)
+                .filter(tool -> containsTool(tool, fromTools))
+                .toArray(Tool[]::new);
+    }
+
+    private boolean containsTool(Tool tool, Tool[] tools) {
+        if (tools.length == 0)
+            return false;
+
+        if (tools.length == 1)
+            return tools[0] == tool;
+
+        return tools[0] == tool || tools[1] == tool;
     }
 
     static class Node implements Comparable<Node> {
@@ -133,16 +153,6 @@ public class Rescue {
         @Override
         public int compareTo(Node other) {
             return Integer.compare(timer, other.timer);
-        }
-
-        public static List<Node> path(Node node) {
-            final List<Node> path = new ArrayList<>();
-            while (node != null) {
-                path.add(node);
-                node = node.parent;
-            }
-            Collections.reverse(path);
-            return path;
         }
     }
 }

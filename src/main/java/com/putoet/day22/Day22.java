@@ -1,8 +1,7 @@
 package com.putoet.day22;
 
 import com.putoet.grid.Point;
-
-import java.util.Optional;
+import com.putoet.utils.Timer;
 
 public class Day22 {
     public static final int DEPTH = 5355;
@@ -11,15 +10,11 @@ public class Day22 {
     public static void main(String[] args) {
         final Region[][] grid = CaveFactory.of(DEPTH, TARGET);
 
-        part1(grid);
-        part2(grid);
+        Timer.run(() -> System.out.println("Risk level for the target area is " + targetAreaRiskLevel(grid, TARGET)));
+        Timer.run(() -> System.out.println("Minutes to target is " + rescue(grid, TARGET)));
     }
 
-    private static void part1(Region[][] grid) {
-        System.out.println("Risk level for the target area is " + targetAreaRiskLevel(grid, TARGET));
-    }
-
-    public static int targetAreaRiskLevel(Region[][] grid, Point target) {
+    static int targetAreaRiskLevel(Region[][] grid, Point target) {
         assert target.y() >= 0 && target.y() < grid.length;
         assert target.x() >= 0 && target.x() < grid[target.y()].length;
         assert grid[target.y()][target.x()].isTarget();
@@ -33,17 +28,8 @@ public class Day22 {
         return riskLevel;
     }
 
-    private static void part2(Region[][] grid) {
-        System.out.println("Minutes to target is " + rescue(grid, TARGET));
-    }
-
-    public static int rescue(Region[][] grid, Point target) {
-        final Rescue rescue = new Rescue(grid, target);
-        final Optional<Rescue.Node> node = rescue.rescue();
-
-        if (node.isEmpty())
-            throw new IllegalStateException("No path found to target region");
-
-        return node.get().timer;
+    static int rescue(Region[][] grid, Point target) {
+        final var rescue = new Rescue(grid, target);
+        return rescue.rescue().orElseThrow().timer;
     }
 }

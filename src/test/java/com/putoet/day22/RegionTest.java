@@ -41,7 +41,7 @@ class RegionTest {
     @Test
     void samples() {
         // At 0,0, the geologic index is 0. The erosion level is (0 + 510) % 20183 = 510. The type is 510 % 3 = 0, rocky.
-        Region region = grid[0][0];
+        var region = grid[0][0];
         assertEquals(510, region.erosionLevel());
         assertEquals(RegionType.ROCKY, region.type());
 

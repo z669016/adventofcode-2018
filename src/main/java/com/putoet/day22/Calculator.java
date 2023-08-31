@@ -1,13 +1,15 @@
 package com.putoet.day22;
 
-public class Calculator {
+import org.jetbrains.annotations.NotNull;
+
+class Calculator {
     private final Region[][] grid;
 
     public Calculator(Region[][] grid) {
         this.grid = grid;
     }
 
-    public long geologicIndex(Region region) {
+    public long geologicIndex(@NotNull Region region) {
         if (region.isMouth()) return 0;
         if (region.isTarget()) return 0;
 
@@ -24,7 +26,7 @@ public class Calculator {
         return grid.length;
     }
 
-    public long erosionLevel(Region region) {
+    public long erosionLevel(@NotNull Region region) {
         return (region.geologicIndex() + caveSystemDepth()) %  20183;
     }
 }
