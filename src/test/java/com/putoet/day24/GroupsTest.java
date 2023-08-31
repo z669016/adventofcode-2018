@@ -12,7 +12,7 @@ class GroupsTest {
 
     @Test
     void of() {
-        final List<Group> groups = Groups.of(lines);
+        final var groups = Groups.of(lines);
         assertEquals(20, groups.size());
         assertEquals(10, groups.stream().filter(g -> g.type() == GroupType.IMMUNE_SYSTEM).count());
         assertEquals(10, groups.stream().filter(g -> g.type() == GroupType.INFECTION).count());
@@ -20,17 +20,17 @@ class GroupsTest {
 
    @Test
     void targetSelectionOrder() {
-        final List<Group> groups = Groups.of(lines);
-        final List<Group> targetSelectionOrder = Groups.targetSelectionOrder(groups);
+        final var groups = Groups.of(lines);
+        final var targetSelectionOrder = Groups.targetSelectionOrder(groups);
 
-        targetSelectionOrder.forEach(group -> {
-            System.out.println(group.effectivePower() + " " + group.initiative() + " " + group);
-        });
+        targetSelectionOrder.forEach(group -> System.out.println(group.effectivePower() + " " + group.initiative() + " " + group));
     }
 
     @Test
     void fight() {
-        final List<Group> groups = Groups.of(ResourceLines.list("/day24-1.txt"));
+        final var groups = Groups.of(ResourceLines.list("/day24-1.txt"));
+
+        //noinspection StatementWithEmptyBody
         while (Groups.fight(groups));
 
         assertEquals(0, Groups.immuneSystemUnits(groups));

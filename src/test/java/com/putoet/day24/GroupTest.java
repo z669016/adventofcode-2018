@@ -17,7 +17,7 @@ class GroupTest {
 
     @Test
     void of() {
-        Group group = Group.of(GroupType.INFECTION,LINE1);
+        var group = Group.of(GroupType.INFECTION,LINE1);
         assertEquals(GroupType.INFECTION, group.type());
         assertEquals(2667, group.units());
         assertEquals(9631, group.hitPoints());
@@ -47,10 +47,10 @@ class GroupTest {
 
     @Test
     void possibleDamage() {
-        final Group radiationAttack = Group.of(GroupType.INFECTION, LINE4);
-        final Group radiationWeak = Group.of(GroupType.IMMUNE_SYSTEM, LINE1);
-        final Group noneWeak = Group.of(GroupType.IMMUNE_SYSTEM, LINE3);
-        final Group immuneRadiation = Group.of(GroupType.IMMUNE_SYSTEM, LINE5);
+        final var radiationAttack = Group.of(GroupType.INFECTION, LINE4);
+        final var radiationWeak = Group.of(GroupType.IMMUNE_SYSTEM, LINE1);
+        final var noneWeak = Group.of(GroupType.IMMUNE_SYSTEM, LINE3);
+        final var immuneRadiation = Group.of(GroupType.IMMUNE_SYSTEM, LINE5);
 
         assertEquals(144, noneWeak.possibleDamage(radiationAttack));
         assertEquals(288, radiationWeak.possibleDamage(radiationAttack));
@@ -61,8 +61,8 @@ class GroupTest {
 
     @Test
     void attack() {
-        final Group attacker = Group.of(GroupType.INFECTION, LINE6);
-        final Group defender = Group.of(GroupType.IMMUNE_SYSTEM, LINE7);
+        final var attacker = Group.of(GroupType.INFECTION, LINE6);
+        final var defender = Group.of(GroupType.IMMUNE_SYSTEM, LINE7);
 
         defender.defend(attacker);
         assertEquals(3, defender.units());

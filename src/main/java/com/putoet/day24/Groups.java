@@ -1,28 +1,24 @@
 package com.putoet.day24;
 
 import org.javatuples.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Groups {
+class Groups {
     private static final String IMMUNE = "Immune System:";
     private static final String INFECTION = "Infection:";
 
-    private static void initGroupIds() {
-        Group.immuneId = 1;
-        Group.infectionId = 1;
-    }
-
-    public static List<Group> of(List<String> lines) {
+    public static List<Group> of(@NotNull List<String> lines) {
         return of(lines, 0);
     }
 
-    public static List<Group> of(List<String> lines, int boost) {
-        final List<Group> groups = new ArrayList<>();
+    public static List<Group> of(@NotNull List<String> lines, int boost) {
+        final var groups = new ArrayList<Group>();
 
         Optional<GroupType> type = Optional.empty();
-        for (String line : lines) {
+        for (var line : lines) {
             if (line.strip().isBlank())
                 continue;
 
@@ -37,41 +33,40 @@ public class Groups {
         return groups;
     }
 
-    public static List<Pair<Group, Optional<Group>>> targetSelection(List<Group> groups) {
-        final List<Group> attackers = targetSelectionOrder(groups);
-        final Set<Group> defenders = alive(groups);
+    public static List<Pair<Group, Optional<Group>>> targetSelection(@NotNull List<Group> groups) {
+        final var attackers = targetSelectionOrder(groups);
+        final var defenders = alive(groups);
 
         return attackers.stream().map(attacker -> {
-                    final Optional<Group> defender = attacker.selectTarget(defenders);
+                    final var defender = attacker.selectTarget(defenders);
                     defender.ifPresent(defenders::remove);
-                    return new Pair<>(attacker, defender);
+                    return Pair.with(attacker, defender);
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public static List<Group> targetSelectionOrder(List<Group> groups) {
+    public static List<Group> targetSelectionOrder(@NotNull List<Group> groups) {
         groups = groups.stream()
                 .filter(Group::isAlive)
                 .sorted(Comparator.comparing(Group::effectivePower).thenComparing(Group::initiative).reversed())
-                .collect(Collectors.toList());
+                .toList();
 
         return groups;
     }
 
-    public static Set<Group> alive(List<Group> groups) {
+    public static Set<Group> alive(@NotNull List<Group> groups) {
         return groups.stream().filter(Group::isAlive).collect(Collectors.toSet());
     }
 
-    public static boolean fight(List<Group> groups) {
-        final int beforeUnits = units(groups);
+    public static boolean fight(@NotNull List<Group> groups) {
+        final var beforeUnits = units(groups);
 
-        final List<Pair<Group, Optional<Group>>> targetSSelection = targetSelection(groups);
+        final var targetSSelection = targetSelection(groups);
         targetSSelection.stream()
                 .sorted(Comparator.comparing((Pair<Group, Optional<Group>>pair) -> pair.getValue0().initiative()).reversed())
                 .forEach(pair -> pair.getValue1().ifPresent(defender -> defender.defend(pair.getValue0())));
 
-        final int afterUnits = units(groups);
-
+        final var afterUnits = units(groups);
         return beforeUnits > afterUnits;
     }
 

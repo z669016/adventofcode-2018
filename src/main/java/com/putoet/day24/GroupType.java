@@ -1,6 +1,6 @@
 package com.putoet.day24;
 
-public enum GroupType {
+enum GroupType {
     IMMUNE_SYSTEM,
     INFECTION;
 

@@ -1,14 +1,15 @@
 package com.putoet.day24;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Group {
+class Group {
     public static final String IMMUNE_TO = "immune to ";
     public static final String WEAK_TO = "weak to ";
     // 2667 units each with 9631 hit points (immune to cold; weak to radiation) with an attack that does 33 radiation damage at initiative 3
@@ -39,27 +40,25 @@ public class Group {
         this.initiative = initiative;
     }
 
-    public static Group of(GroupType type, String line) {
+    public static Group of(@NotNull GroupType type, @NotNull String line) {
         return of(type, line, 0);
     }
 
-    public static Group of(GroupType type, String line, int boost) {
-        assert type != null;
-        assert line != null;
+    public static Group of(@NotNull GroupType type, @NotNull String line, int boost) {
         assert boost >= 0;
 
-        final Matcher matcher = GROUP.matcher(line);
+        final var matcher = GROUP.matcher(line);
         if (!matcher.matches())
             throw new IllegalArgumentException("Invalid group definition: " + line);
 
-        final int units = Integer.parseInt(matcher.group(1));
-        final int hitPoints = Integer.parseInt(matcher.group(2));
-        final String immunitiesAndWeaknesses = matcher.group(3);
-        final Set<String> immunities = immunitiesOf(immunitiesAndWeaknesses);
-        final Set<String> weaknesses = weaknessesOf(immunitiesAndWeaknesses);
-        final int attackDamage = Integer.parseInt(matcher.group(4)) + (type == GroupType.IMMUNE_SYSTEM ? boost : 0);
-        final String attackType = matcher.group(5);
-        final int initiative = Integer.parseInt(matcher.group(6));
+        final var units = Integer.parseInt(matcher.group(1));
+        final var hitPoints = Integer.parseInt(matcher.group(2));
+        final var immunitiesAndWeaknesses = matcher.group(3);
+        final var immunities = immunitiesOf(immunitiesAndWeaknesses);
+        final var weaknesses = weaknessesOf(immunitiesAndWeaknesses);
+        final var attackDamage = Integer.parseInt(matcher.group(4)) + (type == GroupType.IMMUNE_SYSTEM ? boost : 0);
+        final var attackType = matcher.group(5);
+        final var initiative = Integer.parseInt(matcher.group(6));
 
         return new Group(type == GroupType.IMMUNE_SYSTEM ? immuneId++ : infectionId++,
                 type, units, hitPoints, immunities, weaknesses, attackDamage, attackType, initiative);
@@ -78,8 +77,7 @@ public class Group {
             return Set.of();
 
         immunitiesAndWeaknesses = immunitiesAndWeaknesses.substring(1, immunitiesAndWeaknesses.length() - 2);
-        final String[] split = immunitiesAndWeaknesses.split("; ");
-        for (String line : split) {
+        for (var line : immunitiesAndWeaknesses.split("; ")) {
             line = line.strip();
             if (line.startsWith(label)) {
                 return Arrays.stream(line.substring(label.length()).split(", ")).collect(Collectors.toSet());
@@ -157,28 +155,16 @@ public class Group {
         return attacker.effectivePower() * (weaknesses.contains(attacker.attackType()) ? 2 : 1);
     }
 
-    public Group defend(Group attacker) {
+    public void defend(@NotNull Group attacker) {
         assert type != attacker.type;
         assert units > 0;
 
-        final int oldUnits = units;
-
-        final int possibleDamage = possibleDamage(attacker);
+        final var possibleDamage = possibleDamage(attacker);
         units = Math.max(0, (int) Math.ceil((1.0 * units * hitPoints - possibleDamage) / hitPoints));
 
-//        Infection group 2 attacks defending group 2, killing 84 units
-//        System.out.printf("%s group %d attacks defending group %d, killing %d units, remaining %d%n"
-//                , attacker.type
-//                , attacker.id
-//                , id
-//                , oldUnits - units
-//                , units
-//        );
-
-        return this;
     }
 
-    public Optional<Group> selectTarget(Set<Group> defenders) {
+    public Optional<Group> selectTarget(@NotNull Set<Group> defenders) {
         if (defenders.isEmpty())
             return Optional.empty();
 
