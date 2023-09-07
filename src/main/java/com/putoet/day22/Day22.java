@@ -5,7 +5,7 @@ import com.putoet.utils.Timer;
 
 public class Day22 {
     public static final int DEPTH = 5355;
-    public static Point TARGET = Point.of(14,796);
+    public static final Point TARGET = Point.of(14,796);
 
     public static void main(String[] args) {
         final Region[][] grid = CaveFactory.of(DEPTH, TARGET);
